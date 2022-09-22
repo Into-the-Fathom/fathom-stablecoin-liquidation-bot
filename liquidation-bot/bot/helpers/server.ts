@@ -22,7 +22,7 @@ app.post('/create-proxy-wallet', async function(req:any, res:any) {
     console.log(`request body: ${JSON.stringify(req.body)}`);
     //DANGER: private key should never be sent like this... this is just for demo
     let {privateKey, address} = req.body;
-    let proxyWallet = await createWallet(privateKey,address);
+    let proxyWallet = await createWallet(privateKey, address);
     res.status(200).send(`wallet created ${proxyWallet}`);
 });
 
@@ -44,7 +44,7 @@ app.post('/update-liquidation-ratio', async function(req:any, res:any) {
 
 app.post('/update-price', async function(req:any, res:any) {
     let {priceWithSafetyMargin, rawPrice, decimalPlace} = req.body;
-    await updateOnChainPriceWith(priceWithSafetyMargin,rawPrice,decimalPlace);
+    await updateOnChainPriceWith(priceWithSafetyMargin, rawPrice, decimalPlace);
     res.status(200).send(`price updated.`);
 });
 
@@ -60,10 +60,9 @@ app.post('/approve', async function(req:any, res:any) {
 });
 
 app.post('/open-position', async function(req:any, res:any) {
-
     //DANGER: private key should never be sent like this... this is just for demo
     let {proxyWallet, privateKey, address, collatral, debt} = req.body;
-    await openNewPosition(proxyWallet,privateKey,address,collatral,debt);
+    await openNewPosition(proxyWallet, privateKey, address, collatral, debt);
     res.status(200).send(`New position opened...`);
 });
 

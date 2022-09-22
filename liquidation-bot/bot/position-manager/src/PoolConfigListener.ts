@@ -28,10 +28,7 @@ export class PoolConfigListener{
             if(this.consumer != undefined)
                 this.consumer();
             
-        })
+        });
     }
-
-
-
 
 }

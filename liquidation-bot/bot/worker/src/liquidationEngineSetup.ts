@@ -26,10 +26,10 @@ export class LiquidationEngine{
             'function liquidate(bytes32 _collateralPoolId,address _positionAddress,uint256 _debtShareToBeLiquidated,uint256 _maxDebtShareToBeLiquidated,address _collateralRecipient,bytes calldata _data) external',
         ];
 
-        try{
+        try {
             this.bookKeeperContract = new ethers.Contract(bookKeeperAddress, bookKeeperAbi, liquidatorWallet);
             this.liquidationEngineAbiContract = new ethers.Contract(liquidationEngineContractAddress, liquidationEngineAbi, liquidatorWallet);
-        }catch(exception){
+        } catch(exception) {
             console.error(exception);
         }
     }
@@ -37,8 +37,8 @@ export class LiquidationEngine{
     public async setupLiquidationEngine(){
         console.log(LogLevel.info(`Setting up liquidation engine...`));
         if(this.bookKeeperContract == undefined || 
-            this.liquidationEngineAbiContract == undefined){
-                console.error(LogLevel.error("Error setting up liquidation engine."))
+            this.liquidationEngineAbiContract == undefined) {
+            console.error(LogLevel.error("Error setting up liquidation engine."))
             return;
         }
 

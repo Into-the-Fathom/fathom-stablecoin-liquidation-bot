@@ -3,9 +3,9 @@ import { COLLATERAL_POOL_ID, provider } from '../config/config.js';
 import {collateralPoolConfigAddress,priceOracleAddress,simplePriceFeedAddress} from '../utils/addresses.js';
 
 const collateralPoolConfigAbi = [
-// Some details about the token
-'function setPriceWithSafetyMargin(bytes32 collateralPoolId, uint256 priceWithSafetyMargin) external',
-'function setLiquidationRatio(bytes32 _poolId, uint256 _data) external',
+    // Some details about the token
+    'function setPriceWithSafetyMargin(bytes32 collateralPoolId, uint256 priceWithSafetyMargin) external',
+    'function setLiquidationRatio(bytes32 _poolId, uint256 _data) external',
 ];
 
 const simplePriceFeedAbi = [
@@ -15,7 +15,7 @@ const simplePriceFeedAbi = [
 
 let priceOracleAbi = [
     'function setPrice(bytes32 _collateralPoolId) external',
-    ];
+];
 
 
 //Externalize these parameters
@@ -28,25 +28,25 @@ const priceOracleContract = new ethers.Contract(priceOracleAddress, priceOracleA
 
 const WeiPerRay = BigNumber.from(`1${"0".repeat(27)}`)
 
-export async function updateOnChainPrice (safe:boolean) {
-    if(safe){
+export async function updateOnChainPrice(safe:boolean) {
+    if (safe) {
         await collateralPoolConfigContract.setPriceWithSafetyMargin(COLLATERAL_POOL_ID, WeiPerRay.mul(129).div(2))
         await simplePriceFeedContract.setPrice(WeiPerRay.mul(129).div(2).div(1e9));
-    }else{
+    } else {
         await collateralPoolConfigContract.setPriceWithSafetyMargin(COLLATERAL_POOL_ID, WeiPerRay.mul(129).div(4));
         await simplePriceFeedContract.setPrice(WeiPerRay.mul(129).div(4).div(1e9));
     }
 }
 
-export async function updateOnChainPriceWith (safetyMargin: number,rawPrice:number, decimalPlace:number) {
+export async function updateOnChainPriceWith(safetyMargin: number, rawPrice: number, decimalPlace: number) {
     await collateralPoolConfigContract.setPriceWithSafetyMargin(COLLATERAL_POOL_ID, WeiPerRay.mul(safetyMargin).div(decimalPlace));
     await simplePriceFeedContract.setPrice(WeiPerRay.mul(rawPrice).div(decimalPlace).div(1e9));
 }
 
-export async function setLiquidationRatio () {
+export async function setLiquidationRatio() {
     await collateralPoolConfigContract.setLiquidationRatio(COLLATERAL_POOL_ID, WeiPerRay.mul(18).div(10));
 }
 
-export async function peekPriceFromPriceOracle () {
+export async function peekPriceFromPriceOracle() {
     await priceOracleContract.setPrice(COLLATERAL_POOL_ID);
 }

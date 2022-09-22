@@ -12,7 +12,7 @@ export class PriceFeed implements IPriceFeed{
 
         let dexPriceContractAbi = [
             'function getPrice(address token0, address token1) external view override returns (uint256, uint256)',
-            ];
+        ];
 
         this.dexPriceContract = new ethers.Contract(dexPriceOracle, dexPriceContractAbi, provider);
     }

@@ -19,7 +19,7 @@ export class PositionManager{
 
         let getPositionWithSafetyBufferAbi = [
             'function getPositionWithSafetyBuffer(address _manager,uint256 _startIndex,uint256 _offset) external view returns (address[], uint256[],uint256[])',
-            ];
+        ];
 
         this.getPositionContract = new ethers.Contract(getPositionContractAddress, getPositionWithSafetyBufferAbi, provider);
 
@@ -41,7 +41,7 @@ export class PositionManager{
     }
 
     public async getOpenPositions(startIndex:number,offset:number) {
-        try{
+        try {
             console.log(LogLevel.debug(`Fetching positions at index ${startIndex}...`));
             //TODO: Fix the code to iterate and fetch positions providing the startindex and pagesize, currently hardcoded to 1 and 10
             let response = await this.getPositionContract.getPositionWithSafetyBuffer(positionManagerAddress,startIndex,offset)
@@ -53,14 +53,14 @@ export class PositionManager{
             positions.forEach((positionAddress: string) => {
                 let debtShare = debtShares[index];
                 let safetyBuffer = safetyBuffers[index];
-                let position =  new Position(positionAddress,debtShare,safetyBuffer)
+                let position =  new Position(positionAddress,debtShare,safetyBuffer);
                 console.log(LogLevel.info(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`));
                 fetchedPositions.push(position)
                 index++;
             });
         
             return fetchedPositions;
-        }catch(exception){
+        } catch(exception) {
             console.log(LogLevel.error(exception))
             return [];
         }
@@ -68,9 +68,9 @@ export class PositionManager{
 
     public async processPositions(positions:Position []) {
         //Filter the underwater position
-        const underwaterPositions =positions.filter(position => (position.isUnSafe))
+        const underwaterPositions = positions.filter(position => (position.isUnSafe));
         //Sort based on debtshare
-        const priortizePositions =underwaterPositions.sort((pos1,pos2)  => (pos1.debtShare.gt(pos2.debtShare) ? -1 : 1))
+        const priortizePositions = underwaterPositions.sort((pos1,pos2)  => (pos1.debtShare.gt(pos2.debtShare) ? -1 : 1));
     
         return priortizePositions;
     }

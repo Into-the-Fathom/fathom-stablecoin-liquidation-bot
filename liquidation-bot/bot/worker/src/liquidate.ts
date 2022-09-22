@@ -21,8 +21,7 @@ export class Liquidate{
     private fetchHandle: NodeJS.Timeout | null = null;
     private readonly liquidationEngineAbiContract;
 
-    constructor(_liquidationEngineAbiContract:ethers.Contract)
-    {
+    constructor(_liquidationEngineAbiContract:ethers.Contract) {
         // this.arrPositions = [];
         this.badPositionsQueue = new Queue()
         this.liquidationEngineAbiContract = _liquidationEngineAbiContract;
@@ -41,7 +40,7 @@ export class Liquidate{
 
         provider.on(eventFilter, (log, event) => {
             let topics = log.topics;
-            let topic:string = topics[2].replace('0x000000000000000000000000','0x');
+            let topic: string = topics[2].replace('0x000000000000000000000000','0x');
             console.log(LogLevel.keyEvent('============================================================================'));
             console.log(LogLevel.keyEvent(`** Liquidation Complete for ${topic} **`));
             console.log(LogLevel.keyEvent('============================================================================'));
@@ -61,11 +60,11 @@ export class Liquidate{
             return;
         
         let position = this.badPositionsQueue.dequeue();
-        if(position!=undefined){
-            try{
+        if (position != undefined) {
+            try {
                 console.log(LogLevel.keyEvent(`Performing liquidation on position ${position.address}`));
                 await this.liquidationEngineAbiContract.liquidate(COLLATERAL_POOL_ID, position.address, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00")
-            }catch(exception){
+            } catch(exception) {
                 console.log(LogLevel.error(exception))
             }
         }
