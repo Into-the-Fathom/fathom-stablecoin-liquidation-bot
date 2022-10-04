@@ -33,7 +33,7 @@ class LiquidationEngine {
         await this.bookKeeperContract.whitelist(addresses_js_1.fixedSpreadLiquidationStrategyAddress);
         //Mint coins from deployer to signger, which is liquidation bot...
         console.log(config_1.LogLevel.info(`Minting stablecoing to liquidator...`));
-        await this.bookKeeperContract.mintUnbackedStablecoin(addresses_js_1.deployerAddress, addresses_js_1.liquidatorBotAddress, (0, utils_1.parseUnits)("3000", 45));
+        await this.bookKeeperContract.mintUnbackedStablecoin(addresses_js_1.deployerAddress, process.env.LIQUIDATOR_ADDRESS, (0, utils_1.parseUnits)("3000", 45));
     }
 }
 exports.LiquidationEngine = LiquidationEngine;

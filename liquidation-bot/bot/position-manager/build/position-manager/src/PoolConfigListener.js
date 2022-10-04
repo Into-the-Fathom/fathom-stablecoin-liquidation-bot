@@ -1,25 +1,19 @@
-import { ethers, utils } from "ethers";
-// import { LogLevel, provider } from "../../helpers/config/config";
-import { collateralPoolConfigAddress } from "../../helpers/utils/addresses";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PoolConfigListener = void 0;
 //
-export class PoolConfigListener{
-    private consumer: (() => Promise<void> | void) | undefined;
-
-    constructor(_consumer: () => Promise<void> | void){
+class PoolConfigListener {
+    constructor(_consumer) {
         this.consumer = _consumer;
         this.setupEventListner();
     }
-
-    private setupEventListner(){
-        
+    setupEventListner() {
         // const eventFilter = {
         //     address: collateralPoolConfigAddress,
         //     topics: [
         //         utils.id("LogSetLiquidationRatio(address,bytes32,uint256)"),
         //     ]
         // }
-
         // provider.on(eventFilter, (log, event) => {
         //     // Emitted whenever onchain price update happens
         //     console.log(LogLevel.keyEvent('============================================'));
@@ -27,8 +21,7 @@ export class PoolConfigListener{
         //     console.log(LogLevel.keyEvent('============================================'));
         //     if(this.consumer != undefined)
         //         this.consumer();
-            
         // });
     }
-
 }
+exports.PoolConfigListener = PoolConfigListener;

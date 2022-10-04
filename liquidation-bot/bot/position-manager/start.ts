@@ -1,11 +1,10 @@
 import ipc from 'node-ipc';
 
 import {PositionManager} from './src/PositionsManager';
-import PriceChecker from './src/PriceChecker'
-//import MockPriceFeed from './src/mocks/MockPriceFeed';
+// import PriceChecker from './src/PriceChecker'
 import {LogLevel} from '../helpers/config/config'
-import { PoolConfigListener } from './src/PoolConfigListener';
-import { PriceFeed } from './src/PriceFeed';
+// import { PoolConfigListener } from './src/PoolConfigListener';
+// import { PriceFeed } from './src/PriceFeed';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -13,7 +12,7 @@ let candidatesObj = {
 
 const PAGE_SIZE = 20;
 
-const priceChecker = new PriceChecker(new PriceFeed('WXDC'));
+// const priceChecker = new PriceChecker(new PriceFeed('WXDC'));
 var positionManager: PositionManager;
 
 async function scan(ipcTxManagers: any[]) {
@@ -65,12 +64,12 @@ async function start(ipcTxManagers: any[]) {
   positionManager = new PositionManager(() => scan(ipcTxManagers))
   setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
   scan(ipcTxManagers);
-  priceChecker.init(10*1000,() => scan(ipcTxManagers));
-  const poolConfigListener = new PoolConfigListener(() => scan(ipcTxManagers));
+  // priceChecker.init(10*1000,() => scan(ipcTxManagers));
+  // const poolConfigListener = new PoolConfigListener(() => scan(ipcTxManagers));
 }
 
 function stop() {
-  priceChecker.stop();
+  // priceChecker.stop();
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid
 //   provider.eth.currentProvider.connection.destroy();

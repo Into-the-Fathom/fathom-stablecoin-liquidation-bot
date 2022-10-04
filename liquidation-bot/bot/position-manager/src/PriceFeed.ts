@@ -1,11 +1,11 @@
 import { BigNumber, ethers } from "ethers";
-import { provider } from "../../helpers/config/config";
-import { dexPriceOracle, fathomStablecoin, ibDUMMYAddress, WXDCAddress } from "../../helpers/utils/addresses";
+// import { provider } from "../../helpers/config/config";
+// import { dexPriceOracle, fathomStablecoin, ibDUMMYAddress, WXDCAddress } from "../../helpers/utils/addresses";
 import { IPriceFeed } from "./interfaces/IPriceFeed";
 
 export class PriceFeed implements IPriceFeed{
     public readonly symbol: string; 
-    public readonly dexPriceContract;
+    //public readonly dexPriceContract;
 
     constructor(_symbol: string){
         this.symbol = _symbol;
@@ -14,12 +14,15 @@ export class PriceFeed implements IPriceFeed{
             'function getPrice(address token0, address token1) external view override returns (uint256, uint256)',
         ];
 
-        this.dexPriceContract = new ethers.Contract(dexPriceOracle, dexPriceContractAbi, provider);
+        // this.dexPriceContract = new ethers.Contract(dexPriceOracle, dexPriceContractAbi, provider);
+    }
+    fetchPrice(): Promise<BigNumber> {
+        throw new Error("Method not implemented.");
     }
 
-    async fetchPrice(): Promise<BigNumber> {
-        const fathemStableCoinPrice = await this.dexPriceContract.getPrice(ibDUMMYAddress, WXDCAddress);
-        return fathemStableCoinPrice[0];
-    }
+    // async fetchPrice(): Promise<BigNumber> {
+    //     const fathemStableCoinPrice = await this.dexPriceContract.getPrice(ibDUMMYAddress, WXDCAddress);
+    //     return fathemStableCoinPrice[0];
+    // }
     
 }

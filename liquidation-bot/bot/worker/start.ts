@@ -10,7 +10,7 @@ ipc.config.id = 'worker';
 ipc.config.silent = true;
 
 let workerProcess = new WorkerProcess();
-workerProcess.setupLiquidation();
+//workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/newbedford.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {

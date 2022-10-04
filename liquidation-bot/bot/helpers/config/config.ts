@@ -17,5 +17,5 @@ const LogLevel = {
 }
 
 const COLLATERAL_POOL_ID = formatBytes32String("USDT");
-
+//export {LogLevel,COLLATERAL_POOL_ID}
 export {provider, liquidatorWallet, LogLevel,COLLATERAL_POOL_ID}
