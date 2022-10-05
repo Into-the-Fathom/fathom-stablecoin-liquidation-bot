@@ -1,4 +1,3 @@
-import { ethers, utils } from "ethers";
 import { LogLevel } from "../../helpers/config/config";
 import { SmartContractFactory } from "./config/SmartContractFactory";
 import { Web3EventsUtils } from "./utils/Web3EventsUtils";
@@ -12,7 +11,7 @@ export class EventListener{
 
     constructor(_consumer: () => Promise<void> | void){
         this.consumer = _consumer;
-        process.env.NETWORK_ID ??  this.networkId === process.env.NETWORK_ID
+        this.networkId = parseInt(process.env.NETWORK_ID!)
         this.setupEventListner();
     }
 

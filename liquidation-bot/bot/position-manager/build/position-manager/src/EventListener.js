@@ -8,7 +8,7 @@ class EventListener {
     constructor(_consumer) {
         this.networkId = 51;
         this.consumer = _consumer;
-        process.env.NETWORK_ID ?? this.networkId === process.env.NETWORK_ID;
+        this.networkId = parseInt(process.env.NETWORK_ID);
         this.setupEventListner();
     }
     setupEventListner() {

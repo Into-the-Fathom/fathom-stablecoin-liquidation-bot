@@ -3,7 +3,9 @@ import ipc from 'node-ipc';
 import {PositionManager} from './src/PositionsManager';
 import {LogLevel} from '../helpers/config/config'
 import { EventListener } from './src/EventListener';
-import { config } from "dotenv";
+import path from 'path';
+
+require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
 
 
 let candidatesObj = {

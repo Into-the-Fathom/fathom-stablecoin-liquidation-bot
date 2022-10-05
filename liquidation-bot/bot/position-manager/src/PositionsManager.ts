@@ -4,13 +4,14 @@ import { Web3Utils } from "./utils/Web3Utils";
 import { SmartContractFactory } from "./config/SmartContractFactory";
 import { LogLevel } from "../../helpers/config/config";
 
+
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
 export class PositionManager{
     public isBusy:boolean = false;
     private readonly networkId:number = 51;
 
     constructor(){
-        process.env.NETWORK_ID ??  this.networkId === process.env.NETWORK_ID
+        this.networkId = parseInt(process.env.NETWORK_ID!)
     }
 
     public async getOpenPositions(startIndex:number,offset:number) {

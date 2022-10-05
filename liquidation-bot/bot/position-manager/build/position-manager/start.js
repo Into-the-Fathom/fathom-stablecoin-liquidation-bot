@@ -7,6 +7,8 @@ const node_ipc_1 = __importDefault(require("node-ipc"));
 const PositionsManager_1 = require("./src/PositionsManager");
 const config_1 = require("../helpers/config/config");
 const EventListener_1 = require("./src/EventListener");
+const path_1 = __importDefault(require("path"));
+require('dotenv').config({ path: path_1.default.resolve(__dirname, '../../../../.env') });
 let candidatesObj = {
     previous: [],
 };

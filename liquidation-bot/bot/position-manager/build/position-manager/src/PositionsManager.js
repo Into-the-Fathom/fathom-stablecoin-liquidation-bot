@@ -13,7 +13,7 @@ class PositionManager {
     constructor() {
         this.isBusy = false;
         this.networkId = 51;
-        process.env.NETWORK_ID ?? this.networkId === process.env.NETWORK_ID;
+        this.networkId = parseInt(process.env.NETWORK_ID);
     }
     async getOpenPositions(startIndex, offset) {
         try {
