@@ -4,19 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PositionManager = void 0;
-// import { ethers, utils } from "ethers";
 const Position_1 = __importDefault(require("./types/Position"));
-// import {getPositionContractAddress, 
-//     positionManagerAddress} 
-//     from '../../helpers/utils/addresses.js'
-// import { LogLevel } from "../../helpers/config/config";
 const Web3Utils_1 = require("./utils/Web3Utils");
 const SmartContractFactory_1 = require("./config/SmartContractFactory");
 const Web3EventsUtils_1 = require("./utils/Web3EventsUtils");
 const config_1 = require("../../helpers/config/config");
 const CURRENT_NETWORK = 51;
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
-//TODO: Handle position internally and notify 
 class PositionManager {
     constructor(_consumer) {
         this.isBusy = false;
@@ -25,13 +19,13 @@ class PositionManager {
             filter: {
                 value: [],
             },
-            fromBlock: 0
+            fromBlock: 'latest'
         };
-        let positionManagerContract = Web3EventsUtils_1.Web3EventsUtils.getContractInstance(SmartContractFactory_1.SmartContractFactory.PositionManager(CURRENT_NETWORK), CURRENT_NETWORK);
-        positionManagerContract.events.LogNewPosition(options).
+        this.positionManagerContract = Web3EventsUtils_1.Web3EventsUtils.getContractInstance(SmartContractFactory_1.SmartContractFactory.PositionManager(CURRENT_NETWORK), CURRENT_NETWORK);
+        this.positionManagerContract.events.LogNewPosition(options).
             on('data', (event) => {
             console.log(config_1.LogLevel.keyEvent('================================'));
-            console.log(config_1.LogLevel.keyEvent(`New position opened.`));
+            console.log(config_1.LogLevel.keyEvent(`New position opened. ${JSON.stringify(event)}`));
             console.log(config_1.LogLevel.keyEvent('================================'));
             if (this.consumer != undefined)
                 this.consumer();

@@ -8,6 +8,14 @@ const web3_1 = __importDefault(require("web3"));
 const xdc3_1 = __importDefault(require("xdc3"));
 const supportedChainIds = [5, 1337, 50, 51];
 const XDC_CHAIN_IDS = [50, 51];
+var options = {
+    reconnect: {
+        auto: true,
+        delay: 5000,
+        maxAttempts: 5,
+        onTimeout: false
+    }
+};
 class Web3EventsUtils {
 }
 exports.Web3EventsUtils = Web3EventsUtils;
@@ -45,12 +53,12 @@ Web3EventsUtils.getContractInstance = (contractMetaData, chainId) => {
      */
     let contract;
     if (XDC_CHAIN_IDS.includes(chainId)) {
-        Web3EventsUtils.xdc3 = new xdc3_1.default(new xdc3_1.default.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId)));
+        Web3EventsUtils.xdc3 = new xdc3_1.default(new xdc3_1.default.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId), options));
         contract = new Web3EventsUtils.xdc3.eth.Contract(contractMetaData.abi, contractMetaData.address);
         Web3EventsUtils.contracts.set(contractKey, contract);
     }
     else {
-        Web3EventsUtils.web3 = new web3_1.default(new web3_1.default.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId)));
+        Web3EventsUtils.web3 = new web3_1.default(new web3_1.default.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId), options));
         contract = new Web3EventsUtils.web3.eth.Contract(contractMetaData.abi, contractMetaData.address);
         Web3EventsUtils.contracts.set(contractKey, contract);
     }

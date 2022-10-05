@@ -18,6 +18,7 @@ import VeFathomAbi from './ABI/VeFathom.json'
 import DexPriceOracle from './ABI/DexPriceOracle.json'
 
 import PositionManager from './ABI/PositionManager.json'
+import PriceOracle from './ABI/PriceOracle.json'
 
 export class SmartContractFactory {
   public static Addresses(chainId: number) {
@@ -223,6 +224,13 @@ export class SmartContractFactory {
     return {
       abi:DexPriceOracle.abi as AbiItem [],
       address: SmartContractFactory.Addresses(chainId).dexPriceOracle 
+    }
+  }
+
+  public static PriceOracle(chainId: number)  {
+    return {
+      abi:PriceOracle.abi as AbiItem [],
+      address: SmartContractFactory.Addresses(chainId).priceOracle 
     }
   }
 }
