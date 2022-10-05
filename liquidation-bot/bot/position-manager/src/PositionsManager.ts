@@ -8,10 +8,10 @@ import { LogLevel } from "../../helpers/config/config";
 const CURRENT_NETWORK = 51
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
-//TODO: Handle position internally and notify 
 export class PositionManager{
 
     private readonly getPositionContract:any;
+    private readonly positionManagerContract:any;
     public isBusy:boolean = false;
     private consumer: (() => Promise<void> | void) | undefined;
 
@@ -22,18 +22,17 @@ export class PositionManager{
             filter: {
                 value: [],
             },
-            fromBlock: 0
+            fromBlock: 'latest'
         };
         
-        let positionManagerContract = Web3EventsUtils.getContractInstance(SmartContractFactory.PositionManager(CURRENT_NETWORK),CURRENT_NETWORK)
-        positionManagerContract.events.LogNewPosition(options).
+        this.positionManagerContract = Web3EventsUtils.getContractInstance(SmartContractFactory.PositionManager(CURRENT_NETWORK),CURRENT_NETWORK)
+        this.positionManagerContract.events.LogNewPosition(options).
             on('data', (event: any) => {
                 console.log(LogLevel.keyEvent('================================'));
-                console.log(LogLevel.keyEvent(`New position opened.`));
+                console.log(LogLevel.keyEvent(`New position opened. ${JSON.stringify(event)}`));
                 console.log(LogLevel.keyEvent('================================'));
                 if(this.consumer != undefined)
                     this.consumer();
-
             }).
             on('error', (err:string) => {
                 console.log(LogLevel.error(err));

@@ -16,6 +16,15 @@ interface XdcContractMetaData {
   abi: XdcAbiItem[];
 }
 
+var options = {
+  reconnect: {
+      auto: true,
+      delay: 5000, // ms
+      maxAttempts: 5,
+      onTimeout: false
+  }
+};
+
 export class Web3EventsUtils {
   public static web3: Web3;
   public static xdc3: Xdc3;
@@ -64,7 +73,7 @@ export class Web3EventsUtils {
     let contract;
     if (XDC_CHAIN_IDS.includes(chainId)) {
       Web3EventsUtils.xdc3 = new Xdc3(
-        new Xdc3.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId))
+        new Xdc3.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId),options)
       );
 
       contract = new Web3EventsUtils.xdc3.eth.Contract(
@@ -75,7 +84,7 @@ export class Web3EventsUtils {
       Web3EventsUtils.contracts.set(contractKey, contract);
     } else {
       Web3EventsUtils.web3 = new Web3(
-        new Web3.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId))
+        new Web3.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(chainId),options)
       );
 
       contract = new Web3EventsUtils.web3.eth.Contract(
