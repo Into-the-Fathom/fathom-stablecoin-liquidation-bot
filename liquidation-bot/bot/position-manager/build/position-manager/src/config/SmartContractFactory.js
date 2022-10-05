@@ -22,6 +22,7 @@ const Governor_json_1 = __importDefault(require("./ABI/Governor.json"));
 const VeFathom_json_1 = __importDefault(require("./ABI/VeFathom.json"));
 const DexPriceOracle_json_1 = __importDefault(require("./ABI/DexPriceOracle.json"));
 const PositionManager_json_1 = __importDefault(require("./ABI/PositionManager.json"));
+const PriceOracle_json_1 = __importDefault(require("./ABI/PriceOracle.json"));
 class SmartContractFactory {
     static Addresses(chainId) {
         try {
@@ -208,6 +209,12 @@ class SmartContractFactory {
         return {
             abi: DexPriceOracle_json_1.default.abi,
             address: SmartContractFactory.Addresses(chainId).dexPriceOracle
+        };
+    }
+    static PriceOracle(chainId) {
+        return {
+            abi: PriceOracle_json_1.default.abi,
+            address: SmartContractFactory.Addresses(chainId).priceOracle
         };
     }
 }

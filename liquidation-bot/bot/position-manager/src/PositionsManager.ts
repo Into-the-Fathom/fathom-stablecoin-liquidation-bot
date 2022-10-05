@@ -2,48 +2,22 @@ import Position from "./types/Position"
 
 import { Web3Utils } from "./utils/Web3Utils";
 import { SmartContractFactory } from "./config/SmartContractFactory";
-import { Web3EventsUtils } from "./utils/Web3EventsUtils";
 import { LogLevel } from "../../helpers/config/config";
-
-const CURRENT_NETWORK = 51
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
 export class PositionManager{
-
-    private readonly getPositionContract:any;
-    private readonly positionManagerContract:any;
     public isBusy:boolean = false;
-    private consumer: (() => Promise<void> | void) | undefined;
+    private readonly networkId:number = 51;
 
-    constructor(_consumer: () => Promise<void> | void){
-        this.consumer = _consumer;
-
-        let options = {
-            filter: {
-                value: [],
-            },
-            fromBlock: 'latest'
-        };
-        
-        this.positionManagerContract = Web3EventsUtils.getContractInstance(SmartContractFactory.PositionManager(CURRENT_NETWORK),CURRENT_NETWORK)
-        this.positionManagerContract.events.LogNewPosition(options).
-            on('data', (event: any) => {
-                console.log(LogLevel.keyEvent('================================'));
-                console.log(LogLevel.keyEvent(`New position opened. ${JSON.stringify(event)}`));
-                console.log(LogLevel.keyEvent('================================'));
-                if(this.consumer != undefined)
-                    this.consumer();
-            }).
-            on('error', (err:string) => {
-                console.log(LogLevel.error(err));
-            })
+    constructor(){
+        process.env.NETWORK_ID ??  this.networkId === process.env.NETWORK_ID
     }
 
     public async getOpenPositions(startIndex:number,offset:number) {
         try {
-            console.log(`Fetching positions at index ${startIndex}...`);
-            let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositions(CURRENT_NETWORK),CURRENT_NETWORK)
-            let response = await getPositionContract.methods.getPositionWithSafetyBuffer(SmartContractFactory.PositionManager(CURRENT_NETWORK).address,startIndex,offset).call();
+            console.log(LogLevel.debug(`Fetching positions at index ${startIndex}...`));
+            let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositions(this.networkId),this.networkId)
+            let response = await getPositionContract.methods.getPositionWithSafetyBuffer(SmartContractFactory.PositionManager(this.networkId).address,startIndex,offset).call();
 
             const {0: positions, 1: debtShares, 2: safetyBuffers} = response;
     
@@ -53,7 +27,7 @@ export class PositionManager{
                 let debtShare = debtShares[index];
                 let safetyBuffer = safetyBuffers[index];
                 let position =  new Position(positionAddress,debtShare,safetyBuffer);
-                console.log(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`);
+                console.log(LogLevel.debug(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`));
                 fetchedPositions.push(position)
                 index++;
             });

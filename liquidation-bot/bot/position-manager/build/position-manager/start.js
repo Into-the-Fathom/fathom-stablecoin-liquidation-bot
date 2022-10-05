@@ -5,15 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_ipc_1 = __importDefault(require("node-ipc"));
 const PositionsManager_1 = require("./src/PositionsManager");
-// import PriceChecker from './src/PriceChecker'
 const config_1 = require("../helpers/config/config");
-// import { PoolConfigListener } from './src/PoolConfigListener';
-// import { PriceFeed } from './src/PriceFeed';
+const EventListener_1 = require("./src/EventListener");
 let candidatesObj = {
     previous: [],
 };
 const PAGE_SIZE = 20;
-// const priceChecker = new PriceChecker(new PriceFeed('WXDC'));
 var positionManager;
 async function scan(ipcTxManagers) {
     const candidatesSet = new Set();
@@ -55,11 +52,10 @@ async function scan(ipcTxManagers) {
     candidatesObj.previous = Array.from(candidatesSet);
 }
 async function start(ipcTxManagers) {
-    positionManager = new PositionsManager_1.PositionManager(() => scan(ipcTxManagers));
+    positionManager = new PositionsManager_1.PositionManager();
     setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
     scan(ipcTxManagers);
-    // priceChecker.init(10*1000,() => scan(ipcTxManagers));
-    // const poolConfigListener = new PoolConfigListener(() => scan(ipcTxManagers));
+    const eventListener = new EventListener_1.EventListener(() => scan(ipcTxManagers));
 }
 function stop() {
     // priceChecker.stop();
