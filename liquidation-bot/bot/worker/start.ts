@@ -2,11 +2,10 @@ import { ethers } from 'ethers';
 import ipc from 'node-ipc';
 import Position from './types/Position';
 import { Worker } from './src/worker';
-import { LogLevel } from '../helpers/config/config';
 import path from 'path';
+import Logger from './utils/Logger';
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
-
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
 ipc.config.id = 'worker';
@@ -17,19 +16,19 @@ workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/newbedford.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {
-      console.log(LogLevel.error(`Risky position with address: ${message.address}, 
-                              safety buffer: ${ethers.BigNumber.from(message.safetyBuffer)}}`))
+    Logger.warn(`Risky position with address: ${message.address}, 
+    safety buffer: ${ethers.BigNumber.from(message.safetyBuffer)}}`)
         
       await workerProcess.tryPerformingLiquidation(message);
   });
 
   ipc.server.on('liquidation-candidate-remove', (position:Position) => {
-    console.log(LogLevel.keyEvent('Candidate removed...'));
+    Logger.debug('Candidate removed...')
     workerProcess.liquidate.removeLiquidationPosition(position);
   });
 
   ipc.server.on('keepalive', () => {
-    console.log(LogLevel.debug('Staying alive...'));
+    Logger.debug('Staying alive...')
   });
 });
 ipc.server.start();
@@ -37,11 +36,11 @@ ipc.server.start();
 
 process.on('SIGINT', () => {
   //console.log(LogLevel.debug('\nCaught interrupt signal'));
-  console.log(LogLevel.info('\nCaught interrupt signal'));
+  Logger.warn('\nCaught interrupt signal')
   ipc.server.stop();
 //   provider.eth.clearSubscriptions();
 //   provider.eth.closeConnections();
-  console.log(LogLevel.debug('Exited cleanly'));
+  Logger.info('Exited cleanly')
   process.exit();
 });
 

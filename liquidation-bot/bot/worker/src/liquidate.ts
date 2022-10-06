@@ -1,16 +1,14 @@
-import { ethers, utils } from "ethers";
 import Position from '../types/Position'
 const MaxUint256 = require("@ethersproject/constants");
 import Queue from 'queue-fifo';
 import { Web3EventsUtils } from "../utils/Web3EventsUtils";
 import { SmartContractFactory } from "../config/SmartContractFactory";
-import { LogLevel } from "../../helpers/config/config";
 import { Web3Utils } from "../utils/Web3Utils";
+import Logger from "../utils/Logger";
 
 
 export class Liquidator{
 
-    //TODO: replace it with FIFO queue
     private badPositionsQueue:Queue<Position>;
 
     private fetchHandle: NodeJS.Timeout | null = null;
@@ -43,12 +41,10 @@ export class Liquidator{
         this.fixedSpreadLiquidationStrategyContract = Web3EventsUtils.getContractInstance(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId),this.networkId)
         this.fixedSpreadLiquidationStrategyContract.events.LogFixedSpreadLiquidate(options).
             on('data', (event: any) => {
-            console.log(LogLevel.keyEvent('============================================================================'));
-            console.log(LogLevel.keyEvent(`** Liquidation Complete for ${JSON.stringify(event)} **`));
-            console.log(LogLevel.keyEvent('============================================================================'));
+                Logger.info(`** Liquidation Complete for ${JSON.stringify(event)} **`)
             }).
             on('error', (err:string) => {
-                console.log(LogLevel.error(err));
+                Logger.error(`Error connecting LogFixedSpreadLiquidate Event: ${err}`)
             })
     }
 
@@ -67,11 +63,11 @@ export class Liquidator{
         let position = this.badPositionsQueue.dequeue();
         if (position != undefined) {
             try {
-                console.log(LogLevel.keyEvent(`Performing liquidation on position ${position.address}`));
+                Logger.info(`Performing liquidation on position ${position.address}`)
                 //TODO: Find the collatral pool id and replace it as first parameter
                 await this.liquidationEngineContract.methods.liquidate('', position.address, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
             } catch(exception) {
-                console.log(LogLevel.error(exception))
+                Logger.error(`Error liquidating position ${position.address} : ${exception}`)
             }
         }
     }

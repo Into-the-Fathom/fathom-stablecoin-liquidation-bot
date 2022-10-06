@@ -1,6 +1,4 @@
-import { ethers } from "ethers";
-import { parseUnits } from "ethers/lib/utils";
-import { LogLevel } from "../../helpers/config/config";
+import Logger from "../utils/Logger";
 import { SmartContractFactory } from "../config/SmartContractFactory";
 import { Web3Utils } from "../utils/Web3Utils";
 
@@ -21,19 +19,19 @@ export class LiquidationEngine{
     }
 
     public async setupLiquidationEngine(){
-        console.log(LogLevel.info(`Setting up liquidation engine for ${process.env.LIQUIDATOR_ADDRESS}...`));
+        Logger.info(`Setting up liquidation engine for ${process.env.LIQUIDATOR_ADDRESS}`)
 
         try {
             if(this.bookKeeperContract == undefined || 
                 this.liquidationEngineContract == undefined) {
-                console.error(LogLevel.error("Error setting up liquidation engine."))
+                Logger.error('Error setting up liquidation engine.')
                 return;
             }
 
             await this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS, gas:1000000, gaslimit:30000});
             await this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS,gas:1000000, gaslimit:30000});
 
-            console.log(LogLevel.info(`Minting stablecoing to liquidator...`));
+            Logger.info(`Minting stablecoing to liquidator...`)
 
             //Mint coins from deployer to signger, which is liquidation bot...
             //TODO: Need to revisit this post MVP demo... ideally this setup shouldn't be on BOT

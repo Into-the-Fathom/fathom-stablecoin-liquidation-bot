@@ -5,7 +5,7 @@ import { EventListener } from './src/EventListener';
 import path from 'path';
 import Logger from './src/utils/Logger';
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 
 let candidatesObj = {
