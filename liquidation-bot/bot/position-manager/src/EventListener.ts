@@ -1,5 +1,5 @@
-import { LogLevel } from "../../helpers/config/config";
 import { SmartContractFactory } from "./config/SmartContractFactory";
+import Logger from "./utils/Logger";
 import { Web3EventsUtils } from "./utils/Web3EventsUtils";
 
 
@@ -29,28 +29,24 @@ export class EventListener{
         this.priceOracleContract.events.LogSetPrice(options).
             on('data', (event: any) => {
                 //TODO: Check from previous price, if lesser then only call refetch the positions
-                console.log(LogLevel.keyEvent('================================'));
-                console.log(LogLevel.keyEvent(`Price update event occuered.`));
-                console.log(LogLevel.keyEvent('================================'));
+                Logger.info(`Price update event occuered.`)
                 if(this.consumer != undefined)
                     this.consumer();
             }).
             on('error', (err:string) => {
-                console.log(LogLevel.error(err));
+                Logger.error(`Error connecting LogSetPrice Event ${err}`)
             })
 
-            //Listen for New Position Opened
+        //Listen for New Position Opened
         this.positionManagerContract = Web3EventsUtils.getContractInstance(SmartContractFactory.PositionManager(this.networkId),this.networkId)
         this.positionManagerContract.events.LogNewPosition(options).
             on('data', (event: any) => {
-                console.log(LogLevel.keyEvent('================================'));
-                console.log(LogLevel.keyEvent(`New position opened.`));
-                console.log(LogLevel.keyEvent('================================'));
+                Logger.info(`New position opened.`)
                 if(this.consumer != undefined)
                     this.consumer();
             }).
             on('error', (err:string) => {
-                console.log(LogLevel.error(err));
+                Logger.error(`Error connecting LogNewPosition Event ${err}`)
             })
     
     }

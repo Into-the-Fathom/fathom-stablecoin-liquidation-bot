@@ -1,16 +1,19 @@
 import { ethers } from 'ethers';
 import ipc from 'node-ipc';
 import Position from './types/Position';
-import { WorkerProcess } from './src/worker';
+import { Worker } from './src/worker';
 import { LogLevel } from '../helpers/config/config';
+import path from 'path';
+
+require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
 
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
 ipc.config.id = 'worker';
 ipc.config.silent = true;
 
-let workerProcess = new WorkerProcess();
-//workerProcess.setupLiquidation();
+let workerProcess = new Worker();
+workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/newbedford.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {

@@ -1,9 +1,9 @@
 import ipc from 'node-ipc';
 
 import {PositionManager} from './src/PositionsManager';
-import {LogLevel} from '../helpers/config/config'
 import { EventListener } from './src/EventListener';
 import path from 'path';
+import Logger from './src/utils/Logger';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
 
@@ -20,11 +20,11 @@ async function scan(ipcTxManagers: any[]) {
   const candidatesSet = new Set<string>();
 
   if(positionManager.isBusy){
-    console.log(LogLevel.debug('Already searching for positions...'));
+    Logger.debug('Already searching for positions...')
     return;
   }
 
-  console.log(LogLevel.debug('Searching for positions...'));
+  Logger.debug('Searching for positions...')
   positionManager.isBusy = true;
   let fetchMore = true;
   let pageIndex = 0;
@@ -34,12 +34,12 @@ async function scan(ipcTxManagers: any[]) {
       const rawPositions = await positionManager.getOpenPositions((pageIndex*PAGE_SIZE)+1,PAGE_SIZE);
       fetchMore = rawPositions.length < PAGE_SIZE ? false : true;
       pageIndex++;
-      console.log(LogLevel.debug(`Found ${rawPositions.length} positions at page: ${pageIndex}`));
+      Logger.debug(`Found ${rawPositions.length} positions at page: ${pageIndex}`);
   
       let candidates = await positionManager.processPositions(rawPositions);
     
       if(candidates.length > 0){
-        console.log(LogLevel.error(`Total risky positions ${candidates.length}`));
+        Logger.warn(`Total risky positions ${candidates.length}`)
     
         candidates.forEach((candidate) => {
           candidatesSet.add(candidate.address);
@@ -48,7 +48,7 @@ async function scan(ipcTxManagers: any[]) {
       }
     }
   }catch(exception){
-    console.log(LogLevel.error(exception))
+    Logger.error(exception)
   }finally{
     positionManager.isBusy = false;
   }
@@ -73,6 +73,10 @@ function stop() {
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid
 //   provider.eth.currentProvider.connection.destroy();
+
+//   provider.eth.clearSubscriptions();
+//   provider.eth.closeConnections();
+
 }
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
@@ -84,8 +88,7 @@ ipc.config.silent = true;
 
 ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
   ipc.of['worker'].on('connect', () => {
-    console.log(LogLevel.debug("Connected to worker IPC"));
-
+    Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);
   });
 });
@@ -98,10 +101,10 @@ ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
 // });
 
 process.on('SIGINT', () => {
-  console.log(LogLevel.error('\nCaught interrupt signal'));
+  Logger.error('Exited cleanly')
   // ipc.disconnect('txmanager');
   ipc.disconnect('worker')
   stop();
-  console.log(LogLevel.debug('Exited cleanly'));
+  Logger.debug('Exited cleanly')
   process.exit();
 });

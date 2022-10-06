@@ -1,14 +1,14 @@
 import Position from "../types/Position";
-import { Liquidate } from "./liquidate";
-import { LiquidationEngine } from "./liquidationEngineSetup";
+import { Liquidator } from "./liquidate";
+import { LiquidationEngine } from "./liquidationEngine";
 
-export class WorkerProcess{
-    public readonly liquidate: Liquidate;
+export class Worker{
+    public readonly liquidate: Liquidator;
     private readonly liquidationEngine: LiquidationEngine;
   
     constructor(){
         this.liquidationEngine =  new LiquidationEngine();
-        this.liquidate = new Liquidate(this.liquidationEngine.liquidationEngineAbiContract!);
+        this.liquidate = new Liquidator();
     }
     
     public async setupLiquidation(){

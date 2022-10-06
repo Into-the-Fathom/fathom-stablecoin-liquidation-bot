@@ -2,7 +2,7 @@ import Position from "./types/Position"
 
 import { Web3Utils } from "./utils/Web3Utils";
 import { SmartContractFactory } from "./config/SmartContractFactory";
-import { LogLevel } from "../../helpers/config/config";
+import Logger from "./utils/Logger";
 
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
@@ -16,7 +16,7 @@ export class PositionManager{
 
     public async getOpenPositions(startIndex:number,offset:number) {
         try {
-            console.log(LogLevel.debug(`Fetching positions at index ${startIndex}...`));
+            Logger.debug(`Fetching positions at index ${startIndex}...`)
             let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositions(this.networkId),this.networkId)
             let response = await getPositionContract.methods.getPositionWithSafetyBuffer(SmartContractFactory.PositionManager(this.networkId).address,startIndex,offset).call();
 
@@ -28,7 +28,7 @@ export class PositionManager{
                 let debtShare = debtShares[index];
                 let safetyBuffer = safetyBuffers[index];
                 let position =  new Position(positionAddress,debtShare,safetyBuffer);
-                console.log(LogLevel.debug(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`));
+                Logger.debug(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`)
                 fetchedPositions.push(position)
                 index++;
             });
