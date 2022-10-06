@@ -28,14 +28,14 @@ export class LiquidationEngine{
                 return;
             }
 
-            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS, gas:1000000, gaslimit:30000});
-            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS,gas:1000000, gaslimit:30000});
+            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS});
+            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS});
 
             Logger.info(`Minting stablecoing to liquidator...`)
 
             //Mint coins from deployer to signger, which is liquidation bot...
             //TODO: Need to revisit this post MVP demo... ideally this setup shouldn't be on BOT
-            await this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000").send({from: process.env.LIQUIDATOR_ADDRESS});
+            await this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send({from: process.env.LIQUIDATOR_ADDRESS});
         }catch(error){
             console.error(error);
         }

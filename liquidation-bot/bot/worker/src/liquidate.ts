@@ -65,9 +65,9 @@ export class Liquidator{
             try {
                 Logger.info(`Performing liquidation on position ${position.address}`)
                 //TODO: Find the collatral pool id and replace it as first parameter
-                await this.liquidationEngineContract.methods.liquidate('', position.address, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
+                await this.liquidationEngineContract.methods.liquidate(position.poolId, position.address, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
             } catch(exception) {
-                Logger.error(`Error liquidating position ${position.address} : ${exception}`)
+                Logger.error(`Error liquidating position ${position.address} : ${JSON.stringify(exception)}`)
             }
         }
     }

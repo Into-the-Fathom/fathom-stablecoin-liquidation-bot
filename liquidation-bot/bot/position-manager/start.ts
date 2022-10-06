@@ -34,8 +34,7 @@ async function scan(ipcTxManagers: any[]) {
       const rawPositions = await positionManager.getOpenPositions((pageIndex*PAGE_SIZE)+1,PAGE_SIZE);
       fetchMore = rawPositions.length < PAGE_SIZE ? false : true;
       pageIndex++;
-      Logger.debug(`Found ${rawPositions.length} positions at page: ${pageIndex}`);
-  
+
       let candidates = await positionManager.processPositions(rawPositions);
     
       if(candidates.length > 0){

@@ -17,18 +17,23 @@ export class PositionManager{
     public async getOpenPositions(startIndex:number,offset:number) {
         try {
             Logger.debug(`Fetching positions at index ${startIndex}...`)
-            let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositions(this.networkId),this.networkId)
+            let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositionsLiquidationBot(this.networkId),this.networkId)
             let response = await getPositionContract.methods.getPositionWithSafetyBuffer(SmartContractFactory.PositionManager(this.networkId).address,startIndex,offset).call();
 
-            const {0: positions, 1: debtShares, 2: safetyBuffers} = response;
+            const {0: positions, 1: debtShares, 2: safetyBuffers, 3: poolIds} = response;
     
             let fetchedPositions: Position[] =  []; 
             let index = 0;
             positions.forEach((positionAddress: string) => {
+                let poolId = poolIds[index];
                 let debtShare = debtShares[index];
                 let safetyBuffer = safetyBuffers[index];
-                let position =  new Position(positionAddress,debtShare,safetyBuffer);
-                Logger.debug(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`)
+                let position =  new Position(positionAddress,poolId,debtShare,safetyBuffer);
+
+                if(debtShare > 0 && safetyBuffer > 0 ){
+                    Logger.debug(`Position${index} address : ${positionAddress}, poolId: ${poolId}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`)
+                }
+
                 fetchedPositions.push(position)
                 index++;
             });
