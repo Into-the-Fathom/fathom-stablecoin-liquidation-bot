@@ -5,6 +5,7 @@ import ProxyWalletAbi from "./ABI/ProxyWallet.json";
 import FathomStablecoinProxyActionAbi from "./ABI/FathomStablecoinProxyActions.json";
 import BEP20Abi from "./ABI/BEP20.json";
 import GetPositionsAbi from "./ABI/GetPositions.json";
+import GetPositionsLiquidationBotAbi from "./ABI/GetPositionsLiquidationBot.json";
 import StableSwapModule from "./ABI/StableSwapModule.json";
 import Addresses from "./addresses.json";
 import Staking from "./ABI/Staking.json";
@@ -19,10 +20,6 @@ import DexPriceOracle from './ABI/DexPriceOracle.json'
 
 import PositionManager from './ABI/PositionManager.json'
 import PriceOracle from './ABI/PriceOracle.json'
-import BookKeeper from './ABI/BookKeeper.json'
-import LiquidationEngine from './ABI/LiquidationEngine.json'
-import FixedSpreadLiquidationStrategy from './ABI/FixedSpreadLiquidationStrategy.json'
-
 
 export class SmartContractFactory {
   public static Addresses(chainId: number) {
@@ -162,6 +159,13 @@ export class SmartContractFactory {
     }
   };
 
+  public static GetPositionsLiquidationBot(chainId: number) {
+    return {
+      abi:GetPositionsLiquidationBotAbi.abi as AbiItem [],
+      address:SmartContractFactory.Addresses(chainId).getPositionsLiquidationBot
+    }
+  };
+
   public static StableSwapModule(chainId: number) {
     return {
       abi: StableSwapModule.abi as AbiItem[],
@@ -237,35 +241,6 @@ export class SmartContractFactory {
       address: SmartContractFactory.Addresses(chainId).priceOracle 
     }
   }
-
-  public static BookKeeper(chainId: number)  {
-    return {
-      abi:BookKeeper.abi as AbiItem [],
-      address: SmartContractFactory.Addresses(chainId).bookKeeper 
-    }
-  }
-
-  public static LiquidationEngine(chainId: number)  {
-    return {
-      abi:LiquidationEngine.abi as AbiItem [],
-      address: SmartContractFactory.Addresses(chainId).liquidationEngine 
-    }
-  }
-
-  public static SystemDebtEngine(chainId: number) {
-    return {
-      abi: [],
-      address: SmartContractFactory.Addresses(chainId).systemDebtEngine,
-    }
-  };
-
-  public static FixedSpreadLiquidationStrategy(chainId: number) {
-    return {
-      abi:FixedSpreadLiquidationStrategy.abi as AbiItem [],
-      address: SmartContractFactory.Addresses(chainId).fixedSpreadLiquidationStrategy,
-    }
-  };
-
 }
 
 
