@@ -5,6 +5,7 @@ import ProxyWalletAbi from "./ABI/ProxyWallet.json";
 import FathomStablecoinProxyActionAbi from "./ABI/FathomStablecoinProxyActions.json";
 import BEP20Abi from "./ABI/BEP20.json";
 import GetPositionsAbi from "./ABI/GetPositions.json";
+import GetPositionsLiquidationBotAbi from "./ABI/GetPositionsLiquidationBot.json"
 import StableSwapModule from "./ABI/StableSwapModule.json";
 import Addresses from "./addresses.json";
 import Staking from "./ABI/Staking.json";
@@ -155,6 +156,13 @@ export class SmartContractFactory {
     return {
       abi:GetPositionsAbi.abi as AbiItem [],
       address:SmartContractFactory.Addresses(chainId).getPositions
+    }
+  };
+
+  public static GetPositionsLiquidationBot(chainId: number) {
+    return {
+      abi:GetPositionsLiquidationBotAbi.abi as AbiItem [],
+      address:SmartContractFactory.Addresses(chainId).getPositionsLiquidationBot
     }
   };
 
