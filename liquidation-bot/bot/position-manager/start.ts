@@ -85,7 +85,7 @@ ipc.config.silent = true;
 //   ipc.of['txmanager'].on('connect', () => {
 //     console.log("Connected to TxManager's IPC");
 
-ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
+ipc.connectTo('worker', '/usr/src/app', () => {
   ipc.of['worker'].on('connect', () => {
     Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);
