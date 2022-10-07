@@ -15,5 +15,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-CMD [ "npm", "run", "rebuild" ]
+RUN npm run rebuild 
 CMD [ "npm", "run", "start" ]
