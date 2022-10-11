@@ -38,7 +38,7 @@ async function scan(ipcTxManagers: any[]) {
       let candidates = await positionManager.processPositions(rawPositions);
     
       if(candidates.length > 0){
-        Logger.warn(`Total risky positions ${candidates.length}`)
+        Logger.info(`Total risky positions ${candidates.length}`)
     
         candidates.forEach((candidate) => {
           candidatesSet.add(candidate.address);
