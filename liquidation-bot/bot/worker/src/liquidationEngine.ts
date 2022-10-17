@@ -1,6 +1,6 @@
-import Logger from "../utils/Logger";
-import { SmartContractFactory } from "../config/SmartContractFactory";
-import { Web3Utils } from "../utils/Web3Utils";
+import Logger from "../../shared/utils/Logger";
+import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
+import { Web3Utils } from "../../shared/web3/Web3Utils";
 
 export class LiquidationEngine{
     

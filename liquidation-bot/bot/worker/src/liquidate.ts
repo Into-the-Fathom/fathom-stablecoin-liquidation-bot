@@ -1,10 +1,10 @@
-import Position from '../types/Position'
+import Position from '../../shared/types/Position'
 const MaxUint256 = require("@ethersproject/constants");
 import Queue from 'queue-fifo';
-import { Web3EventsUtils } from "../utils/Web3EventsUtils";
-import { SmartContractFactory } from "../config/SmartContractFactory";
-import { Web3Utils } from "../utils/Web3Utils";
-import Logger from "../utils/Logger";
+import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
+import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
+import { Web3Utils } from "../../shared/web3/Web3Utils";
+import Logger from "../../shared/utils/Logger";
 
 
 export class Liquidator{

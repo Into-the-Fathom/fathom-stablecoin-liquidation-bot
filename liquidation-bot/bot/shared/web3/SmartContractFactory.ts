@@ -275,6 +275,3 @@ export class SmartContractFactory {
   };
 
 }
-
-
-

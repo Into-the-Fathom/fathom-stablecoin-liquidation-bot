@@ -1,8 +1,7 @@
-import Position from "./types/Position"
-
-import { Web3Utils } from "./utils/Web3Utils";
-import { SmartContractFactory } from "./config/SmartContractFactory";
-import Logger from "./utils/Logger";
+import { Web3Utils } from "../../shared/web3/Web3Utils";
+import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
+import Position from "../../shared/types/Position"
+import Logger from "../../shared/utils/Logger";
 
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...

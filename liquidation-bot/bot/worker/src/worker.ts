@@ -1,4 +1,4 @@
-import Position from "../types/Position";
+import Position from '../../shared/types/Position'
 import { Liquidator } from "./liquidate";
 import { LiquidationEngine } from "./liquidationEngine";
 

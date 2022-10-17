@@ -1,9 +1,9 @@
-import { ethers } from 'ethers';
 import ipc from 'node-ipc';
-import Position from './types/Position';
+import Position from '../shared/types/Position'
 import { Worker } from './src/worker';
 import path from 'path';
-import Logger from './utils/Logger';
+import Logger from '../shared/utils/Logger';
+import BN from 'bn.js';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
@@ -17,7 +17,7 @@ workerProcess.setupLiquidation();
 ipc.serve('/tmp/newbedford.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {
     Logger.info(`Risky position with address: ${message.address}, 
-    safety buffer: ${ethers.BigNumber.from(message.safetyBuffer)}}`)
+    safety buffer: ${message.safetyBuffer}}`)
         
       await workerProcess.tryPerformingLiquidation(message);
   });

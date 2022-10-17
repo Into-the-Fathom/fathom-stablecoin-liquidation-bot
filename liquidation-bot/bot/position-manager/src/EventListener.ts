@@ -1,6 +1,6 @@
-import { SmartContractFactory } from "./config/SmartContractFactory";
-import Logger from "./utils/Logger";
-import { Web3EventsUtils } from "./utils/Web3EventsUtils";
+import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
+import Logger from "../../shared/utils/Logger";
+import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
 
 
 export class EventListener{

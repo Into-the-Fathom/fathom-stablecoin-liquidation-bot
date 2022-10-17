@@ -3,7 +3,7 @@ import ipc from 'node-ipc';
 import {PositionManager} from './src/PositionsManager';
 import { EventListener } from './src/EventListener';
 import path from 'path';
-import Logger from './src/utils/Logger';
+import Logger from '../shared/utils/Logger';
 
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
