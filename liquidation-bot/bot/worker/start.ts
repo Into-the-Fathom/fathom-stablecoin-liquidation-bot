@@ -5,7 +5,7 @@ import path from 'path';
 import Logger from '../shared/utils/Logger';
 import BN from 'bn.js';
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
 ipc.config.id = 'worker';

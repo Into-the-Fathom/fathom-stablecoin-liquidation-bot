@@ -9,6 +9,8 @@ services:
     ipc: "host"
   position-manager:
     build: ./position-manager
+    depends_on:
+      - worker
     volumes:
       - /tmp:/tmp
     env_file:

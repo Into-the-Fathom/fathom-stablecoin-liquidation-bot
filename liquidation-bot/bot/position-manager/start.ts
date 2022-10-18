@@ -3,10 +3,11 @@ import ipc from 'node-ipc';
 import {PositionManager} from './src/PositionsManager';
 import { EventListener } from './src/EventListener';
 import path from 'path';
+
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+
 import Logger from '../shared/utils/Logger';
-
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
-
+import { Console } from 'console';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -86,6 +87,7 @@ ipc.config.silent = true;
 //     console.log("Connected to TxManager's IPC");
 
 ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
+  Logger.info(`#### MongoDB URL : ${process.env.MONGODB_URL} ###`)
   ipc.of['worker'].on('connect', () => {
     Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);

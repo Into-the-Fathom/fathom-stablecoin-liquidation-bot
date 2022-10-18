@@ -1,18 +1,19 @@
-FROM node:16
+#FROM node:16
+FROM shared-base:latest
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/position-manager
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
-COPY ../shared ./
+# ADD ../shared ./
 
-WORKDIR /usr/src/app/shared  
+# WORKDIR /usr/src/app/shared
 
-RUN npm install
+# RUN npm install
 
-WORKDIR /usr/src/app
+# WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -23,5 +24,5 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN npm run rebuild 
+RUN npm run rebuild
 CMD [ "npm", "run", "start" ]
