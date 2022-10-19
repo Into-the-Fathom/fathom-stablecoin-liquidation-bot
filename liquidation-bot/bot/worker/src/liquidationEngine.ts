@@ -37,7 +37,7 @@ export class LiquidationEngine{
             //TODO: Need to revisit this post MVP demo... ideally this setup shouldn't be on BOT
             await this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send({from: process.env.LIQUIDATOR_ADDRESS});
         }catch(error){
-            console.error(error);
+            Logger.error(`Error in setupLiquidationEngine: ${error}`)
         }
     }
 }
