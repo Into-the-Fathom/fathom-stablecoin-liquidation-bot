@@ -7,7 +7,6 @@ import path from 'path';
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 import Logger from '../shared/utils/Logger';
-import { Console } from 'console';
 
 let candidatesObj = {
   previous: <string[]>[],
