@@ -1,0 +1,17 @@
+type Position @entity {
+  id: String!
+  positionAddress: Bytes!
+  userAddress: Bytes!
+  walletAddress: Bytes!
+  collatralPool: Bytes!
+  positionId: BigInt!
+  lockedCollateral: BigInt!
+  debtShare: BigInt!
+  safetyBuffer: BigInt!
+}
+
+type Pool @entity {
+  id: String!
+  debtAccumulatedRate: BigInt!
+  positions: [String!]!
+}

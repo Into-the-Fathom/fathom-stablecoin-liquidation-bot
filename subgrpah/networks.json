@@ -1,0 +1,10 @@
+{
+  "apothem": {
+    "PositionManager": {
+      "address": "0xC0FeEa2f3C9a6F208E75715b1BAc71f1B61ED43b"
+    },
+    "GetPositions": {
+      "address": "0x979f4484ecA76C6dD8104dBe911fb5AD11e744b4"
+    }
+  }
+}
