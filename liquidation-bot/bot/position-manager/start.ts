@@ -7,6 +7,8 @@ import path from 'path';
 require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 import Logger from '../shared/utils/Logger';
+import { IPositionService } from './src/interface/IPositionService';
+import { GraphPositionsManager } from './src/GraphPositionsManager';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -14,7 +16,7 @@ let candidatesObj = {
 
 const PAGE_SIZE = 20;
 
-var positionManager: PositionManager;
+var positionManager: IPositionService;
 
 async function scan(ipcTxManagers: any[]) {
   const candidatesSet = new Set<string>();
@@ -41,7 +43,7 @@ async function scan(ipcTxManagers: any[]) {
         Logger.info(`Total risky positions ${candidates.length}`)
     
         candidates.forEach((candidate) => {
-          candidatesSet.add(candidate.address);
+          candidatesSet.add(candidate.positionAddress);
           ipcTxManagers.forEach((i) => i.emit('liquidation-candidate-add', candidate));
         });
       }
@@ -61,7 +63,7 @@ async function scan(ipcTxManagers: any[]) {
 }
 
 async function start(ipcTxManagers: any[]) {
-  positionManager = new PositionManager()
+  positionManager = new GraphPositionsManager()
   setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
   scan(ipcTxManagers);
   const eventListener = new EventListener(() => scan(ipcTxManagers));

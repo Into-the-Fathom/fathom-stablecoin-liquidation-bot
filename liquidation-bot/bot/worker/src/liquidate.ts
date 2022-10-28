@@ -63,11 +63,11 @@ export class Liquidator{
         let position = this.badPositionsQueue.dequeue();
         if (position != undefined) {
             try {
-                Logger.info(`Performing liquidation on position ${position.address}`)
+                Logger.info(`Performing liquidation on position ${position.positionAddress}`)
                 //TODO: Find the collatral pool id and replace it as first parameter
-                await this.liquidationEngineContract.methods.liquidate(position.poolId, position.address, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
+                await this.liquidationEngineContract.methods.liquidate(position.collatralPool, position.positionAddress, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
             } catch(exception) {
-                Logger.error(`Error liquidating position ${position.address} : ${JSON.stringify(exception)}`)
+                Logger.error(`Error liquidating position ${position.positionAddress} : ${JSON.stringify(exception)}`)
             }
         }
     }

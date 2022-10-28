@@ -2,10 +2,11 @@ import { Web3Utils } from "../../shared/web3/Web3Utils";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import Position from "../../shared/types/Position"
 import Logger from "../../shared/utils/Logger";
+import { IPositionService } from "./interface/IPositionService";
 
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
-export class PositionManager{
+export class PositionManager implements IPositionService{
     public isBusy:boolean = false;
     private readonly networkId:number = 51;
 
@@ -13,7 +14,7 @@ export class PositionManager{
         this.networkId = parseInt(process.env.NETWORK_ID!)
     }
 
-    public async getOpenPositions(startIndex:number,offset:number) {
+    public async getOpenPositions(startIndex:number,offset:number):Promise<Position[]> {
         try {
             Logger.debug(`Fetching positions at index ${startIndex}...`)
             let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositionsLiquidationBot(this.networkId),this.networkId)
@@ -44,7 +45,7 @@ export class PositionManager{
         }
     }
 
-    public async processPositions(positions:Position []) {
+    public async processPositions(positions:Position []):Promise<Position[]> {
         //Filter the underwater position
         const underwaterPositions = positions.filter(position => (position.isUnSafe));
         //Sort based on debtshare
