@@ -1,6 +1,9 @@
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import Logger from "../../shared/utils/Logger";
 import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
+import { RedisClient } from "./utils/RedisClient";
+
+
 
 
 export class EventListener{
@@ -8,6 +11,7 @@ export class EventListener{
     private priceOracleContract:any;
     private positionManagerContract:any;
     private readonly networkId:number = 51;
+    
 
     constructor(_consumer: () => Promise<void> | void){
         this.consumer = _consumer;
@@ -30,7 +34,7 @@ export class EventListener{
             on('data', (event: any) => {
                 //TODO: Check from previous price, if lesser then only call refetch the positions
                 Logger.info(`Price update event occuered.`)
-                Logger.info(JSON.stringify(event))
+                RedisClient.getInstance().setValue('lastblock',event.blockNumber)
                 if(this.consumer != undefined)
                     this.consumer();
             }).
@@ -43,6 +47,7 @@ export class EventListener{
         this.positionManagerContract.events.LogNewPosition(options).
             on('data', (event: any) => {
                 Logger.info(`New position opened.`)
+                RedisClient.getInstance().setValue('lastblock',event.blockNumber)
                 if(this.consumer != undefined)
                     this.consumer();
             }).

@@ -9,6 +9,8 @@ services:
     ipc: "host"
   position-manager:
     build: ./position-manager
+    environment:
+      - REDIS_SERVER_IP=redis-server
     depends_on:
       - worker
     volumes:
@@ -16,3 +18,5 @@ services:
     env_file:
       - .env
     ipc: "host"
+  redis:
+    image: redis:6.2.5-alpine

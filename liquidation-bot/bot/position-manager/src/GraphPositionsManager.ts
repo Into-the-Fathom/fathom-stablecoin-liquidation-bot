@@ -6,6 +6,7 @@ import { IPositionService } from "./interface/IPositionService";
 import { request, gql } from 'graphql-request'
 import { Constants } from "./utils/Constants";
 import { GraphQueries } from "./utils/GraphQueries";
+import { RedisClient } from "./utils/RedisClient";
 
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
@@ -31,6 +32,8 @@ export class GraphPositionsManager implements IPositionService{
 
     public async checkGraphHealth() {
         Logger.debug(`Checking graph health...`)
+        let lastBlockFromEvent = await RedisClient.getInstance().getValue('lastblock')
+        Logger.debug(`Last blocknumber from event: ${lastBlockFromEvent}`)
         let response = await request(Constants.GRAPH_HEALTH_URL, GraphQueries.HEALTH_QUERY)
         Logger.debug(`GraphQL Health Reponse: ${JSON.stringify(response)}`);    
     }

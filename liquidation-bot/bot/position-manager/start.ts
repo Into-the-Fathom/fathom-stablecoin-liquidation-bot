@@ -9,6 +9,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 import Logger from '../shared/utils/Logger';
 import { IPositionService } from './src/interface/IPositionService';
 import { GraphPositionsManager } from './src/GraphPositionsManager';
+import { RedisClient } from './src/utils/RedisClient';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -17,6 +18,7 @@ let candidatesObj = {
 const PAGE_SIZE = 20;
 
 var positionManager: IPositionService;
+var cacheManager: RedisClient;
 
 async function scan(ipcTxManagers: any[]) {
   const candidatesSet = new Set<string>();
@@ -64,6 +66,7 @@ async function scan(ipcTxManagers: any[]) {
 }
 
 async function start(ipcTxManagers: any[]) {
+  await RedisClient.getInstance().connect()
   positionManager = new GraphPositionsManager()
   setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
   scan(ipcTxManagers);
@@ -71,6 +74,7 @@ async function start(ipcTxManagers: any[]) {
 }
 
 function stop() {
+  RedisClient.getInstance().disconnect()
   // priceChecker.stop();
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid
