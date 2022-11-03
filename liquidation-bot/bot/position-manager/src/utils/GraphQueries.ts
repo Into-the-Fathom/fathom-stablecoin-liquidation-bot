@@ -21,5 +21,22 @@ export class GraphQueries{
     }
 `
 
+public static readonly  HEALTH_QUERY = gql`
+    query health {
+        indexingStatusForCurrentVersion(subgraphName: "fathom-liquidation-bot") {
+        synced
+        health
+        chains {
+                chainHeadBlock {
+                    number
+                }
+                latestBlock {
+                    number
+                }
+            }
+        }
+    }
+`
+
 
 }

@@ -30,6 +30,7 @@ export class EventListener{
             on('data', (event: any) => {
                 //TODO: Check from previous price, if lesser then only call refetch the positions
                 Logger.info(`Price update event occuered.`)
+                Logger.info(JSON.stringify(event))
                 if(this.consumer != undefined)
                     this.consumer();
             }).

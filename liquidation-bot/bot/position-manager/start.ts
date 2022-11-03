@@ -52,6 +52,7 @@ async function scan(ipcTxManagers: any[]) {
     Logger.error(exception)
   }finally{
     positionManager.isBusy = false;
+    Logger.debug('Position Search Complete!')
   }
 
   candidatesObj.previous.forEach((address) => {
@@ -88,7 +89,6 @@ ipc.config.silent = true;
 //     console.log("Connected to TxManager's IPC");
 
 ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
-  Logger.info(`#### MongoDB URL : ${process.env.MONGODB_URL} ###`)
   ipc.of['worker'].on('connect', () => {
     Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);
