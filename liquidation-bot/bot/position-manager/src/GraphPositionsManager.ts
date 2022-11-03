@@ -17,7 +17,7 @@ export class GraphPositionsManager implements IPositionService{
 
     public async getOpenPositions(startIndex:number,offset:number):Promise<Position[]> {
         try {
-            await retry(await this.checkGraphHealth,{retries: 10, delay:1000})
+            await retry(await this.checkGraphHealth,{retries: 10, delay:500})
             Logger.debug(`Fetching positions at index ${startIndex}...`)
             let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION)
             let positions: Position[] = response.positions//JSON.parse(response).positions

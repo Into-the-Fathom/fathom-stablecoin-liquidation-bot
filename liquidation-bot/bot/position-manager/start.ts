@@ -4,7 +4,7 @@ import {PositionManager} from './src/PositionsManager';
 import { EventListener } from './src/EventListener';
 import path from 'path';
 
-require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+// require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 import Logger from '../shared/utils/Logger';
 import { IPositionService } from './src/interface/IPositionService';

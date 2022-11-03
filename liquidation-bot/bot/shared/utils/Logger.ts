@@ -2,7 +2,7 @@ import path from 'path';
 import winston from 'winston'
 import "winston-mongodb";
 import {MongoDBConnectionOptions } from 'winston-mongodb';
-require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
+// require('dotenv').config({ path: path.resolve(__dirname, '../../../../.env') });
 
 // const { MongoDB }: { MongoDB: MongoDBTransportInstance } = require("winston-mongodb");
 const levels = {
