@@ -15,7 +15,7 @@ import {
 } from "@graphprotocol/graph-ts";
 
 export function newPositionHandler(event: LogNewPosition): void {
-    let positionManager = PositionManager.bind(Address.fromString('0xC0FeEa2f3C9a6F208E75715b1BAc71f1B61ED43b'))
+    let positionManager = PositionManager.bind(Address.fromString('0x0d2890cCea543689Eb2424B419239d042C653DEE'))
     let positionAddress = positionManager.positions(event.params._positionId)
     let poolId = positionManager.collateralPools(event.params._positionId)
 
@@ -34,7 +34,7 @@ export function newPositionHandler(event: LogNewPosition): void {
     let pool  = Pool.load(poolId.toHexString())
     if(pool == null){
       log.info('Creating new pool with id: {}',[poolId.toHexString()])
-      let collatralConfig = CollateralPoolConfig.bind(Address.fromString('0x48853e29341Bf581D56cF8Ff330a0F7371BFFFC6'))
+      let collatralConfig = CollateralPoolConfig.bind(Address.fromString('0xC0898248E3ec5D754A6cc4a3505E0B182E6edEc4'))
       pool = new Pool(poolId.toHexString())
       pool.debtAccumulatedRate = collatralConfig.getDebtAccumulatedRate(poolId)
       pool.positions = []

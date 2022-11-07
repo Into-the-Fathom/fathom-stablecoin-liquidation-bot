@@ -6,9 +6,9 @@ dataSources:
     name: PositionManager
     network: mainnet
     source:
-      address: "0xC0FeEa2f3C9a6F208E75715b1BAc71f1B61ED43b"
+      address: "0x0d2890cCea543689Eb2424B419239d042C653DEE"
       abi: PositionManager
-      startBlock: 40300000
+      startBlock: 40660000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -29,9 +29,9 @@ dataSources:
     name: CollateralPoolConfig
     network: mainnet
     source:
-      address: "0x48853e29341Bf581D56cF8Ff330a0F7371BFFFC6"
+      address: "0xC0898248E3ec5D754A6cc4a3505E0B182E6edEc4"
       abi: CollateralPoolConfig
-      startBlock: 40300000
+      startBlock: 40660000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -49,9 +49,9 @@ dataSources:
     name: BookKeeper
     network: mainnet
     source:
-      address: "0x3518B6ac30B3B4B886E1639ada852795165b2596"
+      address: "0x00d7DA93475cf81d01028777B6d1B4d139836039"
       abi: BookKeeper
-      startBlock: 40300000
+      startBlock: 40660000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -69,9 +69,9 @@ dataSources:
     name: PriceOracle
     network: mainnet
     source:
-      address: "0x32CCe8931422bca01dE1664fcD6A16a5f20585f6"
+      address: "0x6bcF1E63Abbb40ca0f91d141FA4e76fE2944d42a"
       abi: PriceOracle
-      startBlock: 40300000
+      startBlock: 40660000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
