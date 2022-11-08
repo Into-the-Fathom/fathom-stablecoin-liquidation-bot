@@ -1,72 +1,51 @@
-import { ethers, utils } from "ethers";
-import Position from "./types/Position"
+import { Web3Utils } from "../../shared/web3/Web3Utils";
+import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
+import Position from "../../shared/types/Position"
+import Logger from "../../shared/utils/Logger";
+import { IPositionService } from "./interface/IPositionService";
 
-import {getPositionContractAddress, 
-    positionManagerAddress} 
-    from '../../helpers/utils/addresses.js'
-import { LogLevel, provider } from "../../helpers/config/config";
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
-//TODO: Handle position internally and notify 
-export class PositionManager{
-
-    public readonly getPositionContract;
+export class PositionManager implements IPositionService{
     public isBusy:boolean = false;
-    private consumer: (() => Promise<void> | void) | undefined;
+    private readonly networkId:number = 51;
 
-    constructor(_consumer: () => Promise<void> | void){
-        this.consumer = _consumer;
-
-        let getPositionWithSafetyBufferAbi = [
-            'function getPositionWithSafetyBuffer(address _manager,uint256 _startIndex,uint256 _offset) external view returns (address[], uint256[],uint256[])',
-        ];
-
-        this.getPositionContract = new ethers.Contract(getPositionContractAddress, getPositionWithSafetyBufferAbi, provider);
-
-        //Subscribe to listen newly open position..
-        const eventFilter = {
-            address: positionManagerAddress,
-            topics: [
-                utils.id("LogNewPosition(address,address,uint256)"),
-            ]
-        }
-        provider.on(eventFilter, (log, event) => {
-            // Emitted whenever onchain price update happens
-            console.log(LogLevel.keyEvent('================================'));
-            console.log(LogLevel.keyEvent(`New position opened.`));
-            console.log(LogLevel.keyEvent('================================'));
-            if(this.consumer != undefined)
-                this.consumer();
-        })
+    constructor(){
+        this.networkId = parseInt(process.env.NETWORK_ID!)
     }
 
-    public async getOpenPositions(startIndex:number,offset:number) {
+    public async getOpenPositions(startIndex:number,offset:number):Promise<Position[]> {
         try {
-            console.log(LogLevel.debug(`Fetching positions at index ${startIndex}...`));
-            //TODO: Fix the code to iterate and fetch positions providing the startindex and pagesize, currently hardcoded to 1 and 10
-            let response = await this.getPositionContract.getPositionWithSafetyBuffer(positionManagerAddress,startIndex,offset)
-    
-            const {0: positions, 1: debtShares, 2: safetyBuffers} = response;
+            Logger.debug(`Fetching positions at index ${startIndex}...`)
+            let getPositionContract = Web3Utils.getContractInstance(SmartContractFactory.GetPositionsLiquidationBot(this.networkId),this.networkId)
+            let response = await getPositionContract.methods.getPositionWithSafetyBuffer(SmartContractFactory.PositionManager(this.networkId).address,startIndex,offset).call();
+
+            const {0: positions, 1: debtShares, 2: safetyBuffers, 3: poolIds} = response;
     
             let fetchedPositions: Position[] =  []; 
             let index = 0;
             positions.forEach((positionAddress: string) => {
+                let poolId = poolIds[index];
                 let debtShare = debtShares[index];
                 let safetyBuffer = safetyBuffers[index];
-                let position =  new Position(positionAddress,debtShare,safetyBuffer);
-                console.log(LogLevel.info(`Position${index} address : ${positionAddress}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`));
+                let position =  new Position(positionAddress,poolId,debtShare,safetyBuffer);
+
+                if(debtShare > 0 && safetyBuffer > 0 ){
+                    Logger.debug(`Position${index} address : ${positionAddress}, poolId: ${poolId}, debtShare: ${debtShare}, safetyBuffer: ${safetyBuffer}`)
+                }
+
                 fetchedPositions.push(position)
                 index++;
             });
         
             return fetchedPositions;
         } catch(exception) {
-            console.log(LogLevel.error(exception))
+            console.log(exception)
             return [];
         }
     }
 
-    public async processPositions(positions:Position []) {
+    public async processPositions(positions:Position []):Promise<Position[]> {
         //Filter the underwater position
         const underwaterPositions = positions.filter(position => (position.isUnSafe));
         //Sort based on debtshare

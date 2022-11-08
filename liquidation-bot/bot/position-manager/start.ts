@@ -1,11 +1,15 @@
 import ipc from 'node-ipc';
 
 import {PositionManager} from './src/PositionsManager';
-import PriceChecker from './src/PriceChecker'
-//import MockPriceFeed from './src/mocks/MockPriceFeed';
-import {LogLevel} from '../helpers/config/config'
-import { PoolConfigListener } from './src/PoolConfigListener';
-import { PriceFeed } from './src/PriceFeed';
+import { EventListener } from './src/EventListener';
+import path from 'path';
+
+// require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+
+import Logger from '../shared/utils/Logger';
+import { IPositionService } from './src/interface/IPositionService';
+import { GraphPositionsManager } from './src/GraphPositionsManager';
+import { RedisClient } from './src/utils/RedisClient';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -13,18 +17,18 @@ let candidatesObj = {
 
 const PAGE_SIZE = 20;
 
-const priceChecker = new PriceChecker(new PriceFeed('WXDC'));
-var positionManager: PositionManager;
+var positionManager: IPositionService;
+var cacheManager: RedisClient;
 
 async function scan(ipcTxManagers: any[]) {
   const candidatesSet = new Set<string>();
 
   if(positionManager.isBusy){
-    console.log(LogLevel.debug('Already searching for positions...'));
+    Logger.debug('Already searching for positions...')
     return;
   }
 
-  console.log(LogLevel.debug('Searching for positions...'));
+  Logger.debug('Searching for positions...')
   positionManager.isBusy = true;
   let fetchMore = true;
   let pageIndex = 0;
@@ -34,23 +38,23 @@ async function scan(ipcTxManagers: any[]) {
       const rawPositions = await positionManager.getOpenPositions((pageIndex*PAGE_SIZE)+1,PAGE_SIZE);
       fetchMore = rawPositions.length < PAGE_SIZE ? false : true;
       pageIndex++;
-      console.log(LogLevel.debug(`Found ${rawPositions.length} positions at page: ${pageIndex}`));
-  
+
       let candidates = await positionManager.processPositions(rawPositions);
     
       if(candidates.length > 0){
-        console.log(LogLevel.error(`Total risky positions ${candidates.length}`));
+        Logger.info(`Total risky positions ${candidates.length}`)
     
         candidates.forEach((candidate) => {
-          candidatesSet.add(candidate.address);
+          candidatesSet.add(candidate.positionAddress);
           ipcTxManagers.forEach((i) => i.emit('liquidation-candidate-add', candidate));
         });
       }
     }
   }catch(exception){
-    console.log(LogLevel.error(exception))
+    Logger.error(exception)
   }finally{
     positionManager.isBusy = false;
+    Logger.debug('Position Search Complete!')
   }
 
   candidatesObj.previous.forEach((address) => {
@@ -62,18 +66,23 @@ async function scan(ipcTxManagers: any[]) {
 }
 
 async function start(ipcTxManagers: any[]) {
-  positionManager = new PositionManager(() => scan(ipcTxManagers))
+  await RedisClient.getInstance().connect()
+  positionManager = new GraphPositionsManager()
   setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
   scan(ipcTxManagers);
-  priceChecker.init(10*1000,() => scan(ipcTxManagers));
-  const poolConfigListener = new PoolConfigListener(() => scan(ipcTxManagers));
+  const eventListener = new EventListener(() => scan(ipcTxManagers));
 }
 
 function stop() {
-  priceChecker.stop();
+  RedisClient.getInstance().disconnect()
+  // priceChecker.stop();
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid
 //   provider.eth.currentProvider.connection.destroy();
+
+//   provider.eth.clearSubscriptions();
+//   provider.eth.closeConnections();
+
 }
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
@@ -85,8 +94,7 @@ ipc.config.silent = true;
 
 ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
   ipc.of['worker'].on('connect', () => {
-    console.log(LogLevel.debug("Connected to worker IPC"));
-
+    Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);
   });
 });
@@ -99,10 +107,10 @@ ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
 // });
 
 process.on('SIGINT', () => {
-  console.log(LogLevel.error('\nCaught interrupt signal'));
+  Logger.error('Exited cleanly')
   // ipc.disconnect('txmanager');
   ipc.disconnect('worker')
   stop();
-  console.log(LogLevel.debug('Exited cleanly'));
+  Logger.debug('Exited cleanly')
   process.exit();
 });

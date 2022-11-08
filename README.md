@@ -9,6 +9,7 @@
 	- [Liquidation Bot](#liquidation-bot)
 	- [Liquidation Strategy](#liquidation-strategy)
 	- [Bot Architecture](#bot-architecture)
+    - [How To Run](#how-to-run)
 	- [Refrences](#refrences)
 	- [License](#license)
 
@@ -42,7 +43,7 @@ Fixed spread liquidation strategy is used. In case of under collateralisation of
 	    -  LiquidationEngine has **execute()** method which takes in poolId as input. Pool id which is inside ##CollateralPoolConfig.sol## has all the required information like priceFeed and liquidation stratagy. This price feed is derived from pool id which was passed from Engine to LiquidationStratgy and then getPrice method.
 	    -  ##PriceOracle.sol## has **setPrice(poolId)** which internally has it’s respective feed from pool-Id (check .testnet.js file for dependency graph). 
 
-## Bot Architecture
+## Bot Architecture [To be changed....]
 ![Bot Architecture](./liquidation-bot/design-docs/liquidation_bot_v1.0.jpg?raw=true "Liquidator Bot")
 
 There are 4 main components of bot:
@@ -50,10 +51,17 @@ There are 4 main components of bot:
     - Event Listner will subscribe to listen two events **LogSetPrice** and **LowNewPisition**. If listner component recieve any of those two events, it calles Position Manager to re-organize the positions based on updated position data.
 - Position Manager
     - Position manager will fetch the positions from on-chain and position them efficiently so that retrival of risky position can be quick e.g. we may store the positions in binary tree based on risk factors. 
-- Price Check
+- Price Check [Deprecated, will be removed soon]
     - This module will fetch the price of underlying asset from external service and compare it with last price stored on bot. Only If there is drop in price, bot calls PriceOracle.sol setPrice() method on-chain to updated the price of collatral.
 - Worker/Executor
-    - Worker component will fetch the position based combination of risk-factor and debt share. Bot will pick the risky position first and try to execute liquidation() on chain.If somehow transaction is reverted, position will be put back to Position Manager. 
+
+## How To Run
+Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose imstalled in local environment.
+- Clone the repository & CD into liquidation-bot/bot/
+- Build the images using ./build.sh command.. This step will create the latest docker images.
+- Open the `docker-compose.yml` file and enter ther environment variable for LIQUIDATOR_ADDRESS, LIQUIDATOR_PRIVATE_KEY & NETWORK_ID
+- Run `docker-compose up`
+
 
 ## Refrences
  - https://hackmd.io/@1P8kjN1-TWykQ36ndKV07Q/rkP3NAv35
