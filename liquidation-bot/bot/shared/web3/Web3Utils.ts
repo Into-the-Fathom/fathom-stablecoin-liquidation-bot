@@ -2,6 +2,7 @@ import Web3 from "web3";
 import Xdc3 from "xdc3";
 import { AbiItem } from "web3-utils";
 import { AbiItem as XdcAbiItem } from 'xdc3-utils';
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const supportedChainIds = [5, 1337,50, 51];
 const XDC_CHAIN_IDS = [50, 51];
@@ -64,7 +65,7 @@ export class Web3Utils {
     let contract;
     if (XDC_CHAIN_IDS.includes(chainId)) {
       Web3Utils.xdc3 = new Xdc3(
-        Xdc3.givenProvider || Web3Utils.getWeb3ProviderUrl(chainId)
+        new HDWalletProvider(process.env.LIQUIDATOR_PRIVATE_KEY,Web3Utils.getWeb3ProviderUrl(chainId))
       );
 
       contract = new Web3Utils.xdc3.eth.Contract(
@@ -75,7 +76,7 @@ export class Web3Utils {
       Web3Utils.contracts.set(contractKey, contract);
     } else {
       Web3Utils.web3 = new Web3(
-        Web3.givenProvider || Web3Utils.getWeb3ProviderUrl(chainId)
+        new HDWalletProvider(process.env.LIQUIDATOR_PRIVATE_KEY,Web3Utils.getWeb3ProviderUrl(chainId))
       );
 
       contract = new Web3Utils.web3.eth.Contract(
@@ -141,12 +142,12 @@ export class Web3Utils {
 
     if (XDC_CHAIN_IDS.includes(chainId)) {
       Web3Utils.xdc3 = new Xdc3(
-        Xdc3.givenProvider || Web3Utils.getWeb3ProviderUrl(chainId)
+        new HDWalletProvider(process.env.LIQUIDATOR_PRIVATE_KEY,Web3Utils.getWeb3ProviderUrl(chainId))
       );
       return Web3Utils.xdc3;
     } else {
       Web3Utils.web3 = new Web3(
-        Web3.givenProvider || Web3Utils.getWeb3ProviderUrl(chainId)
+        new HDWalletProvider(process.env.LIQUIDATOR_PRIVATE_KEY,Web3Utils.getWeb3ProviderUrl(chainId))
       );
       return Web3Utils.web3;
     }
