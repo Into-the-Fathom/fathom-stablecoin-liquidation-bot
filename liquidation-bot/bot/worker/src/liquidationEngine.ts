@@ -1,6 +1,8 @@
 import Logger from "../../shared/utils/Logger";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
+import { RedisClient } from "../utils/RedisClient";
+
 
 export class LiquidationEngine{
     
@@ -19,6 +21,8 @@ export class LiquidationEngine{
     }
 
     public async setupLiquidationEngine(){
+        RedisClient.getInstance().setValue('initialized',0)
+        
         Logger.info(`Setting up liquidation engine for ${process.env.LIQUIDATOR_ADDRESS}`)
 
         try {
@@ -28,16 +32,50 @@ export class LiquidationEngine{
                 return;
             }
 
-            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS});
-            await this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send({from: process.env.LIQUIDATOR_ADDRESS});
 
-            Logger.info(`Minting stablecoing to liquidator...`)
+            let web3 = Web3Utils.getWeb3Instance(this.networkId)
+            let web3BatchRequest = new web3.BatchRequest()
+
+            Logger.info(`Whitelisting LiquidationEngine...`)
+            web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
+            (error:Error, txnHash:string) => {
+                if(error)
+                    Logger.error(`Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`)
+                else
+                    Logger.info(`Tx hash for whitelist LiquidationEngine: ${txnHash}`)
+
+            }))
+
+            Logger.info(`Whitelisting FixedSpreadLiquidationStrategy...`)
+            web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
+            (error:Error, txnHash:string) => {
+                if(error)
+                    Logger.error(`Error whitelist FixedSpreadLiquidationStrategy: ${error} tx: ${txnHash}`)
+                else
+                    Logger.info(`Tx hash for whitelist FixedSpreadLiquidationStrategy: ${txnHash}`)
+
+            }))
+
 
             //Mint coins from deployer to signger, which is liquidation bot...
             //TODO: Need to revisit this post MVP demo... ideally this setup shouldn't be on BOT
-            await this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send({from: process.env.LIQUIDATOR_ADDRESS});
+            Logger.info(`Minting Unbacked Stablecoins...`)
+            web3BatchRequest.add(this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send.request({from: process.env.LIQUIDATOR_ADDRESS},
+            (error:Error, txnHash:string) => {
+                if(error)
+                    Logger.error(`Error whitelist mintUnbackedStablecoin: ${error} tx: ${txnHash}`)
+                else
+                    Logger.info(`Tx hash for mintUnbackedStablecoin ${txnHash}`)
+            }))
+
+            await web3BatchRequest.execute()
+
+            Logger.info(`Liquidator setup complete...`)
+
+            RedisClient.getInstance().setValue('initialized',1)
+            
         }catch(error){
-            Logger.error(`Error in setupLiquidationEngine: ${error}`)
+            Logger.error(`Error in setupLiquidationEngine: ${JSON.stringify(error)}`)
         }
     }
 }

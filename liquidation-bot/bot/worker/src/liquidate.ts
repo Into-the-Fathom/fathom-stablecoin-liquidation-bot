@@ -5,6 +5,7 @@ import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import Logger from "../../shared/utils/Logger";
+import { RedisClient } from "../utils/RedisClient";
 
 
 export class Liquidator{
@@ -16,11 +17,17 @@ export class Liquidator{
     private readonly fixedSpreadLiquidationStrategyContract:any;
     private readonly networkId:number = 51;
     private readonly liquidationInterval:number = 5000;
+    private readonly web3BatchRequest;
+    private readonly batchSize:number = 100;
 
 
     constructor() {
         this.networkId = parseInt(process.env.NETWORK_ID!)
         this.liquidationInterval = parseInt(process.env.LIQUIDATION_INTERVAL!)
+        this.batchSize = parseInt(process.env.LIQUIDATION_BATCH_SIZE!)
+
+        let web3 = Web3Utils.getWeb3Instance(this.networkId)
+        this.web3BatchRequest = new web3.BatchRequest()
 
         this.liquidationEngineContract = Web3Utils.getContractInstance(SmartContractFactory.LiquidationEngine(this.networkId),this.networkId)
         this.badPositionsQueue = new Queue()
@@ -57,18 +64,44 @@ export class Liquidator{
     }
 
     private async checkAndLiquidate(){
-        if (this.badPositionsQueue.isEmpty())
-            return;
-        
-        let position = this.badPositionsQueue.dequeue();
-        if (position != undefined) {
-            try {
-                Logger.info(`Performing liquidation on position ${position.positionAddress}`)
-                //TODO: Find the collatral pool id and replace it as first parameter
-                await this.liquidationEngineContract.methods.liquidate(position.collatralPool, position.positionAddress, position.debtShare, MaxUint256.MaxUint256, process.env.LIQUIDATOR_ADDRESS, "0x00").send({from: process.env.LIQUIDATOR_ADDRESS});
-            } catch(exception) {
-                Logger.error(`Error liquidating position ${position.positionAddress} : ${JSON.stringify(exception)}`)
-            }
+        try {
+            let isInitialized =  await RedisClient.getInstance().getValue('initialized')
+
+            if (this.badPositionsQueue.isEmpty() || isInitialized == 0)
+                return;
+
+                let batchIndex = 0;
+                while(!this.badPositionsQueue.isEmpty() && 
+                        batchIndex < this.batchSize){
+
+                    batchIndex++
+                    let position = this.badPositionsQueue.dequeue();
+                    if (position != undefined) {
+                        Logger.info(`Adding ${position.positionAddress} to the batch at index ..${batchIndex}`)
+                        
+                        this.web3BatchRequest.add(
+                            this.liquidationEngineContract.methods.liquidate(position.collatralPool,
+                                                                    position.positionAddress, 
+                                                                    position.debtShare, 
+                                                                    MaxUint256.MaxUint256, 
+                                                                    process.env.LIQUIDATOR_ADDRESS, 
+                                                                    "0x00").
+                                                                    send.request({from: process.env.LIQUIDATOR_ADDRESS, gas: '1000000'},
+                                                                        (error:Error, txnHash:string) => {
+                                                                            if(error)
+                                                                                Logger.error(`Error liquidating ${position!.positionAddress}  : ${error} tx: ${txnHash}`)
+                                                                            else
+                                                                                Logger.info(`Position ${position!.positionAddress} TX: ${txnHash}`)
+                                                                        }
+                                                                    )
+                    )
+                }
+                }
+      
+            Logger.info(`Performing batch execution for liquidation.`)    
+            await this.web3BatchRequest.execute()
+        } catch(exception) {
+            Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
         }
     }
 }

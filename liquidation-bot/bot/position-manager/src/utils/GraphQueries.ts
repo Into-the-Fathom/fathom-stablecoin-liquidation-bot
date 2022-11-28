@@ -1,10 +1,12 @@
 import { gql } from "graphql-request";
 
 export class GraphQueries{
-    public static readonly  RISK_POSITION = gql`
+
+
+public static readonly  RISK_POSITION = gql`
     query MyQuery {
         positions(
-            first: 100
+            first: 1000
             orderBy: debtShare
             orderDirection: desc
         where: {debtShare_gt: "0", safetyBuffer: "0"}
@@ -20,7 +22,6 @@ export class GraphQueries{
         }
     }
 `
-
 public static readonly  HEALTH_QUERY = gql`
     query health {
         indexingStatusForCurrentVersion(subgraphName: "fathom-liquidation-bot") {
@@ -37,6 +38,4 @@ public static readonly  HEALTH_QUERY = gql`
         }
     }
 `
-
-
 }

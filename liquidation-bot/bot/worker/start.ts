@@ -12,6 +12,7 @@ ipc.config.id = 'worker';
 ipc.config.silent = true;
 
 let workerProcess = new Worker();
+
 workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/newbedford.worker', () => {
