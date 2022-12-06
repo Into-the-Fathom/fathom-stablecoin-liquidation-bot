@@ -35,7 +35,7 @@ export class Liquidator{
         if (this.fetchHandle !== null) clearInterval(this.fetchHandle);
 
         //TODO: Check if we can do it in better way
-        this.fetchHandle = setInterval(this.checkAndLiquidate.bind(this), this.liquidationInterval);
+        this.fetchHandle = setInterval(this.checkAndBatchLiquidate.bind(this), this.liquidationInterval);
 
         let options = {
             filter: {
@@ -63,7 +63,7 @@ export class Liquidator{
         this.badPositionsQueue.dequeue();
     }
 
-    private async checkAndLiquidate(){
+    private async checkAndBatchLiquidate(){
         try {
             let isInitialized =  await RedisClient.getInstance().getValue('initialized')
 
@@ -80,13 +80,13 @@ export class Liquidator{
                         Logger.info(`Adding ${position.positionAddress} to the batch at index ..${batchIndex}`)
                         
                         this.web3BatchRequest.add(
-                            this.liquidationEngineContract.methods.liquidate(position.collatralPool,
+                            this.liquidationEngineContract.methods.liquidate(position.collateralPool,
                                                                     position.positionAddress, 
                                                                     position.debtShare, 
                                                                     MaxUint256.MaxUint256, 
                                                                     process.env.LIQUIDATOR_ADDRESS, 
                                                                     "0x00").
-                                                                    send.request({from: process.env.LIQUIDATOR_ADDRESS, gas: '1000000'},
+                                                                    send.request({from: process.env.LIQUIDATOR_ADDRESS, gasLimit: 1000000},
                                                                         (error:Error, txnHash:string) => {
                                                                             if(error)
                                                                                 Logger.error(`Error liquidating ${position!.positionAddress}  : ${error} tx: ${txnHash}`)
@@ -100,6 +100,38 @@ export class Liquidator{
       
             Logger.info(`Performing batch execution for liquidation.`)    
             await this.web3BatchRequest.execute()
+        } catch(exception) {
+            Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
+        }
+    }
+
+    //DEPRECATE: This method will perform liquidtion one at a time.
+    //Will be removed 
+    private async checkAndLiquidate(){
+        try {
+            let isInitialized =  await RedisClient.getInstance().getValue('initialized')
+
+            if (this.badPositionsQueue.isEmpty() || isInitialized == 0)
+                return;
+
+                    let position = this.badPositionsQueue.dequeue();
+                    if (position != undefined) {
+                        Logger.info(`Liquidating ${position.positionAddress}...`)
+                        
+                        // this.web3BatchRequest.add(
+                            await this.liquidationEngineContract.methods.liquidate(position.collateralPool,
+                                                                    position.positionAddress, 
+                                                                    position.debtShare, 
+                                                                    MaxUint256.MaxUint256, 
+                                                                    process.env.LIQUIDATOR_ADDRESS, 
+                                                                    "0x00").
+                                                                    send({from: process.env.LIQUIDATOR_ADDRESS, gasLimit: 1000000})
+//                    )
+                // }
+                    }
+      
+            // Logger.info(`Performing batch execution for liquidation.`)    
+            // await this.web3BatchRequest.execute()
         } catch(exception) {
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
         }

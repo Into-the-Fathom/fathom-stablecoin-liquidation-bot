@@ -28,13 +28,11 @@ export class RedisClient {
     } 
 
     public async setValue(key:string, value:any){
-        Logger.debug(`Setting value for key:${key} value:${value}`)
         await this.redisClient.set(key, value);
     } 
 
     public async getValue(key:string){
         const value = await this.redisClient.get(key);
-        Logger.debug(`Getting value for key:${key} value:${value}`)
         return value;
     } 
 
