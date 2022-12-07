@@ -1,4 +1,6 @@
 import Position from '../../shared/types/Position'
+import {ILiquidatedPositions} from '../../shared/types/interfaces/ILiquidatedPositions'
+
 const MaxUint256 = require("@ethersproject/constants");
 import Queue from 'queue-fifo';
 import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
@@ -47,17 +49,22 @@ export class Liquidator{
         //Listen for liquidation complete event
         this.fixedSpreadLiquidationStrategyContract = Web3EventsUtils.getContractInstance(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId),this.networkId)
         this.fixedSpreadLiquidationStrategyContract.events.LogFixedSpreadLiquidate(options).
-            on('data', (event: any) => {
-                Logger.info(`** Liquidation Complete for ${JSON.stringify(event)} **`)
+            on('data', (event: ILiquidatedPositions) => {
+                Logger.info(`** Liquidation Complete for ${event.returnValues._positionAddress} **`)
+                RedisClient.getInstance().deleteValue(`position_id:${event.returnValues._positionAddress}`)
             }).
             on('error', (err:string) => {
                 Logger.error(`Error connecting LogFixedSpreadLiquidate Event: ${err}`)
             })
     }
 
-    public addLiquidationPosition(position: Position) {
-        RedisClient.getInstance().setValueWithExpiration(`position_id:${position.positionAddress}`,'1')
-        this.badPositionsQueue.enqueue(position)
+    public async addLiquidationPosition(position: Position) {
+        try{
+            await RedisClient.getInstance().setValueWithExpiration(`position_id:${position.positionAddress}`,'1')
+            this.badPositionsQueue.enqueue(position)
+        }catch(exception){
+            Logger.error(`Error in addLiquidationPosition(): for Position : ${JSON.stringify(position)} Exeption: ${JSON.stringify(exception)}`)
+        }
     }
 
     public removeLiquidationPosition(position: Position) {

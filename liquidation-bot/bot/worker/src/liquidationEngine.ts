@@ -21,11 +21,11 @@ export class LiquidationEngine{
     }
 
     public async setupLiquidationEngine(){
-        await RedisClient.getInstance().setValue('initialized',0)
-        
         Logger.info(`Setting up liquidation engine for ${process.env.LIQUIDATOR_ADDRESS}`)
 
         try {
+            await RedisClient.getInstance().setValue('initialized',0)
+
             if(this.bookKeeperContract == undefined || 
                 this.liquidationEngineContract == undefined) {
                 Logger.error('Error setting up liquidation engine.')

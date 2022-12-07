@@ -2,6 +2,7 @@ import Position from '../../shared/types/Position'
 import { Liquidator } from "./liquidate";
 import { LiquidationEngine } from "./liquidationEngine";
 import { RedisClient } from "../../shared/utils/RedisClient";
+import Logger from '../../shared/utils/Logger';
 
 
 export class Worker{
@@ -14,12 +15,20 @@ export class Worker{
     }
     
     public async setupLiquidation(){
-        await RedisClient.getInstance().connect()
-        await this.liquidationEngine.setupLiquidationEngine();
+        try{
+            await RedisClient.getInstance().connect()
+            await this.liquidationEngine.setupLiquidationEngine();
+        }catch(exception){
+            Logger.error(`Error in setupLiquidation(): ${JSON.stringify(exception)}`)
+        }
     }
   
     public async tryPerformingLiquidation(position: Position){
-        this.liquidate.addLiquidationPosition(position);
+        try{
+            await this.liquidate.addLiquidationPosition(position);
+        }catch(exception){
+            Logger.error(`Error in tryPerformingLiquidation(): ${JSON.stringify(exception)}`)
+        }
     }
   }
   

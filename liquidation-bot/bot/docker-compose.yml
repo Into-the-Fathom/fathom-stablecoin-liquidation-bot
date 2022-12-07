@@ -1,28 +1,34 @@
 version: "3.9"
 services:
   worker:
-    # build: ./worker
     image: fathombot/worker:latest
+    depends_on:
+      - redis
     volumes:
       - /tmp:/tmp
     environment:
-      - LIQUIDATOR_ADDRESS=
+      - LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
       - LIQUIDATOR_PRIVATE_KEY=
       - NETWORK_ID=51
       - MONGODB_URL=
-      - LIQUIDATION_BATCH_SIZE=3
-      - LIQUIDATION_INTERVAL=60000
+      - LIQUIDATION_BATCH_SIZE=100
+      - LIQUIDATION_INTERVAL=5000
     ipc: "host"
+    restart: always
   position-manager:
-    # build: ./position-manager
     image: fathombot/position-manager:latest
     depends_on:
       - worker
+      - redis
     volumes:
       - /tmp:/tmp
     environment:
+      - LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
+      - LIQUIDATOR_PRIVATE_KEY=
       - NETWORK_ID=51
       - MONGODB_URL=
     ipc: "host"
+    restart: always
   redis:
     image: redis:6.2.5-alpine
+    restart: always

@@ -1,9 +1,7 @@
 import ipc from 'node-ipc';
 import Position from '../shared/types/Position'
 import { Worker } from './src/worker';
-import path from 'path';
 import Logger from '../shared/utils/Logger';
-import BN from 'bn.js';
 
 // require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
