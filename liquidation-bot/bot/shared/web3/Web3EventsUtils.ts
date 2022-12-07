@@ -97,24 +97,7 @@ export class Web3EventsUtils {
 
     return contract;
   };
-
-  public static batchRequest: any = (chainId: number) =>{
-    let web3:any
-
-    // if (XDC_CHAIN_IDS.includes(chainId)) {
-        web3 = new Xdc3(
-          new Xdc3.providers.WebsocketProvider(Web3EventsUtils.getWeb3ProviderUrl(51),options)
-        );
-    // } else {
-    //     web3 = new Web3(
-    //       new HDWalletProvider(process.env.LIQUIDATOR_PRIVATE_KEY,Web3Utils.getWeb3ProviderUrl(chainId))
-    //     );
-    // }
-
-    return new web3.BatchRequest()
-  }
-
-
+  
   public static getWeb3ProviderUrl: any = (
     chainId: number
   ) => {

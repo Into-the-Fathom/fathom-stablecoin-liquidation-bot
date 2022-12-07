@@ -9,7 +9,7 @@ import path from 'path';
 import Logger from '../shared/utils/Logger';
 import { IPositionService } from './src/interface/IPositionService';
 import { GraphPositionsManager } from './src/GraphPositionsManager';
-import { RedisClient } from './src/utils/RedisClient';
+import { RedisClient } from '../shared/utils/RedisClient';
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -45,8 +45,15 @@ async function scan(ipcTxManagers: any[]) {
         Logger.info(`Total risky positions ${candidates.length}`)
     
         candidates.forEach((candidate) => {
-          candidatesSet.add(candidate.positionAddress);
-          ipcTxManagers.forEach((i) => i.emit('liquidation-candidate-add', candidate));
+          //Check if position is already in redis queue
+          RedisClient.getInstance().getValue(`position_id:${candidate.positionAddress}`).then(value => {
+            if(value != "1"){
+              candidatesSet.add(candidate.positionAddress);
+              ipcTxManagers.forEach((i) => i.emit('liquidation-candidate-add', candidate));
+            }else{
+              Logger.info(`Position ${candidate.positionAddress} already in queue...`)
+            }
+          })
         });
       }
     }
@@ -68,6 +75,7 @@ async function scan(ipcTxManagers: any[]) {
 async function start(ipcTxManagers: any[]) {
   await RedisClient.getInstance().connect()
   positionManager = new GraphPositionsManager()
+  // positionManager = new PositionManager()
   setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
   scan(ipcTxManagers);
   const eventListener = new EventListener(() => scan(ipcTxManagers));

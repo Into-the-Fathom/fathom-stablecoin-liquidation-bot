@@ -1,7 +1,7 @@
 import Position from '../../shared/types/Position'
 import { Liquidator } from "./liquidate";
 import { LiquidationEngine } from "./liquidationEngine";
-import { RedisClient } from "../utils/RedisClient";
+import { RedisClient } from "../../shared/utils/RedisClient";
 
 
 export class Worker{

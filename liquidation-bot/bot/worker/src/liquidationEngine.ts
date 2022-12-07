@@ -1,7 +1,7 @@
 import Logger from "../../shared/utils/Logger";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
-import { RedisClient } from "../utils/RedisClient";
+import { RedisClient } from "../../shared/utils/RedisClient";
 
 
 export class LiquidationEngine{

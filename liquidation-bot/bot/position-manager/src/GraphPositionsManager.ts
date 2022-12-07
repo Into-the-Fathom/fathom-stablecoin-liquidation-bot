@@ -4,7 +4,7 @@ import { IPositionService } from "./interface/IPositionService";
 import { request } from 'graphql-request'
 import { Constants } from "./utils/Constants";
 import { GraphQueries } from "./utils/GraphQueries";
-import { RedisClient } from "./utils/RedisClient";
+import { RedisClient } from "../../shared/utils/RedisClient";
 import { retry } from 'ts-retry-promise';
 import { IndexingStatusForCurrentVersion } from "./interface/IndexingStatusForCurrentVersion";
 

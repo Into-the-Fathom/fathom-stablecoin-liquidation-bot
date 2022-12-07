@@ -1,7 +1,7 @@
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import Logger from "../../shared/utils/Logger";
 import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
-import { RedisClient } from "./utils/RedisClient";
+import { RedisClient } from "../../shared/utils/RedisClient";
 
 export class EventListener{
     private consumer: (() => Promise<void> | void) | undefined;

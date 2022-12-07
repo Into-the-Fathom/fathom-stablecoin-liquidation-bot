@@ -5,7 +5,7 @@ import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import Logger from "../../shared/utils/Logger";
-import { RedisClient } from "../utils/RedisClient";
+import { RedisClient } from "../../shared/utils/RedisClient";
 
 
 export class Liquidator{
@@ -56,6 +56,7 @@ export class Liquidator{
     }
 
     public addLiquidationPosition(position: Position) {
+        RedisClient.getInstance().setValueWithExpiration(`position_id:${position.positionAddress}`,'1')
         this.badPositionsQueue.enqueue(position)
     }
 
@@ -106,7 +107,7 @@ export class Liquidator{
     }
 
     //DEPRECATE: This method will perform liquidtion one at a time.
-    //Will be removed 
+    //Will be removed in future
     private async checkAndLiquidate(){
         try {
             let isInitialized =  await RedisClient.getInstance().getValue('initialized')
@@ -118,20 +119,16 @@ export class Liquidator{
                     if (position != undefined) {
                         Logger.info(`Liquidating ${position.positionAddress}...`)
                         
-                        // this.web3BatchRequest.add(
-                            await this.liquidationEngineContract.methods.liquidate(position.collateralPool,
-                                                                    position.positionAddress, 
-                                                                    position.debtShare, 
-                                                                    MaxUint256.MaxUint256, 
-                                                                    process.env.LIQUIDATOR_ADDRESS, 
-                                                                    "0x00").
-                                                                    send({from: process.env.LIQUIDATOR_ADDRESS, gasLimit: 1000000})
-//                    )
-                // }
+                            await this.liquidationEngineContract.methods.liquidate(
+                                    position.collateralPool,
+                                    position.positionAddress, 
+                                    position.debtShare, 
+                                    MaxUint256.MaxUint256, 
+                                    process.env.LIQUIDATOR_ADDRESS, 
+                                    "0x00").
+                                    send({from: process.env.LIQUIDATOR_ADDRESS, gasLimit: 1000000})
                     }
       
-            // Logger.info(`Performing batch execution for liquidation.`)    
-            // await this.web3BatchRequest.execute()
         } catch(exception) {
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
         }
