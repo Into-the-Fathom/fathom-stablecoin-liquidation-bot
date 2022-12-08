@@ -21,7 +21,6 @@
     "ts-retry-promise": "^0.7.0",
     "web3": "^1.3.4",
     "winston": "^3.8.2",
-    "winston-mongodb": "^5.1.0",
     "xdc3": "^1.3.13416",
     "@truffle/hdwallet-provider": "^2.0.16"
   },
