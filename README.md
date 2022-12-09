@@ -59,10 +59,9 @@ There are 4 main components of bot:
 Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose installed in local environment.
 - Clone the repository go to src directory `CD src/`
 - Build the images using `./build.sh` command.. This step will create the latest docker images.
-- Setup Environment Variables
--- Open `docker-compose.yaml` and edit the e.g. `LIQUIDATOR_ADDRESS`, `NETWORK_ID` (you can ignore the `LIQUIDATION_BATCH_SIZE` and `LIQUIDATION_INTERVAL` but you can adjust those) 
--- Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
--- You can varify the secret using `docker secret ls` 
+- Setup Environment Variables: Open `docker-compose.yaml` and edit the e.g. `LIQUIDATOR_ADDRESS`, `NETWORK_ID` (you can ignore the `LIQUIDATION_BATCH_SIZE` and `LIQUIDATION_INTERVAL` but you can adjust those) 
+- Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
+- You can varify the secret using `docker secret ls` 
 - Start the Bot: `docker stack deploy -c docker-compose.yml liquidation-bot`
 - Stop Bot: `docker stack rm liquidation-bot`
 
