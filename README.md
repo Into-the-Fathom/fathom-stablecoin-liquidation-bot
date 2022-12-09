@@ -3,15 +3,15 @@
 ## Table of Contents
 
 - [Fathom Stablecoin Liquidation Bot](#fathom-stablecoin-liquidation-bot)
-	- [Table of Contents](#table-of-contents)
-	- [Target Stablecoin](#target-stablecoin)
-	- [What is Liquidation](#what-is-liquidation)
-	- [Liquidation Bot](#liquidation-bot)
-	- [Liquidation Strategy](#liquidation-strategy)
-	- [Bot Architecture](#bot-architecture)
-    - [How To Run](#how-to-run)
-	- [Refrences](#refrences)
-	- [License](#license)
+  - [Table of Contents](#table-of-contents)
+  - [Target Stablecoin](#target-stablecoin)
+  - [What is Liquidation](#what-is-liquidation)
+  - [Liquidation Bot](#liquidation-bot)
+  - [Liquidation Strategy](#liquidation-strategy)
+  - [Bot Architecture \[To be changed....\]](#bot-architecture-to-be-changed)
+  - [How To Run](#how-to-run)
+  - [Refrences](#refrences)
+  - [License](#license)
 
 ## Target Stablecoin
 
@@ -56,11 +56,15 @@ There are 4 main components of bot:
 - Worker/Executor
 
 ## How To Run
-Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose imstalled in local environment.
-- Clone the repository & CD into liquidation-bot/bot/
-- Build the images using ./build.sh command.. This step will create the latest docker images.
-- Open the `docker-compose.yml` file and enter ther environment variable for LIQUIDATOR_ADDRESS, LIQUIDATOR_PRIVATE_KEY & NETWORK_ID
-- Run `docker-compose up`
+Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose installed in local environment.
+- Clone the repository go to src directory `CD src/`
+- Build the images using `./build.sh` command.. This step will create the latest docker images.
+- Setup Environment Variables
+-- Open `docker-compose.yaml` and edit the e.g. `LIQUIDATOR_ADDRESS`, `NETWORK_ID` (you can ignore the `LIQUIDATION_BATCH_SIZE` and `LIQUIDATION_INTERVAL` but you can adjust those) 
+-- Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
+-- You can varify the secret using `docker secret ls` 
+- Start the Bot: `docker stack deploy -c docker-compose.yml liquidation-bot`
+- Stop Bot: `docker stack rm liquidation-bot`
 
 
 ## Refrences
