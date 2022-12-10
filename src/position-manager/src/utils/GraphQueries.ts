@@ -23,7 +23,7 @@ public static readonly  RISK_POSITION = gql`
 `
 public static readonly  HEALTH_QUERY = gql`
     query health {
-        indexingStatusForCurrentVersion(subgraphName: "fathomapp-subgraph-liq") {
+        indexingStatusForCurrentVersion(subgraphName: "fathomapp-subgraph") {
         synced
         health
         chains {
