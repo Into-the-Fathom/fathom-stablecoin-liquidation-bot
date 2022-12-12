@@ -22,7 +22,8 @@
     "web3": "^1.3.4",
     "winston": "^3.8.2",
     "xdc3": "^1.3.13416",
-    "@truffle/hdwallet-provider": "^2.0.16"
+    "@truffle/hdwallet-provider": "^2.0.16",
+    "winston-mongodb": "^5.1.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",

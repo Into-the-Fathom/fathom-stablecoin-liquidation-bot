@@ -13,9 +13,10 @@ services:
       - LIQUIDATION_INTERVAL=5000
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
     secrets:
      - liquidator_bot_pk
+     - mongodb_connection_string
   position-manager:
     image: fathombot/position-manager:latest
     depends_on:
@@ -28,9 +29,15 @@ services:
       - NETWORK_ID=51
     ipc: "host"
     restart: always
+    entrypoint: "/bin/sh -c 'MONGODB_URL=`cat /run/secrets/mongodb_connection_string` npm run start'"
+    secrets:
+     - mongodb_connection_string
+
   redis:
     image: redis:6.2.5-alpine
     restart: always
 secrets:
   liquidator_bot_pk:
+    external: true
+  mongodb_connection_string:
     external: true
