@@ -25,7 +25,7 @@ export class GraphPositionsManager implements IPositionService{
             console.log(`GraphQL Reponse: ${JSON.stringify(positions)}`);    
             return positions;
         } catch(exception) {
-            console.log(exception)
+            Logger.error(exception)
             return [];
         }
     }
@@ -33,9 +33,10 @@ export class GraphPositionsManager implements IPositionService{
     public async checkGraphHealth() {
         Logger.debug(`Checking graph sync status...`)
         let lastBlockFromEvent = await RedisClient.getInstance().getValue('lastblock')
+        Logger.debug(`Last block saved locally ${lastBlockFromEvent}`)
         let response = await request(Constants.GRAPH_HEALTH_URL, GraphQueries.HEALTH_QUERY)
         let graphLastBlock = response.indexingStatusForCurrentVersion.chains[0].latestBlock.number
-        Logger.debug(`Graph health status ${graphLastBlock}}`)
+        Logger.debug(`Graph last sync status ${graphLastBlock}`)
         if(graphLastBlock < lastBlockFromEvent){
             Logger.warn(`Graph node not fully synced.. latest block on chain is ${lastBlockFromEvent}, graph is synced to ${response.chains![0].latestBlock} `)
             throw new Error(`Graph node not fully synced.. latest block on chain is ${lastBlockFromEvent}, graph is synced to ${response.chains![0].latestBlock} `);

@@ -36,26 +36,36 @@ export class LiquidationEngine{
             let web3 = Web3Utils.getWeb3Instance(this.networkId)
             let web3BatchRequest = new web3.BatchRequest()
 
-            Logger.info(`Whitelisting LiquidationEngine...`)
-            await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
-            (error:Error, txnHash:string) => {
-                if(error)
-                    Logger.error(`Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`)
-                else
-                    Logger.info(`Tx hash for whitelist LiquidationEngine: ${txnHash}`)
+            let isLiqEngineWhitelisted = await this.bookKeeperContract.methods.positionWhitelist(process.env.LIQUIDATOR_ADDRESS,SmartContractFactory.LiquidationEngine(this.networkId).address).call()
+            if(isLiqEngineWhitelisted <= 0){
+                Logger.info(`Whitelisting LiquidationEngine...`)
+                await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
+                    (error:Error, txnHash:string) => {
+                        if(error)
+                            Logger.error(`Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`)
+                        else
+                            Logger.info(`Tx hash for whitelist LiquidationEngine: ${txnHash}`)
+        
+                    }))
+            }
+            else{
+                Logger.info(`LiquidationEngine already whitelisted...`)
+            }
 
-            }))
-
-            Logger.info(`Whitelisting FixedSpreadLiquidationStrategy...`)
-            await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
-            (error:Error, txnHash:string) => {
-                if(error)
-                    Logger.error(`Error whitelist FixedSpreadLiquidationStrategy: ${error} tx: ${txnHash}`)
-                else
-                    Logger.info(`Tx hash for whitelist FixedSpreadLiquidationStrategy: ${txnHash}`)
-
-            }))
-
+            let isFixedSpreadLiquidationStrategyWhitelisted = await this.bookKeeperContract.methods.positionWhitelist(process.env.LIQUIDATOR_ADDRESS,SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).call()
+            if(isFixedSpreadLiquidationStrategyWhitelisted <= 0){
+                Logger.info(`Whitelisting FixedSpreadLiquidationStrategy...`)
+                await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
+                    (error:Error, txnHash:string) => {
+                        if(error)
+                            Logger.error(`Error whitelist FixedSpreadLiquidationStrategy: ${error} tx: ${txnHash}`)
+                        else
+                            Logger.info(`Tx hash for whitelist FixedSpreadLiquidationStrategy: ${txnHash}`)
+        
+                    }))
+            }else{
+                Logger.info(`FixedSpreadLiquidationStrategy already whitelisted...`)
+            }
 
             //Mint coins from deployer to signger, which is liquidation bot...
             //TODO: Need to revisit this post MVP demo... ideally this setup shouldn't be on BOT

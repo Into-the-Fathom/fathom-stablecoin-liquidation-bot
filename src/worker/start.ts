@@ -15,8 +15,6 @@ workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/newbedford.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {
-    // Logger.info(`Risky position with address: ${message.positionAddress}, 
-    // safety buffer: ${message.safetyBuffer}}`)
       await workerProcess.tryPerformingLiquidation(message);
   });
 
@@ -26,7 +24,7 @@ ipc.serve('/tmp/newbedford.worker', () => {
   });
 
   ipc.server.on('keepalive', () => {
-    Logger.debug('Staying alive...')
+    console.log('Staying alive...')
   });
 });
 ipc.server.start();
