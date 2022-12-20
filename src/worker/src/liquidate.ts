@@ -8,6 +8,7 @@ import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import Logger from "../../shared/utils/Logger";
 import { RedisClient } from "../../shared/utils/RedisClient";
+import BN from 'bn.js';
 
 
 export class Liquidator{
@@ -36,8 +37,7 @@ export class Liquidator{
 
         if (this.fetchHandle !== null) clearInterval(this.fetchHandle);
 
-        //TODO: Check if we can do it in better way
-        this.fetchHandle = setInterval(this.checkAndBatchLiquidate.bind(this), this.liquidationInterval);
+        this.fetchHandle = setInterval(this.checkAndBatchLiquidateV2.bind(this), this.liquidationInterval);
 
         let options = {
             filter: {
@@ -71,6 +71,56 @@ export class Liquidator{
         this.badPositionsQueue.dequeue();
     }
 
+    private async checkAndBatchLiquidateV2(){
+        try {
+            let isInitialized =  await RedisClient.getInstance().getValue('initialized')
+
+            if (this.badPositionsQueue.isEmpty() || isInitialized == 0)
+                return;
+
+                let batchIndex = 0;
+                let collateralPools:string[] = []
+                let positionAddresses:string[] = []
+                let debtShares:BN[] = []
+                let maxDebtShareToBeLiquidateds:BN[] = []
+                let collateralRecipients:string[] = []
+                let datas:string[] = []
+
+                while(!this.badPositionsQueue.isEmpty() && 
+                        batchIndex < this.batchSize){
+
+                    batchIndex++
+                    let position = this.badPositionsQueue.dequeue();
+                    if (position != undefined) {
+                        Logger.info(`Adding ${position.positionAddress} to the batch at index ..${batchIndex}`)
+                        collateralPools.push(position.collateralPool)
+                        positionAddresses.push(position.positionAddress)
+                        debtShares.push(position.debtShare)
+                        maxDebtShareToBeLiquidateds.push(MaxUint256.MaxUint256)
+                        collateralRecipients.push(process.env.LIQUIDATOR_ADDRESS!)
+                        datas.push("0x00")
+                    }
+                }
+      
+                if(batchIndex > 0){
+                    Logger.info(`Performing batch execution for liquidation.`)    
+                    await this.liquidationEngineContract.methods.batchLiquidate(
+                        collateralPools,
+                        positionAddresses, 
+                        debtShares, 
+                        maxDebtShareToBeLiquidateds, 
+                        collateralRecipients, 
+                        datas).
+                    send({from: process.env.LIQUIDATOR_ADDRESS, 
+                    gasLimit: 1000000})
+                }
+        } catch(exception) {
+            Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
+        }
+    }
+
+    //DEPRECATE: This method will perform batch liquidtion at web3js level.. which results in unique transaction 
+    //Will be removed in future
     private async checkAndBatchLiquidate(){
         try {
             let isInitialized =  await RedisClient.getInstance().getValue('initialized')
@@ -97,7 +147,7 @@ export class Liquidator{
                                                                     send.request({from: process.env.LIQUIDATOR_ADDRESS, gasLimit: 1000000},
                                                                         (error:Error, txnHash:string) => {
                                                                             if(error)
-                                                                                Logger.error(`Error liquidating ${position!.positionAddress}  : ${error} tx: ${txnHash}`)
+                                                                                Logger.error(`Error liquidating ${position!.positionAddress}  : ${JSON.stringify(error)}`)
                                                                             else
                                                                                 Logger.info(`Position ${position!.positionAddress} TX: ${txnHash}`)
                                                                         }

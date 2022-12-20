@@ -1,6 +1,5 @@
 import ipc from 'node-ipc';
 
-import {PositionManager} from './src/PositionsManager';
 import { EventListener } from './src/EventListener';
 import path from 'path';
 
@@ -10,12 +9,11 @@ import Logger from '../shared/utils/Logger';
 import { IPositionService } from './src/interface/IPositionService';
 import { GraphPositionsManager } from './src/GraphPositionsManager';
 import { RedisClient } from '../shared/utils/RedisClient';
+import { Constants } from './src/utils/Constants';
 
 let candidatesObj = {
   previous: <string[]>[],
 };
-
-const PAGE_SIZE = 20;
 
 var positionManager: IPositionService;
 var cacheManager: RedisClient;
@@ -35,16 +33,14 @@ async function scan(ipcTxManagers: any[]) {
 
   try{
     while(fetchMore){
-      const rawPositions = await positionManager.getOpenPositions((pageIndex*PAGE_SIZE)+1,PAGE_SIZE);
-      fetchMore = rawPositions.length < PAGE_SIZE ? false : true;
+      const rawPositions = await positionManager.getOpenPositions(Constants.MAX_POSITION_PER_QUERY,pageIndex);
+      fetchMore = rawPositions.length < Constants.MAX_POSITION_PER_QUERY ? false : true;
       pageIndex++;
 
-      let candidates = await positionManager.processPositions(rawPositions);
+      if(rawPositions.length > 0){
+        Logger.info(`Total risky positions ${rawPositions.length}`)
     
-      if(candidates.length > 0){
-        Logger.info(`Total risky positions ${candidates.length}`)
-    
-        candidates.forEach((candidate) => {
+        rawPositions.forEach((candidate) => {
           //Check if position is already in redis queue
           RedisClient.getInstance().getValue(`position_id:${candidate.positionAddress}`).then(value => {
             if(value != "1"){

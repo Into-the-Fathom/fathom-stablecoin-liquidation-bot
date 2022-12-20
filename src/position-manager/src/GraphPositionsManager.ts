@@ -15,11 +15,11 @@ export class GraphPositionsManager implements IPositionService{
     constructor(){
     }
 
-    public async getOpenPositions(startIndex:number,offset:number):Promise<Position[]> {
+    public async getOpenPositions(pageSize:number,offset:number):Promise<Position[]> {
         try {
             await retry(await this.checkGraphHealth,{retries: 10, delay:500})
-            Logger.debug(`Fetching positions at index ${startIndex}...`)
-            let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION)
+            Logger.debug(`Fetching positions at index ${offset}...`)
+            let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION1(pageSize,pageSize*offset))
             let positions: Position[] = response.positions
 
             console.log(`GraphQL Reponse: ${JSON.stringify(positions)}`);    
@@ -43,10 +43,5 @@ export class GraphPositionsManager implements IPositionService{
         }else{
             Logger.info('Graph is synced...')
         }
-    }
-
-    //TODO: Remove this method as a part of refactoring.
-    public async processPositions(positions:Position []):Promise<Position[]> {
-        return positions;
     }
 }

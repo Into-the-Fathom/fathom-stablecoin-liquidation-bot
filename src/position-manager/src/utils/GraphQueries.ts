@@ -8,7 +8,6 @@ public static readonly  RISK_POSITION = gql`
             first: 1000
             orderBy: debtShare
             orderDirection: desc
-            where: {positionStatus: unsafe}
         ) {
             collateralPool
             debtShare
@@ -21,6 +20,30 @@ public static readonly  RISK_POSITION = gql`
         }
     }
 `
+
+public static RISK_POSITION1(pageSize:number, index:number) {
+    return gql`
+        query MyQuery {
+            positions(
+                first: ${pageSize}
+                skip: ${index}
+                orderBy: debtShare
+                orderDirection: desc
+                where: {positionStatus: unsafe}
+            ) {
+                collateralPool
+                debtShare
+                id
+                lockedCollateral
+                positionAddress
+                positionId
+                safetyBuffer
+                userAddress
+            }
+        }
+    `
+}
+
 public static readonly  HEALTH_QUERY = gql`
     query health {
         indexingStatusForCurrentVersion(subgraphName: "fathomapp-subgraph") {
