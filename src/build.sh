@@ -1,10 +1,16 @@
 #!/bin/sh
-echo "0. all"
-echo "1. shared"
-echo "2. worker"
-echo "3. position-manager"
-echo -n "Please choose an option [0,1,2 or 3]? "
-read oper
+
+if [ -z "$1" ]
+then
+    echo "0. all"
+    echo "1. shared"
+    echo "2. worker"
+    echo "3. position-manager"
+    echo -n "Please choose an option [0,1,2 or 3]? "
+    read oper
+else
+    oper=$1
+fi
 
 if [ $oper -eq 1 ] || [ $oper -eq 0 ]
 then
