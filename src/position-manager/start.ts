@@ -10,6 +10,9 @@ import { IPositionService } from './src/interface/IPositionService';
 import { GraphPositionsManager } from './src/GraphPositionsManager';
 import { RedisClient } from '../shared/utils/RedisClient';
 import { Constants } from './src/utils/Constants';
+import { Tracing } from "../shared/utils/Tracing";
+
+const tracer = Tracing.initTracer("position-manager");
 
 let candidatesObj = {
   previous: <string[]>[],
@@ -19,10 +22,13 @@ var positionManager: IPositionService;
 var cacheManager: RedisClient;
 
 async function scan(ipcTxManagers: any[]) {
+  const span = tracer.startSpan("position-search");
+
   const candidatesSet = new Set<string>();
 
   if(positionManager.isBusy){
     Logger.debug('Already searching for positions...')
+    span.log({ event: "positionManager-busy" });
     return;
   }
 
@@ -39,6 +45,11 @@ async function scan(ipcTxManagers: any[]) {
 
       if(rawPositions.length > 0){
         Logger.info(`Total risky positions ${rawPositions.length}`)
+
+        span.log({
+          event: "risky-position",
+          value: rawPositions,
+        });
     
         rawPositions.forEach((candidate) => {
           //Check if position is already in redis queue
@@ -48,6 +59,7 @@ async function scan(ipcTxManagers: any[]) {
               ipcTxManagers.forEach((i) => i.emit('liquidation-candidate-add', candidate));
             }else{
               Logger.info(`Position ${candidate.positionAddress} already in queue...`)
+              span.log({ event: "position-already-queued" });
             }
           })
         });
@@ -58,6 +70,8 @@ async function scan(ipcTxManagers: any[]) {
   }finally{
     positionManager.isBusy = false;
     Logger.debug('Position Search Complete!')
+    span.log({ event: "position-search-complete" });
+    span.finish();
   }
 
   candidatesObj.previous.forEach((address) => {
@@ -77,6 +91,8 @@ async function start(ipcTxManagers: any[]) {
     await RedisClient.getInstance().connect()
   }catch(exception){
     Logger.error(`Error in PositionManager:start(): ${JSON.stringify(exception)}`)
+  }finally{
+    
   }
 }
 

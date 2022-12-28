@@ -3,7 +3,10 @@ import Position from '../shared/types/Position'
 import { Worker } from './src/worker';
 import Logger from '../shared/utils/Logger';
 
-// require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
+import { Tracing } from "../shared/utils/Tracing";
+
+const tracer = Tracing.initTracer("liquidation-worker");
+
 
 ipc.config.appspace = 'securrancy-liquidation-bot';
 ipc.config.id = 'worker';
@@ -24,7 +27,10 @@ ipc.serve('/tmp/newbedford.worker', () => {
   });
 
   ipc.server.on('keepalive', () => {
+    const span = tracer.startSpan("position-search");
     console.log('Staying alive...')
+    span.log({ event: "ping" });
+    span.finish()
   });
 });
 ipc.server.start();
