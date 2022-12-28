@@ -4,6 +4,7 @@ export class RedisClient {
 
     static instance: RedisClient;
     private redisClient : any;
+    private isConnected : any;
 
     private constructor() {
         //process.env.REDIS_SERVER_IP

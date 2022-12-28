@@ -69,16 +69,19 @@ async function scan(ipcTxManagers: any[]) {
 }
 
 async function start(ipcTxManagers: any[]) {
-  await RedisClient.getInstance().connect()
-  positionManager = new GraphPositionsManager()
-  // positionManager = new PositionManager()
-  setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
-  scan(ipcTxManagers);
-  const eventListener = new EventListener(() => scan(ipcTxManagers));
+  try{
+    positionManager = new GraphPositionsManager()
+    setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
+    scan(ipcTxManagers);
+    const eventListener = new EventListener(() => scan(ipcTxManagers));
+    await RedisClient.getInstance().connect()
+  }catch(exception){
+    Logger.error(`Error in PositionManager:start(): ${JSON.stringify(exception)}`)
+  }
 }
 
-function stop() {
-  RedisClient.getInstance().disconnect()
+async function stop() {
+  await RedisClient.getInstance().disconnect()
   // priceChecker.stop();
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid

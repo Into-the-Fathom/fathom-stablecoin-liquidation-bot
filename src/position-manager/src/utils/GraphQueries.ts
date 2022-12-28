@@ -2,26 +2,7 @@ import { gql } from "graphql-request";
 
 export class GraphQueries{
 
-public static readonly  RISK_POSITION = gql`
-    query MyQuery {
-        positions(
-            first: 1000
-            orderBy: debtShare
-            orderDirection: desc
-        ) {
-            collateralPool
-            debtShare
-            id
-            lockedCollateral
-            positionAddress
-            positionId
-            safetyBuffer
-            userAddress
-        }
-    }
-`
-
-public static RISK_POSITION1(pageSize:number, index:number) {
+public static RISK_POSITION(pageSize:number, index:number) {
     return gql`
         query MyQuery {
             positions(
@@ -29,7 +10,7 @@ public static RISK_POSITION1(pageSize:number, index:number) {
                 skip: ${index}
                 orderBy: debtShare
                 orderDirection: desc
-                where: {positionStatus: unsafe}
+                where: {positionStatus: unsafe, collateralPoolName_not:"US+STABLE"}
             ) {
                 collateralPool
                 debtShare

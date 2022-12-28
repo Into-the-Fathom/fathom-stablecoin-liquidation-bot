@@ -19,9 +19,8 @@ export class GraphPositionsManager implements IPositionService{
         try {
             await retry(await this.checkGraphHealth,{retries: 10, delay:500})
             Logger.debug(`Fetching positions at index ${offset}...`)
-            let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION1(pageSize,pageSize*offset))
+            let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION(pageSize,pageSize*offset))
             let positions: Position[] = response.positions
-
             console.log(`GraphQL Reponse: ${JSON.stringify(positions)}`);    
             return positions;
         } catch(exception) {

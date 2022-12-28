@@ -9,6 +9,9 @@ import { Web3Utils } from "../../shared/web3/Web3Utils";
 import Logger from "../../shared/utils/Logger";
 import { RedisClient } from "../../shared/utils/RedisClient";
 import BN from 'bn.js';
+import { retry } from 'ts-retry-promise';
+import { BindOptions } from 'dgram';
+
 
 
 export class Liquidator{
@@ -61,7 +64,7 @@ export class Liquidator{
     public async addLiquidationPosition(position: Position) {
         try{
             await RedisClient.getInstance().setValueWithExpiration(`position_id:${position.positionAddress}`,'1')
-            this.badPositionsQueue.enqueue(position)
+            this.badPositionsQueue.enqueue(position)  
         }catch(exception){
             Logger.error(`Error in addLiquidationPosition(): for Position : ${JSON.stringify(position)} Exeption: ${JSON.stringify(exception)}`)
         }
@@ -82,7 +85,7 @@ export class Liquidator{
                 let collateralPools:string[] = []
                 let positionAddresses:string[] = []
                 let debtShares:BN[] = []
-                let maxDebtShareToBeLiquidateds:BN[] = []
+                let maxDebtShareToBeLiquidateds:string[] = []
                 let collateralRecipients:string[] = []
                 let datas:string[] = []
 
@@ -103,7 +106,6 @@ export class Liquidator{
                 }
       
                 if(batchIndex > 0){
-                    Logger.info(`Performing batch execution for liquidation.`)    
                     await this.liquidationEngineContract.methods.batchLiquidate(
                         collateralPools,
                         positionAddresses, 
@@ -112,7 +114,14 @@ export class Liquidator{
                         collateralRecipients, 
                         datas).
                     send({from: process.env.LIQUIDATOR_ADDRESS, 
-                    gasLimit: 1000000})
+                    gasLimit: (1000000 * batchIndex)}).
+                    on("transactionHash", async (hash: any) => {
+                        Logger.info(`Liquidation in progress with Tx: ${hash}`)
+                        //await retry(async () => await this.checkTransactionStatus(hash),{retries: 10, delay:500})    
+                    }).
+                    on("error", (error: any) => {
+                        Logger.error(`Liquidation Failed: ${JSON.stringify(error)}`)    
+                    })
                 }
         } catch(exception) {
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
@@ -188,6 +197,23 @@ export class Liquidator{
       
         } catch(exception) {
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
+        }
+    }
+
+    private async checkTransactionStatus(txHash:string){
+        let response = await Web3EventsUtils.xdc3.eth.getTransactionReceipt(txHash);
+        Logger.info(
+            `status for transaction: ${txHash} is ${JSON.stringify(
+                 response
+            )}`
+        );
+        if (response == null) {
+            Logger.info(`Tx ${txHash} Pending confirmation...`)
+            throw new Error(`Tx ${txHash} Pending confirmation...`);
+        }else{
+            if (response.status == true){
+                Logger.info(`Liquidation complete for Tx: ${txHash}`)
+            }
         }
     }
 }

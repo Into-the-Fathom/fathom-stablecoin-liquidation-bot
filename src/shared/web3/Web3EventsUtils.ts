@@ -120,4 +120,5 @@ export class Web3EventsUtils {
     return web3ProviderUrl
 
   }
+
 }
