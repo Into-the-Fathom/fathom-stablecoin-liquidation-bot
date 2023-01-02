@@ -1,0 +1,178 @@
+{
+  "contractName": "IStabilityFeeCollector",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "collateralPoolId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "collect",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "debtAccumulatedRate",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"collateralPoolId\",\"type\":\"bytes32\"}],\"name\":\"collect\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"debtAccumulatedRate\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IStabilityFeeCollector.sol\":\"IStabilityFeeCollector\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IStabilityFeeCollector.sol\":{\"keccak256\":\"0xa01664b7238ba9d35f75c4b1c8a261e4ea7be45e6efd46af48cd98092950ab75\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://7810d5f25fcd11da074fcbe4c95892929ad3749fb3a26a203a195a6db45cbc71\",\"dweb:/ipfs/QmYsPCjWBHsCefzMRzptHbriKvvNf7MFTTetMKy4NvKDnk\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\ninterface IStabilityFeeCollector {\n    function collect(bytes32 collateralPoolId) external returns (uint256 debtAccumulatedRate); // [ray]\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IStabilityFeeCollector.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IStabilityFeeCollector.sol",
+    "exportedSymbols": {
+      "IStabilityFeeCollector": [
+        8698
+      ]
+    },
+    "id": 8699,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8690,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:69"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IStabilityFeeCollector",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8698,
+        "linearizedBaseContracts": [
+          8698
+        ],
+        "name": "IStabilityFeeCollector",
+        "nameLocation": "81:22:69",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "497777d5",
+            "id": 8697,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "collect",
+            "nameLocation": "119:7:69",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8693,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8692,
+                  "mutability": "mutable",
+                  "name": "collateralPoolId",
+                  "nameLocation": "135:16:69",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8697,
+                  "src": "127:24:69",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 8691,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "127:7:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "126:26:69"
+            },
+            "returnParameters": {
+              "id": 8696,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8695,
+                  "mutability": "mutable",
+                  "name": "debtAccumulatedRate",
+                  "nameLocation": "179:19:69",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8697,
+                  "src": "171:27:69",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8694,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "171:7:69",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "170:29:69"
+            },
+            "scope": 8698,
+            "src": "110:90:69",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8699,
+        "src": "71:140:69",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:166:69"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.559Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

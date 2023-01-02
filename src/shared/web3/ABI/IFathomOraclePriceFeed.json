@@ -1,0 +1,320 @@
+{
+  "contractName": "IFathomOraclePriceFeed",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "isPriceOk",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "peekPrice",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "readPrice",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_fathomOracle",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_token0",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_token1",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_accessControlConfig",
+          "type": "address"
+        }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_fathomOracle\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_token0\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_token1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_accessControlConfig\",\"type\":\"address\"}],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isPriceOk\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"peekPrice\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"readPrice\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IFathomOraclePriceFeed.sol\":\"IFathomOraclePriceFeed\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IFathomOraclePriceFeed.sol\":{\"keccak256\":\"0x0e56fc3901dea6ec4a785478041fb81c072e4d67f4f13377c67fa5c9c82a0843\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://de8288cdd57a9f41fbe58f9f8d38e51e0d1a9b90e04dd58cc4adc410e46ab2cb\",\"dweb:/ipfs/Qmch3NacxhFzucYofdRSEL4a229NgTe9ZE3KauFFFP1gkG\"]},\"project:/contracts/main/interfaces/IPriceFeed.sol\":{\"keccak256\":\"0xa907bb302a4b5a3f1b1eb86c9230b582f903d0005162d449bc6bd2222b9f8541\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://de70f3b384a28041b99749ec7942414b0cf253052479c033577c8ebfc3d7ea2b\",\"dweb:/ipfs/QmQdjen3oDNYmXqFL6zUMg2RvPvMtVcEihVayPummbtdei\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\nimport \"./IPriceFeed.sol\";\n\ninterface IFathomOraclePriceFeed is IPriceFeed {\n    function initialize(address _fathomOracle, address _token0, address _token1, address _accessControlConfig) external; \n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IFathomOraclePriceFeed.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IFathomOraclePriceFeed.sol",
+    "exportedSymbols": {
+      "IFathomOraclePriceFeed": [
+        8099
+      ],
+      "IPriceFeed": [
+        8623
+      ]
+    },
+    "id": 8100,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8084,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:54"
+      },
+      {
+        "absolutePath": "project:/contracts/main/interfaces/IPriceFeed.sol",
+        "file": "./IPriceFeed.sol",
+        "id": 8085,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8100,
+        "sourceUnit": 8624,
+        "src": "57:26:54",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 8086,
+              "name": "IPriceFeed",
+              "nameLocations": [
+                "121:10:54"
+              ],
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 8623,
+              "src": "121:10:54"
+            },
+            "id": 8087,
+            "nodeType": "InheritanceSpecifier",
+            "src": "121:10:54"
+          }
+        ],
+        "canonicalName": "IFathomOraclePriceFeed",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8099,
+        "linearizedBaseContracts": [
+          8099,
+          8623
+        ],
+        "name": "IFathomOraclePriceFeed",
+        "nameLocation": "95:22:54",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "f8c8765e",
+            "id": 8098,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "initialize",
+            "nameLocation": "147:10:54",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8096,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8089,
+                  "mutability": "mutable",
+                  "name": "_fathomOracle",
+                  "nameLocation": "166:13:54",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8098,
+                  "src": "158:21:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8088,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "158:7:54",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8091,
+                  "mutability": "mutable",
+                  "name": "_token0",
+                  "nameLocation": "189:7:54",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8098,
+                  "src": "181:15:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8090,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "181:7:54",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8093,
+                  "mutability": "mutable",
+                  "name": "_token1",
+                  "nameLocation": "206:7:54",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8098,
+                  "src": "198:15:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8092,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "198:7:54",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8095,
+                  "mutability": "mutable",
+                  "name": "_accessControlConfig",
+                  "nameLocation": "223:20:54",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8098,
+                  "src": "215:28:54",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8094,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "215:7:54",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "157:87:54"
+            },
+            "returnParameters": {
+              "id": 8097,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "253:0:54"
+            },
+            "scope": 8099,
+            "src": "138:116:54",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8100,
+        "src": "85:172:54",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:226:54"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.548Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

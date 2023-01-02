@@ -1,0 +1,211 @@
+{
+  "contractName": "ICollateralTokenAdapter",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "grantRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "PRICE_ORACLE_ROLE",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"PRICE_ORACLE_ROLE\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/stablecoin-core/config/interfaces/IAccessControlConfig.sol\":\"ICollateralTokenAdapter\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/stablecoin-core/config/interfaces/IAccessControlConfig.sol\":{\"keccak256\":\"0xfd1e2ec3eb578c88f3e3905f0b5a1663d54822e604662af6f371ed8e5f9cd1de\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://cc4554b4445df4d16b6407ff2cec97eb4c04c7bcde69b3adcb054f433eccef07\",\"dweb:/ipfs/QmUaSwZCyHT1t8nSc4ZdxmF834BQSU9RWtgGMYxnnQxAzP\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\ninterface ICollateralTokenAdapter {\n    function grantRole(bytes32 role, address account) external;\n\n    function PRICE_ORACLE_ROLE() external;\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/stablecoin-core/config/interfaces/IAccessControlConfig.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/stablecoin-core/config/interfaces/IAccessControlConfig.sol",
+    "exportedSymbols": {
+      "ICollateralTokenAdapter": [
+        26564
+      ]
+    },
+    "id": 26565,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 26553,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:115"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ICollateralTokenAdapter",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 26564,
+        "linearizedBaseContracts": [
+          26564
+        ],
+        "name": "ICollateralTokenAdapter",
+        "nameLocation": "67:23:115",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "2f2ff15d",
+            "id": 26560,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "grantRole",
+            "nameLocation": "106:9:115",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 26558,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 26555,
+                  "mutability": "mutable",
+                  "name": "role",
+                  "nameLocation": "124:4:115",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26560,
+                  "src": "116:12:115",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 26554,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "116:7:115",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 26557,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "138:7:115",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 26560,
+                  "src": "130:15:115",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 26556,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "130:7:115",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "115:31:115"
+            },
+            "returnParameters": {
+              "id": 26559,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "155:0:115"
+            },
+            "scope": 26564,
+            "src": "97:59:115",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "b998902f",
+            "id": 26563,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "PRICE_ORACLE_ROLE",
+            "nameLocation": "171:17:115",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 26561,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "188:2:115"
+            },
+            "returnParameters": {
+              "id": 26562,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "199:0:115"
+            },
+            "scope": 26564,
+            "src": "162:38:115",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 26565,
+        "src": "57:145:115",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:171:115"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.723Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

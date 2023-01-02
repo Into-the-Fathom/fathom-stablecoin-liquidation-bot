@@ -1,0 +1,254 @@
+{
+  "contractName": "IFathomOracle",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token0",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "token1",
+          "type": "address"
+        }
+      ],
+      "name": "getPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastUpdate",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token0\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"token1\",\"type\":\"address\"}],\"name\":\"getPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"lastUpdate\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"getPrice(address,address)\":{\"details\":\"Return the wad price of token0/token1, multiplied by 1e18 NOTE: (if you have 1 token0 how much you can sell it for token1)\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IFathomOracle.sol\":\"IFathomOracle\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IFathomOracle.sol\":{\"keccak256\":\"0x54527d4e0fe079eb5aa1e8df7a8a732fa138f317ced0fbdfa4f968425ea0fb18\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://92758b671b72a6c294f23532edff6227326bba2b8c9b4d83bb1827b84ee0626c\",\"dweb:/ipfs/QmbjfJnv6wtJWLUTpDxxXEXw2XYpG1nsK3PHVwQvawp9bE\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\ninterface IFathomOracle {\n    /// @dev Return the wad price of token0/token1, multiplied by 1e18\n    /// NOTE: (if you have 1 token0 how much you can sell it for token1)\n    function getPrice(address token0, address token1) external view returns (uint256 price, uint256 lastUpdate);\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IFathomOracle.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IFathomOracle.sol",
+    "exportedSymbols": {
+      "IFathomOracle": [
+        8082
+      ]
+    },
+    "id": 8083,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8069,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:53"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IFathomOracle",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8082,
+        "linearizedBaseContracts": [
+          8082
+        ],
+        "name": "IFathomOracle",
+        "nameLocation": "67:13:53",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 8070,
+              "nodeType": "StructuredDocumentation",
+              "src": "87:139:53",
+              "text": "@dev Return the wad price of token0/token1, multiplied by 1e18\n NOTE: (if you have 1 token0 how much you can sell it for token1)"
+            },
+            "functionSelector": "ac41865a",
+            "id": 8081,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getPrice",
+            "nameLocation": "240:8:53",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8075,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8072,
+                  "mutability": "mutable",
+                  "name": "token0",
+                  "nameLocation": "257:6:53",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8081,
+                  "src": "249:14:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8071,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "249:7:53",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8074,
+                  "mutability": "mutable",
+                  "name": "token1",
+                  "nameLocation": "273:6:53",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8081,
+                  "src": "265:14:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8073,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "265:7:53",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "248:32:53"
+            },
+            "returnParameters": {
+              "id": 8080,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8077,
+                  "mutability": "mutable",
+                  "name": "price",
+                  "nameLocation": "312:5:53",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8081,
+                  "src": "304:13:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8076,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "304:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8079,
+                  "mutability": "mutable",
+                  "name": "lastUpdate",
+                  "nameLocation": "327:10:53",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8081,
+                  "src": "319:18:53",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8078,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "319:7:53",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "303:35:53"
+            },
+            "scope": 8082,
+            "src": "231:108:53",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8083,
+        "src": "57:284:53",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:310:53"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.548Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "getPrice(address,address)": {
+        "details": "Return the wad price of token0/token1, multiplied by 1e18 NOTE: (if you have 1 token0 how much you can sell it for token1)"
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
