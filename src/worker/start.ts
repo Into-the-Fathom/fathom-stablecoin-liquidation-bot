@@ -8,7 +8,7 @@ import { Tracing } from "../shared/utils/Tracing";
 const tracer = Tracing.initTracer("liquidation-worker");
 
 
-ipc.config.appspace = 'securrancy-liquidation-bot';
+ipc.config.appspace = 'fathom.liquidation.bot';
 ipc.config.id = 'worker';
 ipc.config.silent = true;
 
@@ -16,7 +16,7 @@ let workerProcess = new Worker();
 
 workerProcess.setupLiquidation();
 
-ipc.serve('/tmp/newbedford.worker', () => {
+ipc.serve('/tmp/fathom.bot.worker', () => {
   ipc.server.on('liquidation-candidate-add', async (message:Position) => {
       await workerProcess.tryPerformingLiquidation(message);
   });

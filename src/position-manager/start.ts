@@ -11,6 +11,7 @@ import { GraphPositionsManager } from './src/GraphPositionsManager';
 import { RedisClient } from '../shared/utils/RedisClient';
 import { Constants } from './src/utils/Constants';
 import { Tracing } from "../shared/utils/Tracing";
+import PriceChecker from './src/PriceCheker';
 
 const tracer = Tracing.initTracer("position-manager");
 
@@ -20,6 +21,8 @@ let candidatesObj = {
 
 var positionManager: IPositionService;
 var cacheManager: RedisClient;
+const priceChecker = new PriceChecker(tracer);
+
 
 async function scan(ipcTxManagers: any[]) {
   const span = tracer.startSpan("position-search");
@@ -39,7 +42,7 @@ async function scan(ipcTxManagers: any[]) {
 
   try{
     while(fetchMore){
-      const rawPositions = await positionManager.getOpenPositions(Constants.MAX_POSITION_PER_QUERY,pageIndex);
+      const rawPositions = await positionManager.getRiskyPositions(Constants.MAX_POSITION_PER_QUERY,pageIndex);
       fetchMore = rawPositions.length < Constants.MAX_POSITION_PER_QUERY ? false : true;
       pageIndex++;
 
@@ -84,11 +87,12 @@ async function scan(ipcTxManagers: any[]) {
 
 async function start(ipcTxManagers: any[]) {
   try{
-    positionManager = new GraphPositionsManager()
+    positionManager = new GraphPositionsManager(tracer)
     setInterval(() => ipcTxManagers.forEach((i) => i.emit('keepalive', '')), 10 * 1 * 1000);
     scan(ipcTxManagers);
     const eventListener = new EventListener(() => scan(ipcTxManagers));
     await RedisClient.getInstance().connect()
+    priceChecker.init(() => scan(ipcTxManagers));
   }catch(exception){
     Logger.error(`Error in PositionManager:start(): ${JSON.stringify(exception)}`)
   }finally{
@@ -98,7 +102,7 @@ async function start(ipcTxManagers: any[]) {
 
 async function stop() {
   await RedisClient.getInstance().disconnect()
-  // priceChecker.stop();
+  priceChecker.stop();
 //   provider.eth.clearSubscriptions();
 //   // @ts-expect-error: We already checked that type is valid
 //   provider.eth.currentProvider.connection.destroy();
@@ -108,14 +112,14 @@ async function stop() {
 
 }
 
-ipc.config.appspace = 'securrancy-liquidation-bot';
+ipc.config.appspace = 'fathom.liquidation.bot';
 ipc.config.id = 'position-manager';
 ipc.config.silent = true;
 // ipc.connectTo('txmanager', '/tmp/newbedford.txmanager', () => {
 //   ipc.of['txmanager'].on('connect', () => {
 //     console.log("Connected to TxManager's IPC");
 
-ipc.connectTo('worker', '/tmp/newbedford.worker', () => {
+ipc.connectTo('worker', '/tmp/fathom.bot.worker', () => {
   ipc.of['worker'].on('connect', () => {
     Logger.debug("Connected to worker IPC")
     start([ipc.of['worker']]);

@@ -56,10 +56,13 @@ services:
     environment:
       - LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
       - NETWORK_ID=51
+      - PRICE_CHECK_INTERVAL_IN_MS=30000
+      - TIME_ALLOWED_SINCE_PRICE_UPDATE_IN_SECONDS=1500
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'MONGODB_URL=`cat /run/secrets/mongodb_connection_string` npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
     secrets:
+     - liquidator_bot_pk
      - mongodb_connection_string
 secrets:
   liquidator_bot_pk:
