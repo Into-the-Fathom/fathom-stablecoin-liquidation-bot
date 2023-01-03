@@ -3,19 +3,9 @@ import CollateralPoolConfigAbi from "./ABI/CollateralPoolConfig.json";
 import ProxyWalletRegistryAbi from "./ABI/ProxyWalletRegistry.json";
 import ProxyWalletAbi from "./ABI/ProxyWallet.json";
 import FathomStablecoinProxyActionAbi from "./ABI/FathomStablecoinProxyActions.json";
-// import BEP20Abi from "./ABI/BEP20.json";
-// import GetPositionsAbi from "./ABI/GetPositions.json";
-// import GetPositionsLiquidationBotAbi from "./ABI/GetPositionsLiquidationBot.json"
 import StableSwapModule from "./ABI/StableSwapModule.json";
 import Addresses from "./addresses.json";
-// import Staking from "./ABI/Staking.json";
-// import StakingGetter from "./ABI/StakingGetter.json";
-// import MainToken from "./ABI/MainToken.json";
-// import VeMainToken from "./ABI/VeMainToken.json";
-// import Token from "./ABI/Token.json";
-// import FathomStats from './ABI/FathomStats.json'
-// import Governor from './ABI/Governor.json'
-// import VeFathomAbi from './ABI/VeFathom.json'
+
 import DexPriceOracle from './ABI/DexPriceOracle.json'
 
 import PositionManager from './ABI/PositionManager.json'
@@ -81,34 +71,6 @@ export class SmartContractFactory {
     }
   };
 
-  // public static WXDC(chainId: number) {
-  //   return {
-  //     abi: BEP20Abi.abi as AbiItem[],
-  //     address: SmartContractFactory.Addresses(chainId).WXDC,
-  //   }
-  // };
-
-  // public static USDT(chainId: number) {
-  //   return {
-  //     abi: BEP20Abi.abi as AbiItem[],
-  //     address: SmartContractFactory.Addresses(chainId).USDT,
-  //   }
-  // };
-
-  // public static BEP20 = (_address: string) => {
-  //   return {
-  //     abi: BEP20Abi.abi as AbiItem[],
-  //     address: _address,
-  //   };
-  // };
-
-  // public static FathomStableCoin(chainId: number) {
-  //   return {
-  //     abi: BEP20Abi.abi as AbiItem[],
-  //     address: SmartContractFactory.Addresses(chainId).fathomStablecoin,
-  //   }
-  // };
-
   public static PositionManager(chainId: number) {
     return {
       abi: PositionManager.abi,
@@ -158,81 +120,12 @@ export class SmartContractFactory {
     }
   };
 
-  // public static GetPositions(chainId: number) {
-  //   return {
-  //     abi:GetPositionsAbi.abi as AbiItem [],
-  //     address:SmartContractFactory.Addresses(chainId).getPositions
-  //   }
-  // };
-
-  // public static GetPositionsLiquidationBot(chainId: number) {
-  //   return {
-  //     abi:GetPositionsLiquidationBotAbi.abi as AbiItem [],
-  //     address:SmartContractFactory.Addresses(chainId).getPositionsLiquidationBot
-  //   }
-  // };
-
   public static StableSwapModule(chainId: number) {
     return {
       abi: StableSwapModule.abi as AbiItem[],
       address: SmartContractFactory.Addresses(chainId).stableSwapModule,
     }
   };
-
-  // public static FathomStats(chainId: number) {
-  //   return {
-  //     abi: FathomStats.abi as AbiItem[],
-  //     address: SmartContractFactory.Addresses(chainId).fathomStats,
-  //   }
-  // };
-
-  // public static FathomGovernor(chainId: number)  {
-  //   return {
-  //     abi:Governor.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).fathomGovernor
-  //   }
-  // }
-  // public static Staking(chainId: number)  {
-  //   return {
-  //     abi:Staking.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).staking
-  //   }
-  // }
-
-  // public static MainToken(chainId: number)  {
-  //   return {
-  //     abi:MainToken.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).mainToken // '0x62f3d571A7DAcC00C047e58fE500ee99A98E3f63'
-  //   }
-  // }
-
-  // public static StakingGetter(chainId: number)  {
-  //   return {
-  //     abi:StakingGetter.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).stakingGetter // '0x62f3d571A7DAcC00C047e58fE500ee99A98E3f63'
-  //   }
-  // }
-
-  // public static VeMAINToken(chainId: number)  {
-  //   return {
-  //     abi:VeMainToken.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).veMainToken // '0x62f3d571A7DAcC00C047e58fE500ee99A98E3f63'
-  //   }
-  // }
-
-  // public static StreamRewardToken(chainId: number)  {
-  //   return {
-  //     abi:Token.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).streamRewardToken // '0x62f3d571A7DAcC00C047e58fE500ee99A98E3f63'
-  //   }
-  // }
-
-  // public static VeFathom(chainId: number)  {
-  //   return {
-  //     abi:VeFathomAbi.abi as AbiItem [],
-  //     address: SmartContractFactory.Addresses(chainId).veFTHM 
-  //   }
-  // }
 
   public static DexPriceOracle(chainId: number)  {
     return {
