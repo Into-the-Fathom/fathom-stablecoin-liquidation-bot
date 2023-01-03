@@ -1,0 +1,546 @@
+{
+  "contractName": "IStablecoinAdapter",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "bookKeeper",
+      "outputs": [
+        {
+          "internalType": "contract IBookKeeper",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "stablecoin",
+      "outputs": [
+        {
+          "internalType": "contract IStablecoin",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "positionAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "wad",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "positionAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "wad",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"bookKeeper\",\"outputs\":[{\"internalType\":\"contract IBookKeeper\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"positionAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"wad\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"stablecoin\",\"outputs\":[{\"internalType\":\"contract IStablecoin\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"positionAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"wad\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IStablecoinAdapter.sol\":\"IStablecoinAdapter\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IAccessControlConfig.sol\":{\"keccak256\":\"0x1b596c449593673d43431a687a887ae3fdc830048d3ff5f88ba935c740e48ba6\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://c73b31c6dd1bfe2693a89d1db7e3853218ccb21ae316c03613807f64b6bb2781\",\"dweb:/ipfs/QmZewYtSm7ZHxT2XVcyHTVaVnhYNuBpER3Zoci6ErGbpCK\"]},\"project:/contracts/main/interfaces/IBookKeeper.sol\":{\"keccak256\":\"0x079bbc2c6720d5b339f25af97cb3c33d022d9aadb81331d8cfb0fbccecbcb74c\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://50100ead4238c5d5caad1f9b18e1a2328d836f25e72ed584b6437ed7b8071d0b\",\"dweb:/ipfs/QmQDbCkcPyzAEbmQFP4CdRmhdn1genmtkdysHkUdZSmQCd\"]},\"project:/contracts/main/interfaces/ICollateralPoolConfig.sol\":{\"keccak256\":\"0xec2dbdaee78317f9e61bb98d84419d5b41bad362e3afebf9ad7096f101c7a33b\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://601dc6371891d3be6ab940de7eca369da6064e51592a8b8aeab2fe541b99e741\",\"dweb:/ipfs/QmasCCXRyZ1SGmoVoN4hrkYuAwgDUCzQoukNrghdudVp9J\"]},\"project:/contracts/main/interfaces/IGenericTokenAdapter.sol\":{\"keccak256\":\"0x21d5bd5d930190ee5534ee69f335134a327778b377f455c85d01d0e6c3a93bfd\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://d459528a3a38059146ed60036040f9ad890e9cc55a9441947ad3e7b8eeacf6e7\",\"dweb:/ipfs/QmZjBtqck8rqasJnh28rRobFbs5QXQnyzXM4SCh6yYFzWf\"]},\"project:/contracts/main/interfaces/ILiquidationStrategy.sol\":{\"keccak256\":\"0x32a7ce5f75c204d52e8e834eaa8677659130fbb858772a15ccdbfac66fbbce43\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://79795847b512e90ff4dba54ccec3c1a87ccb77d36d9bf565a78bd220de9c2fdd\",\"dweb:/ipfs/QmQQuUfMt3hwmYFdcujUqF7oKkJ6YS3xQYKWLz9v3Gio3s\"]},\"project:/contracts/main/interfaces/IPriceFeed.sol\":{\"keccak256\":\"0xa907bb302a4b5a3f1b1eb86c9230b582f903d0005162d449bc6bd2222b9f8541\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://de70f3b384a28041b99749ec7942414b0cf253052479c033577c8ebfc3d7ea2b\",\"dweb:/ipfs/QmQdjen3oDNYmXqFL6zUMg2RvPvMtVcEihVayPummbtdei\"]},\"project:/contracts/main/interfaces/IStablecoin.sol\":{\"keccak256\":\"0x9d357f68ce8f57084e4800eba0192c2ffd8ae3a7a9cb13d36f0d56f85717a214\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://f7ee72758406c0fc0b3be6508e814a23ea9a63840bc8ee83bfd43c95ec38c5ca\",\"dweb:/ipfs/QmU1JMATbWLh46ZaQHLyQq7M5DdbcHBDWttibv2JPuWc9u\"]},\"project:/contracts/main/interfaces/IStablecoinAdapter.sol\":{\"keccak256\":\"0xbc34a55ea0161f1eb570eee5f6be81fc9bb4ba6cdbb1bc28d9cd44f8060b9c98\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://901d815da97443cacccb380a48074150e7a8c40feb0b58f685d3d0be4d2bf9ec\",\"dweb:/ipfs/QmX6JdxzMhU56rabV52WfrE4MmPyucEzCQNzPPKLNqKR2d\"]},\"project:/contracts/main/interfaces/IToken.sol\":{\"keccak256\":\"0xdfdd65f3c882d78b3048c6162687e2f4a411e52a18bc9ed2bd8b5997f6f1275d\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://964def2cc55a9bc57cc64d91ce908beb3331adc1b5dff1de1d8a94d4c09f0297\",\"dweb:/ipfs/QmdLbwTxuPzj7SvsG5jJP3qRstujPbERnGCoC3sQgsqQEp\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\nimport \"../interfaces/IBookKeeper.sol\";\nimport \"../interfaces/IStablecoin.sol\";\n\ninterface IStablecoinAdapter {\n    function bookKeeper() external returns (IBookKeeper);\n\n    function stablecoin() external returns (IStablecoin);\n\n    function deposit(address positionAddress, uint256 wad, bytes calldata data) external payable;\n\n    function withdraw(address positionAddress, uint256 wad, bytes calldata data) external;\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IStablecoinAdapter.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IStablecoinAdapter.sol",
+    "exportedSymbols": {
+      "IAccessControlConfig": [
+        7439
+      ],
+      "IBookKeeper": [
+        7671
+      ],
+      "ICollateralPoolConfig": [
+        7904
+      ],
+      "IGenericTokenAdapter": [
+        8359
+      ],
+      "ILiquidationStrategy": [
+        8444
+      ],
+      "IPriceFeed": [
+        8623
+      ],
+      "IStablecoin": [
+        8749
+      ],
+      "IStablecoinAdapter": [
+        8784
+      ],
+      "IToken": [
+        8887
+      ]
+    },
+    "id": 8785,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8751,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:72"
+      },
+      {
+        "absolutePath": "project:/contracts/main/interfaces/IBookKeeper.sol",
+        "file": "../interfaces/IBookKeeper.sol",
+        "id": 8752,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8785,
+        "sourceUnit": 7672,
+        "src": "71:39:72",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "project:/contracts/main/interfaces/IStablecoin.sol",
+        "file": "../interfaces/IStablecoin.sol",
+        "id": 8753,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8785,
+        "sourceUnit": 8750,
+        "src": "111:39:72",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IStablecoinAdapter",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8784,
+        "linearizedBaseContracts": [
+          8784
+        ],
+        "name": "IStablecoinAdapter",
+        "nameLocation": "162:18:72",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "e3b3932a",
+            "id": 8759,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "bookKeeper",
+            "nameLocation": "196:10:72",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8754,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "206:2:72"
+            },
+            "returnParameters": {
+              "id": 8758,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8757,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8759,
+                  "src": "227:11:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IBookKeeper_$7671",
+                    "typeString": "contract IBookKeeper"
+                  },
+                  "typeName": {
+                    "id": 8756,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 8755,
+                      "name": "IBookKeeper",
+                      "nameLocations": [
+                        "227:11:72"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 7671,
+                      "src": "227:11:72"
+                    },
+                    "referencedDeclaration": 7671,
+                    "src": "227:11:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IBookKeeper_$7671",
+                      "typeString": "contract IBookKeeper"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "226:13:72"
+            },
+            "scope": 8784,
+            "src": "187:53:72",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "e9cbd822",
+            "id": 8765,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "stablecoin",
+            "nameLocation": "255:10:72",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8760,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "265:2:72"
+            },
+            "returnParameters": {
+              "id": 8764,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8763,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8765,
+                  "src": "286:11:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IStablecoin_$8749",
+                    "typeString": "contract IStablecoin"
+                  },
+                  "typeName": {
+                    "id": 8762,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 8761,
+                      "name": "IStablecoin",
+                      "nameLocations": [
+                        "286:11:72"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 8749,
+                      "src": "286:11:72"
+                    },
+                    "referencedDeclaration": 8749,
+                    "src": "286:11:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IStablecoin_$8749",
+                      "typeString": "contract IStablecoin"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "285:13:72"
+            },
+            "scope": 8784,
+            "src": "246:53:72",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "49bdc2b8",
+            "id": 8774,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deposit",
+            "nameLocation": "314:7:72",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8772,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8767,
+                  "mutability": "mutable",
+                  "name": "positionAddress",
+                  "nameLocation": "330:15:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8774,
+                  "src": "322:23:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8766,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "322:7:72",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8769,
+                  "mutability": "mutable",
+                  "name": "wad",
+                  "nameLocation": "355:3:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8774,
+                  "src": "347:11:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8768,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "347:7:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8771,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "375:4:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8774,
+                  "src": "360:19:72",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 8770,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "360:5:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "321:59:72"
+            },
+            "returnParameters": {
+              "id": 8773,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "397:0:72"
+            },
+            "scope": 8784,
+            "src": "305:93:72",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "31f09265",
+            "id": 8783,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "withdraw",
+            "nameLocation": "413:8:72",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8781,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8776,
+                  "mutability": "mutable",
+                  "name": "positionAddress",
+                  "nameLocation": "430:15:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8783,
+                  "src": "422:23:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8775,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "422:7:72",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8778,
+                  "mutability": "mutable",
+                  "name": "wad",
+                  "nameLocation": "455:3:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8783,
+                  "src": "447:11:72",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8777,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "447:7:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8780,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "475:4:72",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8783,
+                  "src": "460:19:72",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 8779,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "460:5:72",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "421:59:72"
+            },
+            "returnParameters": {
+              "id": 8782,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "489:0:72"
+            },
+            "scope": 8784,
+            "src": "404:86:72",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8785,
+        "src": "152:340:72",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:447:72"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.560Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

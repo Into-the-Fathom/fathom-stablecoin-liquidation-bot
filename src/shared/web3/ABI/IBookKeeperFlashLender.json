@@ -1,0 +1,282 @@
+{
+  "contractName": "IBookKeeperFlashLender",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IBookKeeperFlashBorrower",
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "bookKeeperFlashLoan",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IBookKeeperFlashBorrower\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"bookKeeperFlashLoan\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"bookKeeperFlashLoan(address,uint256,bytes)\":{\"details\":\"Initiate a flash loan.\",\"params\":{\"amount\":\"The amount of tokens lent. [rad]\",\"data\":\"Arbitrary data structure, intended to contain user-defined parameters.\",\"receiver\":\"The receiver of the tokens in the loan, and the receiver of the callback.\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IBookKeeperFlashLender.sol\":\"IBookKeeperFlashLender\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IBookKeeperFlashBorrower.sol\":{\"keccak256\":\"0xcc4f006596429e7a55c3607fc6616cc97abbc5d00a06db9c26024cf12eb564ef\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://57af3cdd775126c830e303a7f3caf915e18a2a0050fb94b9fdb7fe0fd3e785f8\",\"dweb:/ipfs/QmZjy34RmbkAzZ44r8iVUwyMHCyNefgnFaPDpqbaPD5i1S\"]},\"project:/contracts/main/interfaces/IBookKeeperFlashLender.sol\":{\"keccak256\":\"0x8be6d3841d260b47e679110fbbdd2696da286ae92715e88d3dc3016947de3041\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://2eec55f63ba7b713d470c3a0c93803ac379f78d87d0b73f7105c0a9a5efae35d\",\"dweb:/ipfs/QmUMbS35oP2WztBaZvNGZDndBB2HSNcz9dxb6o6zMnSGvV\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\nimport \"./IBookKeeperFlashBorrower.sol\";\n\ninterface IBookKeeperFlashLender {\n    /**\n     * @dev Initiate a flash loan.\n     * @param receiver The receiver of the tokens in the loan, and the receiver of the callback.\n     * @param amount The amount of tokens lent. [rad]\n     * @param data Arbitrary data structure, intended to contain user-defined parameters.\n     */\n    function bookKeeperFlashLoan(IBookKeeperFlashBorrower receiver, uint256 amount, bytes calldata data) external returns (bool);\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IBookKeeperFlashLender.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IBookKeeperFlashLender.sol",
+    "exportedSymbols": {
+      "IBookKeeperFlashBorrower": [
+        7688
+      ],
+      "IBookKeeperFlashLender": [
+        7705
+      ]
+    },
+    "id": 7706,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7690,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:45"
+      },
+      {
+        "absolutePath": "project:/contracts/main/interfaces/IBookKeeperFlashBorrower.sol",
+        "file": "./IBookKeeperFlashBorrower.sol",
+        "id": 7691,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 7706,
+        "sourceUnit": 7689,
+        "src": "71:40:45",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IBookKeeperFlashLender",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 7705,
+        "linearizedBaseContracts": [
+          7705
+        ],
+        "name": "IBookKeeperFlashLender",
+        "nameLocation": "123:22:45",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "documentation": {
+              "id": 7692,
+              "nodeType": "StructuredDocumentation",
+              "src": "152:287:45",
+              "text": " @dev Initiate a flash loan.\n @param receiver The receiver of the tokens in the loan, and the receiver of the callback.\n @param amount The amount of tokens lent. [rad]\n @param data Arbitrary data structure, intended to contain user-defined parameters."
+            },
+            "functionSelector": "c3bd2849",
+            "id": 7704,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "bookKeeperFlashLoan",
+            "nameLocation": "453:19:45",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7700,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7695,
+                  "mutability": "mutable",
+                  "name": "receiver",
+                  "nameLocation": "498:8:45",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7704,
+                  "src": "473:33:45",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IBookKeeperFlashBorrower_$7688",
+                    "typeString": "contract IBookKeeperFlashBorrower"
+                  },
+                  "typeName": {
+                    "id": 7694,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 7693,
+                      "name": "IBookKeeperFlashBorrower",
+                      "nameLocations": [
+                        "473:24:45"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 7688,
+                      "src": "473:24:45"
+                    },
+                    "referencedDeclaration": 7688,
+                    "src": "473:24:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IBookKeeperFlashBorrower_$7688",
+                      "typeString": "contract IBookKeeperFlashBorrower"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7697,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "516:6:45",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7704,
+                  "src": "508:14:45",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7696,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "508:7:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7699,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "539:4:45",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7704,
+                  "src": "524:19:45",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 7698,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "524:5:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "472:72:45"
+            },
+            "returnParameters": {
+              "id": 7703,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7702,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7704,
+                  "src": "563:4:45",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 7701,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "563:4:45",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "562:6:45"
+            },
+            "scope": 7705,
+            "src": "444:125:45",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 7706,
+        "src": "113:458:45",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:526:45"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.541Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "bookKeeperFlashLoan(address,uint256,bytes)": {
+        "details": "Initiate a flash loan.",
+        "params": {
+          "amount": "The amount of tokens lent. [rad]",
+          "data": "Arbitrary data structure, intended to contain user-defined parameters.",
+          "receiver": "The receiver of the tokens in the loan, and the receiver of the callback."
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

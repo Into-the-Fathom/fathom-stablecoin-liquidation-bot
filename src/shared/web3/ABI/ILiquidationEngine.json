@@ -1,0 +1,921 @@
+{
+  "contractName": "ILiquidationEngine",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralPoolId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_positionAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_debtShareToBeLiquidated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxDebtShareToBeLiquidated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_collateralRecipient",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        }
+      ],
+      "name": "liquidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralPoolId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "_positionAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_debtShareToBeLiquidated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxDebtShareToBeLiquidated",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_collateralRecipient",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "data",
+          "type": "bytes"
+        },
+        {
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "liquidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "_collateralPoolIds",
+          "type": "bytes32[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_positionAddresses",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_debtShareToBeLiquidateds",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_maxDebtShareToBeLiquidateds",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_collateralRecipients",
+          "type": "address[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "datas",
+          "type": "bytes[]"
+        }
+      ],
+      "name": "batchLiquidate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "live",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"_collateralPoolIds\",\"type\":\"bytes32[]\"},{\"internalType\":\"address[]\",\"name\":\"_positionAddresses\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_debtShareToBeLiquidateds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_maxDebtShareToBeLiquidateds\",\"type\":\"uint256[]\"},{\"internalType\":\"address[]\",\"name\":\"_collateralRecipients\",\"type\":\"address[]\"},{\"internalType\":\"bytes[]\",\"name\":\"datas\",\"type\":\"bytes[]\"}],\"name\":\"batchLiquidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_collateralPoolId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"_positionAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_debtShareToBeLiquidated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxDebtShareToBeLiquidated\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_collateralRecipient\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"liquidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_collateralPoolId\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"_positionAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_debtShareToBeLiquidated\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_maxDebtShareToBeLiquidated\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_collateralRecipient\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"liquidate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"live\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/ILiquidationEngine.sol\":\"ILiquidationEngine\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/ILiquidationEngine.sol\":{\"keccak256\":\"0x0c5835e5117c2d6824cf07603ff794553345f46fef01eb4f6904681c2d323806\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://c4ff015ed17e18f7e1593e7f5182bb067a47dd8cce1a627566e8b823d18c4c29\",\"dweb:/ipfs/QmNbcNKbBBZ7BpDd1DDd2KoutaVzetcq5bHCPk8vD37wtQ\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\n\npragma solidity 0.8.17;\n\ninterface ILiquidationEngine {\n  function liquidate(\n    bytes32 _collateralPoolId,\n    address _positionAddress,\n    uint256 _debtShareToBeLiquidated, // [rad]\n    uint256 _maxDebtShareToBeLiquidated, // [rad]\n    address _collateralRecipient,\n    bytes calldata data\n  ) external;\n\n  function liquidate(\n    bytes32 _collateralPoolId,\n    address _positionAddress,\n    uint256 _debtShareToBeLiquidated, // [rad]\n    uint256 _maxDebtShareToBeLiquidated, // [rad]\n    address _collateralRecipient,\n    bytes calldata data,\n    address sender\n  ) external;\n\n  function batchLiquidate(\n    bytes32[] calldata _collateralPoolIds,\n    address[] calldata _positionAddresses,\n    uint256[] calldata _debtShareToBeLiquidateds, // [rad]\n    uint256[] calldata _maxDebtShareToBeLiquidateds, // [rad]\n    address[] calldata _collateralRecipients,\n    bytes[] calldata datas\n  ) external;\n\n  function live() external view returns (uint256);\n}",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/ILiquidationEngine.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/ILiquidationEngine.sol",
+    "exportedSymbols": {
+      "ILiquidationEngine": [
+        8420
+      ]
+    },
+    "id": 8421,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8361,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "47:23:59"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ILiquidationEngine",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8420,
+        "linearizedBaseContracts": [
+          8420
+        ],
+        "name": "ILiquidationEngine",
+        "nameLocation": "82:18:59",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "1ebce593",
+            "id": 8376,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "liquidate",
+            "nameLocation": "114:9:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8374,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8363,
+                  "mutability": "mutable",
+                  "name": "_collateralPoolId",
+                  "nameLocation": "137:17:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "129:25:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 8362,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "129:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8365,
+                  "mutability": "mutable",
+                  "name": "_positionAddress",
+                  "nameLocation": "168:16:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "160:24:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8364,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "160:7:59",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8367,
+                  "mutability": "mutable",
+                  "name": "_debtShareToBeLiquidated",
+                  "nameLocation": "198:24:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "190:32:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8366,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "190:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8369,
+                  "mutability": "mutable",
+                  "name": "_maxDebtShareToBeLiquidated",
+                  "nameLocation": "245:27:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "237:35:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8368,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "237:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8371,
+                  "mutability": "mutable",
+                  "name": "_collateralRecipient",
+                  "nameLocation": "295:20:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "287:28:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8370,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "287:7:59",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8373,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "336:4:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8376,
+                  "src": "321:19:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 8372,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "321:5:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "123:221:59"
+            },
+            "returnParameters": {
+              "id": 8375,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "353:0:59"
+            },
+            "scope": 8420,
+            "src": "105:249:59",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "da20cd45",
+            "id": 8393,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "liquidate",
+            "nameLocation": "367:9:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8391,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8378,
+                  "mutability": "mutable",
+                  "name": "_collateralPoolId",
+                  "nameLocation": "390:17:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "382:25:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 8377,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "382:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8380,
+                  "mutability": "mutable",
+                  "name": "_positionAddress",
+                  "nameLocation": "421:16:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "413:24:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8379,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "413:7:59",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8382,
+                  "mutability": "mutable",
+                  "name": "_debtShareToBeLiquidated",
+                  "nameLocation": "451:24:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "443:32:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8381,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "443:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8384,
+                  "mutability": "mutable",
+                  "name": "_maxDebtShareToBeLiquidated",
+                  "nameLocation": "498:27:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "490:35:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8383,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "490:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8386,
+                  "mutability": "mutable",
+                  "name": "_collateralRecipient",
+                  "nameLocation": "548:20:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "540:28:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8385,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "540:7:59",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8388,
+                  "mutability": "mutable",
+                  "name": "data",
+                  "nameLocation": "589:4:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "574:19:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_calldata_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 8387,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "574:5:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8390,
+                  "mutability": "mutable",
+                  "name": "sender",
+                  "nameLocation": "607:6:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8393,
+                  "src": "599:14:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8389,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "599:7:59",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "376:241:59"
+            },
+            "returnParameters": {
+              "id": 8392,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "626:0:59"
+            },
+            "scope": 8420,
+            "src": "358:269:59",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "69a5038a",
+            "id": 8414,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "batchLiquidate",
+            "nameLocation": "640:14:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8396,
+                  "mutability": "mutable",
+                  "name": "_collateralPoolIds",
+                  "nameLocation": "679:18:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "660:37:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes32_$dyn_calldata_ptr",
+                    "typeString": "bytes32[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8394,
+                      "name": "bytes32",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "660:7:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "id": 8395,
+                    "nodeType": "ArrayTypeName",
+                    "src": "660:9:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes32_$dyn_storage_ptr",
+                      "typeString": "bytes32[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8399,
+                  "mutability": "mutable",
+                  "name": "_positionAddresses",
+                  "nameLocation": "722:18:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "703:37:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8397,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "703:7:59",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 8398,
+                    "nodeType": "ArrayTypeName",
+                    "src": "703:9:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8402,
+                  "mutability": "mutable",
+                  "name": "_debtShareToBeLiquidateds",
+                  "nameLocation": "765:25:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "746:44:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_calldata_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8400,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "746:7:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 8401,
+                    "nodeType": "ArrayTypeName",
+                    "src": "746:9:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8405,
+                  "mutability": "mutable",
+                  "name": "_maxDebtShareToBeLiquidateds",
+                  "nameLocation": "824:28:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "805:47:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_calldata_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8403,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "805:7:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 8404,
+                    "nodeType": "ArrayTypeName",
+                    "src": "805:9:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8408,
+                  "mutability": "mutable",
+                  "name": "_collateralRecipients",
+                  "nameLocation": "886:21:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "867:40:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_calldata_ptr",
+                    "typeString": "address[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8406,
+                      "name": "address",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "867:7:59",
+                      "stateMutability": "nonpayable",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "id": 8407,
+                    "nodeType": "ArrayTypeName",
+                    "src": "867:9:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                      "typeString": "address[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8411,
+                  "mutability": "mutable",
+                  "name": "datas",
+                  "nameLocation": "930:5:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8414,
+                  "src": "913:22:59",
+                  "stateVariable": false,
+                  "storageLocation": "calldata",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_bytes_calldata_ptr_$dyn_calldata_ptr",
+                    "typeString": "bytes[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 8409,
+                      "name": "bytes",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "913:5:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes_storage_ptr",
+                        "typeString": "bytes"
+                      }
+                    },
+                    "id": 8410,
+                    "nodeType": "ArrayTypeName",
+                    "src": "913:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_bytes_storage_$dyn_storage_ptr",
+                      "typeString": "bytes[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "654:285:59"
+            },
+            "returnParameters": {
+              "id": 8413,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "948:0:59"
+            },
+            "scope": 8420,
+            "src": "631:318:59",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "957aa58c",
+            "id": 8419,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "live",
+            "nameLocation": "962:4:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8415,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "966:2:59"
+            },
+            "returnParameters": {
+              "id": 8418,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8417,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8419,
+                  "src": "992:7:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8416,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "992:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "991:9:59"
+            },
+            "scope": 8420,
+            "src": "953:48:59",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8421,
+        "src": "72:931:59",
+        "usedErrors": []
+      }
+    ],
+    "src": "47:956:59"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.552Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "contractName": "ITransferOwnership",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/apis/interfaces/ITransferOwnership.sol\":\"ITransferOwnership\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/apis/interfaces/ITransferOwnership.sol\":{\"keccak256\":\"0x0ab2fc8e1d11b0506eea08e3e5e10d2b3089216fcfc13ba9e4fb665e533440ed\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f3e3bc82406e406a81a7b4766bdbdcadebc31ef9a6a6ee1320f7f9032fb5dc3e\",\"dweb:/ipfs/QmfPsStM1QmjU1JxVRe1rKEVLT5PEyoCiz3DMAR54HNhsb\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\ninterface ITransferOwnership {\n    function transferOwnership(address newOwner) external;\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/apis/interfaces/ITransferOwnership.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/apis/interfaces/ITransferOwnership.sol",
+    "exportedSymbols": {
+      "ITransferOwnership": [
+        6242
+      ]
+    },
+    "id": 6243,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6236,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:36"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ITransferOwnership",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 6242,
+        "linearizedBaseContracts": [
+          6242
+        ],
+        "name": "ITransferOwnership",
+        "nameLocation": "67:18:36",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "f2fde38b",
+            "id": 6241,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "transferOwnership",
+            "nameLocation": "101:17:36",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 6239,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 6238,
+                  "mutability": "mutable",
+                  "name": "newOwner",
+                  "nameLocation": "127:8:36",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 6241,
+                  "src": "119:16:36",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 6237,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "119:7:36",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "118:18:36"
+            },
+            "returnParameters": {
+              "id": 6240,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "145:0:36"
+            },
+            "scope": 6242,
+            "src": "92:54:36",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 6243,
+        "src": "57:91:36",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:117:36"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.526Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

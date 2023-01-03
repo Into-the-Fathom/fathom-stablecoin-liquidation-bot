@@ -1,0 +1,73 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:6.2.5-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    restart: always
+    networks:
+      - jaeger-example
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "6831:6831/udp" 
+      - "6832:6832/udp" 
+      - "16686:16686"
+    networks:
+      - jaeger-example
+    restart: on-failure
+  worker:
+    image: fathombot/worker:latest
+    networks:
+      - jaeger-example
+    depends_on:
+      - redis
+      - jaeger
+    volumes:
+      - /tmp:/tmp
+    environment:
+      - LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
+      - NETWORK_ID=51
+      - LIQUIDATION_BATCH_SIZE=100
+      - LIQUIDATION_INTERVAL=5000
+      - JAEGER_AGENT_HOST=jaeger
+      # Note: if your application is using Node.js Jaeger Client, you need port 6832,
+      #       unless issue https://github.com/jaegertracing/jaeger/issues/1596 is resolved.
+      - JAEGER_AGENT_PORT=6832
+    ipc: "host"
+    restart: always
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
+    secrets:
+     - liquidator_bot_pk
+     - mongodb_connection_string
+  position-manager:
+    image: fathombot/position-manager:latest
+    networks:
+      - jaeger-example
+    depends_on:
+      - worker
+      - redis
+      - jaeger
+    volumes:
+      - /tmp:/tmp
+    environment:
+      - LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
+      - NETWORK_ID=51
+      - PRICE_CHECK_INTERVAL_IN_MS=30000
+      - TIME_ALLOWED_SINCE_PRICE_UPDATE_IN_SECONDS=1500
+    ipc: "host"
+    restart: always
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
+    secrets:
+     - liquidator_bot_pk
+     - mongodb_connection_string
+secrets:
+  liquidator_bot_pk:
+    external: true
+  mongodb_connection_string:
+    external: true
+networks:
+  jaeger-example:

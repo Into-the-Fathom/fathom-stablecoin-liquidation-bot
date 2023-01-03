@@ -1,0 +1,145 @@
+{
+  "contractName": "IProxy",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IProxy.sol\":\"IProxy\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IProxy.sol\":{\"keccak256\":\"0x253c9b6c3b404424336fea32c85c88734d69f4d22d6789751d83e6624efab7cf\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://5e7f8676491f024f8dbee5fa48e99babd2ea1dc805f2cd82c2d42253c0aff7a3\",\"dweb:/ipfs/QmYDbJ5wa8P9tLyQnfRDQf11uaShUjLD932ZemAbNv6J7e\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\ninterface IProxy {\n    function owner() external view returns (address);\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IProxy.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IProxy.sol",
+    "exportedSymbols": {
+      "IProxy": [
+        8640
+      ]
+    },
+    "id": 8641,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8634,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:65"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IProxy",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8640,
+        "linearizedBaseContracts": [
+          8640
+        ],
+        "name": "IProxy",
+        "nameLocation": "81:6:65",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "8da5cb5b",
+            "id": 8639,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "owner",
+            "nameLocation": "103:5:65",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8635,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "108:2:65"
+            },
+            "returnParameters": {
+              "id": 8638,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8637,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8639,
+                  "src": "134:7:65",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8636,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "134:7:65",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "133:9:65"
+            },
+            "scope": 8640,
+            "src": "94:49:65",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8641,
+        "src": "71:74:65",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:100:65"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.556Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

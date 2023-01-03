@@ -1,0 +1,144 @@
+{
+  "contractName": "ISetPrice",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_collateralPoolId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_collateralPoolId\",\"type\":\"bytes32\"}],\"name\":\"setPrice\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/ISetPrice.sol\":\"ISetPrice\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/ISetPrice.sol\":{\"keccak256\":\"0x97be761a81630bc310cdcde6fb2ee69019402810ea07dfb40f8837ff186b70e7\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://e718032161ca72fd931ee454c9df26befebc744748b1d8ccd74e8b238d0ace7e\",\"dweb:/ipfs/QmbuDWbZNzh7o6rg3385ZQAc6A2gVs9V7E68UmGTHgRLNi\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\ninterface ISetPrice {\n    function setPrice(bytes32 _collateralPoolId) external;\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/ISetPrice.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/ISetPrice.sol",
+    "exportedSymbols": {
+      "ISetPrice": [
+        8665
+      ]
+    },
+    "id": 8666,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8659,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:67"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "ISetPrice",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8665,
+        "linearizedBaseContracts": [
+          8665
+        ],
+        "name": "ISetPrice",
+        "nameLocation": "81:9:67",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "285da53b",
+            "id": 8664,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setPrice",
+            "nameLocation": "106:8:67",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8662,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8661,
+                  "mutability": "mutable",
+                  "name": "_collateralPoolId",
+                  "nameLocation": "123:17:67",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8664,
+                  "src": "115:25:67",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 8660,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "115:7:67",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "114:27:67"
+            },
+            "returnParameters": {
+              "id": 8663,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "150:0:67"
+            },
+            "scope": 8665,
+            "src": "97:54:67",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8666,
+        "src": "71:82:67",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:108:67"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.557Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

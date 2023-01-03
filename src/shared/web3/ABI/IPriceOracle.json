@@ -1,0 +1,159 @@
+{
+  "contractName": "IPriceOracle",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "stableCoinReferencePrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"stableCoinReferencePrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IPriceOracle.sol\":\"IPriceOracle\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IPriceFeed.sol\":{\"keccak256\":\"0xa907bb302a4b5a3f1b1eb86c9230b582f903d0005162d449bc6bd2222b9f8541\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://de70f3b384a28041b99749ec7942414b0cf253052479c033577c8ebfc3d7ea2b\",\"dweb:/ipfs/QmQdjen3oDNYmXqFL6zUMg2RvPvMtVcEihVayPummbtdei\"]},\"project:/contracts/main/interfaces/IPriceOracle.sol\":{\"keccak256\":\"0x5ab4ef26dd0b3885eb9824ffeaf1dfd5c717b21ad72fde6536d190fc955b9a1e\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://568c031f6758300a5612bfd6560ef7ea6f0e8232bd0967ac81fcbc618078888d\",\"dweb:/ipfs/QmVw7YBFZm2TonBGw2s55ZXnr1sMHcHdXX8whbZbry8Hdy\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\nimport \"./IPriceFeed.sol\";\n\ninterface IPriceOracle {\n    function stableCoinReferencePrice() external view returns (uint256);\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IPriceOracle.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IPriceOracle.sol",
+    "exportedSymbols": {
+      "IPriceFeed": [
+        8623
+      ],
+      "IPriceOracle": [
+        8632
+      ]
+    },
+    "id": 8633,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8625,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:64"
+      },
+      {
+        "absolutePath": "project:/contracts/main/interfaces/IPriceFeed.sol",
+        "file": "./IPriceFeed.sol",
+        "id": 8626,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8633,
+        "sourceUnit": 8624,
+        "src": "71:26:64",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IPriceOracle",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 8632,
+        "linearizedBaseContracts": [
+          8632
+        ],
+        "name": "IPriceOracle",
+        "nameLocation": "109:12:64",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "9d1eea78",
+            "id": 8631,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "stableCoinReferencePrice",
+            "nameLocation": "137:24:64",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8627,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "161:2:64"
+            },
+            "returnParameters": {
+              "id": 8630,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8629,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8631,
+                  "src": "187:7:64",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 8628,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "187:7:64",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "186:9:64"
+            },
+            "scope": 8632,
+            "src": "128:68:64",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 8633,
+        "src": "99:99:64",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:153:64"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.556Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

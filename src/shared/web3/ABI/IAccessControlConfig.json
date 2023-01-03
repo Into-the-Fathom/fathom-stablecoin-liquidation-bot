@@ -1,0 +1,959 @@
+{
+  "contractName": "IAccessControlConfig",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "hasRole",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "OWNER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "GOV_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "PRICE_ORACLE_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "ADAPTER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "LIQUIDATION_ENGINE_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "STABILITY_FEE_COLLECTOR_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "SHOW_STOPPER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "POSITION_MANAGER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "MINTABLE_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "BOOK_KEEPER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "COLLATERAL_MANAGER_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"ADAPTER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"BOOK_KEEPER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"COLLATERAL_MANAGER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"GOV_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"LIQUIDATION_ENGINE_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"MINTABLE_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"OWNER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"POSITION_MANAGER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"PRICE_ORACLE_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"SHOW_STOPPER_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"STABILITY_FEE_COLLECTOR_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/main/interfaces/IAccessControlConfig.sol\":\"IAccessControlConfig\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/main/interfaces/IAccessControlConfig.sol\":{\"keccak256\":\"0x1b596c449593673d43431a687a887ae3fdc830048d3ff5f88ba935c740e48ba6\",\"license\":\"AGPL-3.0-or-later\",\"urls\":[\"bzz-raw://c73b31c6dd1bfe2693a89d1db7e3853218ccb21ae316c03613807f64b6bb2781\",\"dweb:/ipfs/QmZewYtSm7ZHxT2XVcyHTVaVnhYNuBpER3Zoci6ErGbpCK\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "// SPDX-License-Identifier: AGPL-3.0-or-later\npragma solidity 0.8.17;\n\ninterface IAccessControlConfig {\n    function hasRole(bytes32 role, address account) external view returns (bool);\n\n    function OWNER_ROLE() external view returns (bytes32);\n\n    function GOV_ROLE() external view returns (bytes32);\n\n    function PRICE_ORACLE_ROLE() external view returns (bytes32);\n\n    function ADAPTER_ROLE() external view returns (bytes32);\n\n    function LIQUIDATION_ENGINE_ROLE() external view returns (bytes32);\n\n    function STABILITY_FEE_COLLECTOR_ROLE() external view returns (bytes32);\n\n    function SHOW_STOPPER_ROLE() external view returns (bytes32);\n\n    function POSITION_MANAGER_ROLE() external view returns (bytes32);\n\n    function MINTABLE_ROLE() external view returns (bytes32);\n\n    function BOOK_KEEPER_ROLE() external view returns (bytes32);\n\n    function COLLATERAL_MANAGER_ROLE() external view returns (bytes32);\n}\n",
+  "sourcePath": "/Users/vitaliikoval/dev/fathom-stablecoin-smart-contracts/contracts/main/interfaces/IAccessControlConfig.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/main/interfaces/IAccessControlConfig.sol",
+    "exportedSymbols": {
+      "IAccessControlConfig": [
+        7439
+      ]
+    },
+    "id": 7440,
+    "license": "AGPL-3.0-or-later",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7374,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "46:23:40"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "IAccessControlConfig",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 7439,
+        "linearizedBaseContracts": [
+          7439
+        ],
+        "name": "IAccessControlConfig",
+        "nameLocation": "81:20:40",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "functionSelector": "91d14854",
+            "id": 7383,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "hasRole",
+            "nameLocation": "117:7:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7379,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7376,
+                  "mutability": "mutable",
+                  "name": "role",
+                  "nameLocation": "133:4:40",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7383,
+                  "src": "125:12:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7375,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "125:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7378,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "147:7:40",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7383,
+                  "src": "139:15:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 7377,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "139:7:40",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "124:31:40"
+            },
+            "returnParameters": {
+              "id": 7382,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7381,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7383,
+                  "src": "179:4:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 7380,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "179:4:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "178:6:40"
+            },
+            "scope": 7439,
+            "src": "108:77:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "e58378bb",
+            "id": 7388,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "OWNER_ROLE",
+            "nameLocation": "200:10:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7384,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "210:2:40"
+            },
+            "returnParameters": {
+              "id": 7387,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7386,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7388,
+                  "src": "236:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7385,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "235:9:40"
+            },
+            "scope": 7439,
+            "src": "191:54:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "b536818a",
+            "id": 7393,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "GOV_ROLE",
+            "nameLocation": "260:8:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7389,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "268:2:40"
+            },
+            "returnParameters": {
+              "id": 7392,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7391,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7393,
+                  "src": "294:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7390,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "294:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "293:9:40"
+            },
+            "scope": 7439,
+            "src": "251:52:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "b998902f",
+            "id": 7398,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "PRICE_ORACLE_ROLE",
+            "nameLocation": "318:17:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7394,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "335:2:40"
+            },
+            "returnParameters": {
+              "id": 7397,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7396,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7398,
+                  "src": "361:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7395,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "361:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "360:9:40"
+            },
+            "scope": 7439,
+            "src": "309:61:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "02a882e6",
+            "id": 7403,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "ADAPTER_ROLE",
+            "nameLocation": "385:12:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7399,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "397:2:40"
+            },
+            "returnParameters": {
+              "id": 7402,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7401,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7403,
+                  "src": "423:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7400,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "423:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "422:9:40"
+            },
+            "scope": 7439,
+            "src": "376:56:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "e8ff193d",
+            "id": 7408,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "LIQUIDATION_ENGINE_ROLE",
+            "nameLocation": "447:23:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7404,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "470:2:40"
+            },
+            "returnParameters": {
+              "id": 7407,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7406,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7408,
+                  "src": "496:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7405,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "496:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "495:9:40"
+            },
+            "scope": 7439,
+            "src": "438:67:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "23868800",
+            "id": 7413,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "STABILITY_FEE_COLLECTOR_ROLE",
+            "nameLocation": "520:28:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7409,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "548:2:40"
+            },
+            "returnParameters": {
+              "id": 7412,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7411,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7413,
+                  "src": "574:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7410,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "574:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "573:9:40"
+            },
+            "scope": 7439,
+            "src": "511:72:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "d7a47a69",
+            "id": 7418,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "SHOW_STOPPER_ROLE",
+            "nameLocation": "598:17:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7414,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "615:2:40"
+            },
+            "returnParameters": {
+              "id": 7417,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7416,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7418,
+                  "src": "641:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7415,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "641:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "640:9:40"
+            },
+            "scope": 7439,
+            "src": "589:61:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "6e19aa59",
+            "id": 7423,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "POSITION_MANAGER_ROLE",
+            "nameLocation": "665:21:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7419,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "686:2:40"
+            },
+            "returnParameters": {
+              "id": 7422,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7421,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7423,
+                  "src": "712:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7420,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "712:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "711:9:40"
+            },
+            "scope": 7439,
+            "src": "656:65:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "08e45bc5",
+            "id": 7428,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "MINTABLE_ROLE",
+            "nameLocation": "736:13:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7424,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "749:2:40"
+            },
+            "returnParameters": {
+              "id": 7427,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7426,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7428,
+                  "src": "775:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7425,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "775:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "774:9:40"
+            },
+            "scope": 7439,
+            "src": "727:57:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "6792166f",
+            "id": 7433,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "BOOK_KEEPER_ROLE",
+            "nameLocation": "799:16:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7429,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "815:2:40"
+            },
+            "returnParameters": {
+              "id": 7432,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7431,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7433,
+                  "src": "841:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7430,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "841:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "840:9:40"
+            },
+            "scope": 7439,
+            "src": "790:60:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "functionSelector": "2e718ab7",
+            "id": 7438,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "COLLATERAL_MANAGER_ROLE",
+            "nameLocation": "865:23:40",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7434,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "888:2:40"
+            },
+            "returnParameters": {
+              "id": 7437,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7436,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7438,
+                  "src": "914:7:40",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 7435,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "914:7:40",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "913:9:40"
+            },
+            "scope": 7439,
+            "src": "856:67:40",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "scope": 7440,
+        "src": "71:854:40",
+        "usedErrors": []
+      }
+    ],
+    "src": "46:880:40"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2023-01-02T07:05:53.537Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
