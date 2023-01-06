@@ -16,8 +16,8 @@ if [ $oper -eq 1 ] || [ $oper -eq 0 ]
 then
     cd ./shared
     echo 'Creating base image...'
-    docker build -t fathombot/shared-base:latest .
-    # docker tag fathombot/shared-base:latest intothefathom/fathom-bot-shared:v0.0.1
+    # docker build -t fathombot/shared-base:latest .
+    docker build -t tarunshrma/shared-base:latest .
     echo 'Base image created.'
     cd ..
 fi
@@ -26,8 +26,8 @@ if [ $oper -eq 2 ]  || [ $oper -eq 0 ]
 then
     cd ./worker
     echo 'Creating worker image...'
-    docker build -t fathombot/worker:latest .
-    # docker tag fathombot/worker:latest intothefathom/fathom-bot-worker:v0.0.1
+    # docker build -t fathombot/worker:latest .
+    docker build -t tarunshrma/worker:latest .
     echo 'worker image created.'
     cd ..
 fi
@@ -36,8 +36,8 @@ if [ $oper -eq 3 ]  || [ $oper -eq 0 ]
 then
     cd ./position-manager
     echo 'Creating worker image...'
-    docker build -t fathombot/position-manager:latest .
-    # docker tag fathombot/position-manager:latest intothefathom/fathom-bot-position-manager:v0.0.1
+    # docker build -t fathombot/position-manager:latest .
+    docker build -t tarunshrma/position-manager:latest .
     echo 'worker image created.'
     cd ..
 fi
