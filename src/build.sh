@@ -17,7 +17,7 @@ then
     cd ./shared
     echo 'Creating base image...'
     # docker build -t fathombot/shared-base:latest .
-    docker build -t tarunshrma/shared-base:latest .
+    docker build . -t tarunshrma/shared-base:latest -f shared/Dockerfile
     echo 'Base image created.'
     cd ..
 fi
@@ -27,7 +27,7 @@ then
     cd ./worker
     echo 'Creating worker image...'
     # docker build -t fathombot/worker:latest .
-    docker build -t tarunshrma/worker:latest .
+    docker build . -t tarunshrma/worker:latest -f worker/Dockerfile
     echo 'worker image created.'
     cd ..
 fi
@@ -37,7 +37,7 @@ then
     cd ./position-manager
     echo 'Creating worker image...'
     # docker build -t fathombot/position-manager:latest .
-    docker build -t tarunshrma/position-manager:latest .
+    docker build . -t tarunshrma/position-manager:latest -f position-manager/Dockerfile
     echo 'worker image created.'
     cd ..
 fi
