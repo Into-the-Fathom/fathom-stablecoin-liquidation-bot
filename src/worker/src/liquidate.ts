@@ -8,7 +8,7 @@ import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import Logger from "../../shared/utils/Logger";
 import { RedisClient } from "../../shared/utils/RedisClient";
-import BN from 'bn.js';
+import BigNumber from "bignumber.js";
 import { retry } from 'ts-retry-promise';
 import { BindOptions } from 'dgram';
 
@@ -94,7 +94,7 @@ export class Liquidator{
     }
 
     private async checkAndBatchLiquidateV2(){
-        
+
         if (this.badPositionsQueue.isEmpty()){
             Logger.info("Nothing to liquidate yet...")
             return;
@@ -115,7 +115,7 @@ export class Liquidator{
             let batchIndex = 0;
             let collateralPools:string[] = []
             let positionAddresses:string[] = []
-            let debtShares:BN[] = []
+            let debtShares:BigNumber[] = []
             let maxDebtShareToBeLiquidateds:string[] = []
             let collateralRecipients:string[] = []
             let datas:string[] = []
@@ -126,20 +126,19 @@ export class Liquidator{
                 batchIndex++
                 let position = this.badPositionsQueue.dequeue();
                 if (position != undefined) {
+                    
+                    let debtShare = new BigNumber(position.debtShare).times(new BigNumber(`1${"0".repeat(45)}`))
                     Logger.info(`Adding ${position.positionAddress} to the batch at index ..${batchIndex}`)
-                    span.log(
-                        "event", `Adding ${position.positionAddress} to the batch at index ..${batchIndex}`
-                    );
 
                     collateralPools.push(position.collateralPool)
                     positionAddresses.push(position.positionAddress)
-                    debtShares.push(position.debtShare)
+                    debtShares.push(debtShare)
                     maxDebtShareToBeLiquidateds.push(MaxUint256.MaxUint256)
                     collateralRecipients.push(process.env.LIQUIDATOR_ADDRESS!)
                     datas.push("0x00")
                 }
             }
-    
+
             if(batchIndex > 0){
                 await this.liquidationEngineContract.methods.batchLiquidate(
                     collateralPools,
@@ -157,7 +156,8 @@ export class Liquidator{
                             "tx-hash": hash
                         }
                     );
-                    //await retry(async () => await this.checkTransactionStatus(hash),{retries: 10, delay:500})    
+
+                    await retry(async () => await this.checkTransactionStatus(hash),{retries: 10, delay:500})    
                 }).
                 on("error", (error: any) => {
                     Logger.error(`Liquidation Failed: ${JSON.stringify(error)}`)
@@ -168,7 +168,7 @@ export class Liquidator{
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
             span.log({ event: "error", "error.message": `Liquidation Failed: ${JSON.stringify(exception)}`  })    
         }finally{
-            span.finish()
+              span.finish()
         }
     }
 
@@ -256,7 +256,7 @@ export class Liquidator{
             throw new Error(`Tx ${txHash} Pending confirmation...`);
         }else{
             if (response.status == true){
-                Logger.info(`Liquidation complete for Tx: ${txHash}`)
+                Logger.info(`check transaction Status complete for TX: ${txHash}`)
             }
         }
     }

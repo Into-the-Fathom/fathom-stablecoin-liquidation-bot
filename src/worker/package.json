@@ -25,7 +25,8 @@
     "winston-mongodb": "^5.1.0",
     "ts-retry-promise": "^0.7.0",
     "jaeger-client": "^3.10.0",
-    "opentracing": "latest"
+    "opentracing": "latest",
+    "bignumber.js": "9.0.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.0",
