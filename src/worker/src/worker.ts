@@ -8,26 +8,41 @@ import Logger from '../../shared/utils/Logger';
 export class Worker{
     public readonly liquidate: Liquidator;
     private readonly liquidationEngine: LiquidationEngine;
+    private readonly tracer:any;
+
   
-    constructor(){
-        this.liquidationEngine =  new LiquidationEngine();
-        this.liquidate = new Liquidator();
+    constructor(tracer:any){
+        this.tracer = tracer
+        this.liquidationEngine =  new LiquidationEngine(tracer);
+        this.liquidate = new Liquidator(tracer);
     }
     
     public async setupLiquidation(){
+        const span = this.tracer.startSpan("setup-liquidation");
+        const ctx = { span };
         try{
             await RedisClient.getInstance().connect()
-            await this.liquidationEngine.setupLiquidationEngine();
+            await this.liquidationEngine.setupLiquidationEngine(ctx);
         }catch(exception){
+            span.log({ event: "error", message: `Error in setupLiquidation(): ${JSON.stringify(exception)}`});
             Logger.error(`Error in setupLiquidation(): ${JSON.stringify(exception)}`)
+        }finally{
+            span.finish()
         }
     }
   
-    public async tryPerformingLiquidation(position: Position){
+    public async tryPerformingLiquidation(position: Position,ctx:any){
+        ctx = {
+            span: this.tracer.startSpan("try-performing-liquidation", { childOf: ctx.span }),
+        };
         try{
-            await this.liquidate.addLiquidationPosition(position);
+            ctx.span.setTag("position-address", position.positionAddress);
+            await this.liquidate.addLiquidationPosition(position,ctx);
         }catch(exception){
             Logger.error(`Error in tryPerformingLiquidation(): ${JSON.stringify(exception)}`)
+            ctx.span.log({ event: "error", "error.object": JSON.stringify(exception) })
+        }finally{
+            ctx.span.finish()
         }
     }
   }

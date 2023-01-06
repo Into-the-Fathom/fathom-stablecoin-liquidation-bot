@@ -21,13 +21,12 @@ export class GraphPositionsManager implements IPositionService{
         const span = this.tracer.startSpan("get-risky-positions");
         const ctx = { span };
         try {
-            span.setTag("page-index", offset);
+            span.setTag("search-risky-positions", offset);
 
             await retry(async () => await this.checkGraphHealth(ctx),{retries: 10, delay:500})
             Logger.debug(`Fetching positions at index ${offset}...`)
             let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION(pageSize,pageSize*offset))
             let positions: Position[] = response.positions
-            ctx.span.log({ event:  positions })
             ctx.span.log({
                 event: "risky-position",
                 value: positions,

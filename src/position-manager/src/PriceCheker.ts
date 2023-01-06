@@ -14,8 +14,6 @@ class PriceChecker {
     private readonly priceOracleContract:any;
     private readonly networkId:number = 51;
 
-
-
     constructor(tracer:any){
         try {
             this.networkId = parseInt(process.env.NETWORK_ID!)
@@ -39,8 +37,7 @@ class PriceChecker {
     private async checkPrice(): Promise<void> {
         const span = this.tracer.startSpan("price-check");
         const ctx = { span };
-        span.setTag("collatral", "WXDC");
-        ctx.span.log({ event: "price-check" });
+        span.setTag("check_price", "WXDC");
         Logger.info(`Checking price from chain.`)
 
         if(this.delayFathomOraclePriceFeedContract == undefined) {
@@ -53,7 +50,7 @@ class PriceChecker {
         let {price, lastUpdateTS} = await this.delayFathomOraclePriceFeedContract.methods.currentPrice().call()
         Logger.info(`Current price : ${price} lastUpdateTS: ${lastUpdateTS}`)
         ctx.span.log({ event: "current_price", message: price});
-        ctx.span.log({ event: "lastUpdateTS", message: lastUpdateTS});
+        ctx.span.log({ event: "last_update_timestamp", message: lastUpdateTS});
 
         let web3 = await Web3Utils.getWeb3Instance(this.networkId)
 
@@ -68,11 +65,12 @@ class PriceChecker {
 
         let timeElapsed = currentTimeStamp - lastUpdateTS
         Logger.info(`Time elapsed since last price update: ${Math.floor(timeElapsed/60)} minutes ${timeElapsed%60} seconds`)
+        ctx.span.log({ event: "time_since_last_price_update", message: `${Math.floor(timeElapsed/60)} minutes ${timeElapsed%60} seconds`});
 
         //If total time elased
         if (timeElapsed > this.timeAllowedSincePriceUpdateInSeconds){
             Logger.warn(`Price elapsed, updating from BOT`)
-            ctx.span.log({ event: "price_elapsed", message: `Price elapsed, updating from BOT`});
+            ctx.span.log({ event: "price_elapsed", message: `Price elapsed, updating price.`});
             await this.updateOnChainPrice()
         }
 

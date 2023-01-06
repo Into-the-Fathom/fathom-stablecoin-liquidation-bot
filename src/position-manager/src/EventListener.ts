@@ -2,18 +2,20 @@ import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import Logger from "../../shared/utils/Logger";
 import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
 import { RedisClient } from "../../shared/utils/RedisClient";
+import { Tracing } from "../../shared/utils/Tracing";
 
 export class EventListener{
     private consumer: (() => Promise<void> | void) | undefined;
     private priceOracleContract:any;
     private positionManagerContract:any;
     private readonly networkId:number = 51;
-    
+    private readonly tracer:any;
 
     constructor(_consumer: () => Promise<void> | void){
         this.consumer = _consumer;
         this.networkId = parseInt(process.env.NETWORK_ID!)
         this.setupEventListner();
+        this.tracer = Tracing.initTracer("event-listener");
     }
 
     private setupEventListner(){
@@ -29,14 +31,22 @@ export class EventListener{
         this.priceOracleContract = Web3EventsUtils.getContractInstance(SmartContractFactory.PriceOracle(this.networkId),this.networkId)
         this.priceOracleContract.events.LogSetPrice(options).
             on('data', (event: any) => {
-                //TODO: Check from previous price, if lesser then only call refetch the positions
+                const span = this.tracer.startSpan("price-updated-event");
+
                 Logger.info(`Price update event occuered.`)
+                span.setTag("price_update", JSON.stringify(event.blockNumber))
                 RedisClient.getInstance().setValue('lastblock',event.blockNumber)
+                span.log({ event: "price_update", message: JSON.stringify(event)});
+
+                span.finish()
                 if(this.consumer != undefined)
                     this.consumer();
             }).
             on('error', (err:string) => {
+                const span = this.tracer.startSpan("price-updated-event-error");
                 Logger.error(`Error connecting LogSetPrice Event ${err}`)
+                span.log({ event: "error", message: `Error connecting LogSetPrice Event ${err}`});
+                span.finish()
             })
 
         //TODO: Position adjustment should not result in risky position..

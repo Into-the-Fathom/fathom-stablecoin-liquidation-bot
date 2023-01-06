@@ -12,25 +12,32 @@ ipc.config.appspace = 'fathom.liquidation.bot';
 ipc.config.id = 'worker';
 ipc.config.silent = true;
 
-let workerProcess = new Worker();
+let workerProcess = new Worker(tracer);
 
 workerProcess.setupLiquidation();
 
 ipc.serve('/tmp/fathom.bot.worker', () => {
-  ipc.server.on('liquidation-candidate-add', async (message:Position) => {
-      await workerProcess.tryPerformingLiquidation(message);
+  ipc.server.on('liquidation-candidate-add', async (position:Position) => {
+      const span = tracer.startSpan("liquidation-candidate-add");
+      const ctx = { span };
+
+      span.setTag("position_address",position.positionAddress)
+
+      await workerProcess.tryPerformingLiquidation(position,ctx);
+      span.finish()
   });
 
   ipc.server.on('liquidation-candidate-remove', (position:Position) => {
+    const span = tracer.startSpan("liquidation-candidate-removed");
+    const ctx = { span };
     Logger.debug('Candidate removed...')
-    workerProcess.liquidate.removeLiquidationPosition(position);
+    span.setTag("position_address",position.positionAddress)
+    workerProcess.liquidate.removeLiquidationPosition(position,ctx);
+    span.finish()
   });
 
   ipc.server.on('keepalive', () => {
-    const span = tracer.startSpan("position-search");
     console.log('Staying alive...')
-    span.log({ event: "ping" });
-    span.finish()
   });
 });
 ipc.server.start();
