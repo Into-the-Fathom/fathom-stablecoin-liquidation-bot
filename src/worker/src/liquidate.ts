@@ -94,7 +94,7 @@ export class Liquidator{
     }
 
     private async checkAndBatchLiquidateV2(){
-
+        
         if (this.badPositionsQueue.isEmpty()){
             Logger.info("Nothing to liquidate yet...")
             return;
@@ -109,7 +109,6 @@ export class Liquidator{
                 span.log(
                     "event", `Liquidator not initialized`
                 );
-
                 return;
             }
 

@@ -33,6 +33,7 @@ export class RedisClient {
     
     public async setValueWithExpiration(key:string, value:any, expirationDuration:number = 60*3){
         await this.redisClient.set(key, value,'EX',expirationDuration);
+        await this.redisClient.expire(key,expirationDuration)
     }
 
     public async deleteValue(key:string){

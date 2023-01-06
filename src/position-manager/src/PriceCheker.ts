@@ -3,7 +3,6 @@ import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import { Constants } from "./utils/Constants";
 
-
 class PriceChecker {
     private fetchHandle: NodeJS.Timeout | null = null;
     private consumer: (() => Promise<void> | void) | undefined;
@@ -40,6 +39,8 @@ class PriceChecker {
         span.setTag("check_price", "WXDC");
         Logger.info(`Checking price from chain.`)
 
+        
+
         if(this.delayFathomOraclePriceFeedContract == undefined) {
             Logger.error('Error setting up delayFathomOraclePriceFeedContract.')
             ctx.span.log({ event: "error", message: 'Error setting up delayFathomOraclePriceFeedContract.'});
@@ -71,14 +72,20 @@ class PriceChecker {
         if (timeElapsed > this.timeAllowedSincePriceUpdateInSeconds){
             Logger.warn(`Price elapsed, updating from BOT`)
             ctx.span.log({ event: "price_elapsed", message: `Price elapsed, updating price.`});
-            await this.updateOnChainPrice()
+
+            await this.updateOnChainPrice(ctx)
         }
 
         span.finish();
     }
 
-    private async updateOnChainPrice(){
+    private async updateOnChainPrice(ctx:any){
+        ctx = {
+            span: this.tracer.startSpan("update-price", { childOf: ctx.span }),
+        };
         try{
+            ctx.span.setTag("collateral", "WXDC");
+
             Logger.info(`Updating price on chain`)
             await this.priceOracleContract.methods.
                                         setPrice(Constants.WXDC_COLLATRAL_ID).
@@ -88,7 +95,10 @@ class PriceChecker {
                                             gasLimit: 1000000
                                         })
         } catch(exception) {
-            console.error(exception);
+            Logger.error(JSON.stringify(exception));
+            ctx.span.log({ event: "error", "error.object": JSON.stringify(exception) })
+        }finally{
+            ctx.span.finish()
         }
     }
 
