@@ -3,6 +3,8 @@ import Logger from "../../shared/utils/Logger";
 import { Web3EventsUtils } from "../../shared/web3/Web3EventsUtils";
 import { RedisClient } from "../../shared/utils/RedisClient";
 import { Tracing } from "../../shared/utils/Tracing";
+const opentracing = require('opentracing');
+
 
 export class EventListener{
     private consumer: (() => Promise<void> | void) | undefined;
@@ -45,6 +47,7 @@ export class EventListener{
             on('error', (err:string) => {
                 const span = this.tracer.startSpan("price-updated-event-error");
                 Logger.error(`Error connecting LogSetPrice Event ${err}`)
+                span.setTag(opentracing.Tags.ERROR, true);
                 span.log({ event: "error", message: `Error connecting LogSetPrice Event ${err}`});
                 span.finish()
             })

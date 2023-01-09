@@ -2,6 +2,8 @@ import Logger from "../../shared/utils/Logger";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import { Constants } from "./utils/Constants";
+const opentracing = require('opentracing');
+
 
 class PriceChecker {
     private fetchHandle: NodeJS.Timeout | null = null;
@@ -38,8 +40,6 @@ class PriceChecker {
         const ctx = { span };
         span.setTag("check_price", "WXDC");
         Logger.info(`Checking price from chain.`)
-
-        
 
         if(this.delayFathomOraclePriceFeedContract == undefined) {
             Logger.error('Error setting up delayFathomOraclePriceFeedContract.')
@@ -96,6 +96,7 @@ class PriceChecker {
                                         })
         } catch(exception) {
             Logger.error(JSON.stringify(exception));
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
             ctx.span.log({ event: "error", "error.object": JSON.stringify(exception) })
         }finally{
             ctx.span.finish()

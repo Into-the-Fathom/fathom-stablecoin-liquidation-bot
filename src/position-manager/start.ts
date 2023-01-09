@@ -12,6 +12,8 @@ import { RedisClient } from '../shared/utils/RedisClient';
 import { Constants } from './src/utils/Constants';
 import { Tracing } from "../shared/utils/Tracing";
 import PriceChecker from './src/PriceCheker';
+const opentracing = require('opentracing');
+
 
 const tracer = Tracing.initTracer("position-manager");
 
@@ -70,6 +72,8 @@ async function scan(ipcTxManagers: any[]) {
     }
   }catch(exception){
     Logger.error(exception)
+    span.setTag(opentracing.Tags.ERROR, true);
+    span.log({ event: "error", "error.object": JSON.stringify(exception) })
   }finally{
     positionManager.isBusy = false;
     Logger.debug('Position Search Complete!')

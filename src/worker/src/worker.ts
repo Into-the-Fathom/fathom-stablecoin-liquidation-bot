@@ -3,6 +3,7 @@ import { Liquidator } from "./liquidate";
 import { LiquidationEngine } from "./liquidationEngine";
 import { RedisClient } from "../../shared/utils/RedisClient";
 import Logger from '../../shared/utils/Logger';
+const opentracing = require('opentracing');
 
 
 export class Worker{
@@ -24,8 +25,9 @@ export class Worker{
             await RedisClient.getInstance().connect()
             await this.liquidationEngine.setupLiquidationEngine(ctx);
         }catch(exception){
-            span.log({ event: "error", message: `Error in setupLiquidation(): ${JSON.stringify(exception)}`});
             Logger.error(`Error in setupLiquidation(): ${JSON.stringify(exception)}`)
+            span.setTag(opentracing.Tags.ERROR, true);
+            span.log({ event: "error", message: `Error in setupLiquidation(): ${JSON.stringify(exception)}`});
         }finally{
             span.finish()
         }
@@ -40,6 +42,7 @@ export class Worker{
             await this.liquidate.addLiquidationPosition(position,ctx);
         }catch(exception){
             Logger.error(`Error in tryPerformingLiquidation(): ${JSON.stringify(exception)}`)
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
             ctx.span.log({ event: "error", "error.object": JSON.stringify(exception) })
         }finally{
             ctx.span.finish()

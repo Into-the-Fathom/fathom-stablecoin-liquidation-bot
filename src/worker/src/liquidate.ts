@@ -11,6 +11,7 @@ import { RedisClient } from "../../shared/utils/RedisClient";
 import BigNumber from "bignumber.js";
 import { retry } from 'ts-retry-promise';
 import { BindOptions } from 'dgram';
+const opentracing = require('opentracing');
 
 
 
@@ -64,6 +65,7 @@ export class Liquidator{
             on('error', (err:string) => {
                 const span = this.tracer.startSpan("liquidation-event-error");
                 Logger.error(`Error connecting LogFixedSpreadLiquidate Event: ${err}`)
+                span.setTag(opentracing.Tags.ERROR, true);
                 span.log({ event: "error", message: `Error connecting LogFixedSpreadLiquidate Event ${err}`});
                 span.finish()
             })
@@ -79,6 +81,8 @@ export class Liquidator{
             this.badPositionsQueue.enqueue(position)  
         }catch(exception){
             Logger.error(`Error in addLiquidationPosition(): for Position : ${JSON.stringify(position)} Exeption: ${JSON.stringify(exception)}`)
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
+            ctx.span.log({ event: "error", message: `Error in addLiquidationPosition(): for Position : ${JSON.stringify(position)} Exeption: ${JSON.stringify(exception)}`});
         }finally{
             ctx.span.finish()
         }
@@ -161,11 +165,13 @@ export class Liquidator{
                 }).
                 on("error", (error: any) => {
                     Logger.error(`Liquidation Failed: ${JSON.stringify(error)}`)
+                    span.setTag(opentracing.Tags.ERROR, true);
                     span.log({ event: "error", "error.message": `Liquidation Failed: ${JSON.stringify(error)}`  })    
                 })
             }
         } catch(exception) {
             Logger.error(`Error liquidating checkAndLiquidate  : ${JSON.stringify(exception)}`)
+            span.setTag(opentracing.Tags.ERROR, true);
             span.log({ event: "error", "error.message": `Liquidation Failed: ${JSON.stringify(exception)}`  })    
         }finally{
               span.finish()

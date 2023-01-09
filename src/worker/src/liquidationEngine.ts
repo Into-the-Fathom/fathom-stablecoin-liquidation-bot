@@ -2,6 +2,7 @@ import Logger from "../../shared/utils/Logger";
 import { SmartContractFactory } from "../../shared/web3/SmartContractFactory";
 import { Web3Utils } from "../../shared/web3/Web3Utils";
 import { RedisClient } from "../../shared/utils/RedisClient";
+const opentracing = require('opentracing');
 
 
 export class LiquidationEngine{
@@ -34,7 +35,9 @@ export class LiquidationEngine{
 
             if(this.bookKeeperContract == undefined || 
                 this.liquidationEngineContract == undefined) {
-                Logger.error('Error setting up liquidation engine.')
+                Logger.error('Error initializing bookKeeperContract.')
+                ctx.span.setTag(opentracing.Tags.ERROR, true);
+                ctx.span.log({ event: "error", "error.message": 'Error initializing bookKeeperContract'  })
                 return;
             }
 
@@ -54,6 +57,7 @@ export class LiquidationEngine{
                     (error:Error, txnHash:string) => {
                         if(error){
                             Logger.error(`Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`)
+                            ctx.span.setTag(opentracing.Tags.ERROR, true);
                             ctx.span.log({ event: "error", "error.message": `Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`, "tx-hash": txnHash  })
                         }else
                             Logger.info(`Tx hash for whitelist LiquidationEngine: ${txnHash}`)
@@ -76,6 +80,7 @@ export class LiquidationEngine{
                 await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
                     (error:Error, txnHash:string) => {
                         if(error){
+                            ctx.span.setTag(opentracing.Tags.ERROR, true);
                             ctx.span.log({ event: "error", "error.message": `Error whitelist FixedSpreadLiquidationStrategy: ${error}`, "tx-hash": txnHash  })
                             Logger.error(`Error whitelist FixedSpreadLiquidationStrategy: ${error} tx: ${txnHash}`)
                         }
@@ -103,6 +108,7 @@ export class LiquidationEngine{
             await web3BatchRequest.add(this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send.request({from: process.env.LIQUIDATOR_ADDRESS},
             (error:Error, txnHash:string) => {
                 if(error){
+                    ctx.span.setTag(opentracing.Tags.ERROR, true);
                     Logger.error(`Error whitelist mintUnbackedStablecoin: ${error} tx: ${txnHash}`)
                     ctx.span.log({ event: "error", "error.message": `Error whitelist mintUnbackedStablecoin: ${error}`, "tx-hash": txnHash  })
                 }
@@ -128,6 +134,7 @@ export class LiquidationEngine{
            
         }catch(error){
             Logger.error(`Error in setupLiquidationEngine: ${JSON.stringify(error)}`)
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
             ctx.span.log({ event: "error", "error.message": JSON.stringify(error)  })
         }finally{
             ctx.span.finish()

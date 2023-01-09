@@ -7,6 +7,8 @@ import { GraphQueries } from "./utils/GraphQueries";
 import { RedisClient } from "../../shared/utils/RedisClient";
 import { retry } from 'ts-retry-promise';
 import { IndexingStatusForCurrentVersion } from "./interface/IndexingStatusForCurrentVersion";
+const opentracing = require('opentracing');
+
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
 export class GraphPositionsManager implements IPositionService{
@@ -34,6 +36,7 @@ export class GraphPositionsManager implements IPositionService{
             console.log(`GraphQL Reponse: ${JSON.stringify(positions)}`);    
             return positions;
         } catch(exception) {
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
             ctx.span.log({ event: "error", "error.object": exception })
             Logger.error(exception)
             return [];
