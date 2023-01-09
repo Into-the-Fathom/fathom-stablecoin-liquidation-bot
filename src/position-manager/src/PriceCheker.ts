@@ -18,10 +18,15 @@ class PriceChecker {
     constructor(tracer:any){
         try {
             this.networkId = parseInt(process.env.NETWORK_ID!)
-            this.priceCheckInterval = parseInt(process.env.PRICE_CHECK_INTERVAL_IN_MS!)
+            
+            //this.priceCheckInterval = parseInt(process.env.PRICE_CHECK_INTERVAL_IN_MS!)
+            this.priceCheckInterval = 25*60*1000
+            
             this.timeAllowedSincePriceUpdateInSeconds = parseInt(process.env.TIME_ALLOWED_SINCE_PRICE_UPDATE_IN_SECONDS!)
             this.tracer = tracer
-            this.delayFathomOraclePriceFeedContract = Web3Utils.getContractInstance(SmartContractFactory.DelayFathomOraclePriceFeed(this.networkId),this.networkId)
+            
+            //this.delayFathomOraclePriceFeedContract = Web3Utils.getContractInstance(SmartContractFactory.DelayFathomOraclePriceFeed(this.networkId),this.networkId)
+            
             this.priceOracleContract =  Web3Utils.getContractInstance(SmartContractFactory.PriceOracle(this.networkId),this.networkId)
         } catch(exception) {
             console.error(exception);
@@ -31,7 +36,8 @@ class PriceChecker {
     public async init(_consumer: () => Promise<void> | void): Promise<void> {
         this.consumer = _consumer;
         if (this.fetchHandle !== null) clearInterval(this.fetchHandle);
-        this.fetchHandle = setInterval(this.checkPrice.bind(this), this.priceCheckInterval);
+        // this.fetchHandle = setInterval(this.checkPrice.bind(this), this.priceCheckInterval);
+        this.fetchHandle = setInterval(this.updateOnChainPriceV2.bind(this), this.priceCheckInterval);
     }
 
     //Check the latest price of underlying collatral
@@ -100,6 +106,29 @@ class PriceChecker {
             ctx.span.log({ event: "error", "error.object": JSON.stringify(exception) })
         }finally{
             ctx.span.finish()
+        }
+    }
+
+    //TODO: This is temporary code and will be removed in future.. in future original version of htis method will be used
+    private async updateOnChainPriceV2(){
+        const span = this.tracer.startSpan("update-price");
+        try{
+            span.setTag("collateral", "WXDC");
+
+            Logger.info(`Updating price on chain`)
+            await this.priceOracleContract.methods.
+                                        setPrice(Constants.WXDC_COLLATRAL_ID).
+                                        send(
+                                        {
+                                            from: process.env.LIQUIDATOR_ADDRESS, 
+                                            gasLimit: 1000000
+                                        })
+        } catch(exception) {
+            Logger.error(JSON.stringify(exception));
+            span.setTag(opentracing.Tags.ERROR, true);
+            span.log({ event: "error", "error.object": JSON.stringify(exception) })
+        }finally{
+            span.finish()
         }
     }
 
