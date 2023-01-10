@@ -1,5 +1,5 @@
 #FROM node:16
-FROM fathombot/shared-base:latest
+FROM tarunshrma/shared-base:latest
 
 # Create app directory
 WORKDIR /usr/src/app/position-manager
