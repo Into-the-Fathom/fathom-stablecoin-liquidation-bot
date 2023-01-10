@@ -33,10 +33,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Shared Image to DockerHub
-        run: docker push fathombot/shared-base:latest
+        run: docker push tarunshrma/shared-base:latest
 
       - name: Push Worker Image to DockerHub
-        run: docker push fathombot/worker:latest
+        run: docker push tarunshrma/worker:latest
 
       - name: Push PositionManager Image to DockerHub
-        run: docker push fathombot/position-manager:latest
+        run: docker push tarunshrma/position-manager:latest
