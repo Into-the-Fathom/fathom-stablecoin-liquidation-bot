@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: list of direcotries
+      - name: Build images
         working-directory: src
         run: ./build.sh 0
 
@@ -32,8 +32,8 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push Shared Image to DockerHub
-        run: docker push tarunshrma/shared-base:latest
+      # - name: Push Shared Image to DockerHub
+      #   run: docker push tarunshrma/shared-base:latest
 
       - name: Push Worker Image to DockerHub
         run: docker push tarunshrma/worker:latest

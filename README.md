@@ -1,5 +1,7 @@
 # Fathom Stablecoin Liquidation Bot
 
+[![Docker Image CI](https://github.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/actions/workflows/build-and-deploy.yml/badge.svg?branch=github-action-integration)](https://github.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/actions/workflows/build-and-deploy.yml)
+
 ## Table of Contents
 
 - [Fathom Stablecoin Liquidation Bot](#fathom-stablecoin-liquidation-bot)
@@ -9,7 +11,8 @@
   - [Liquidation Bot](#liquidation-bot)
   - [Liquidation Strategy](#liquidation-strategy)
   - [Bot Architecture \[To be changed....\]](#bot-architecture-to-be-changed)
-  - [How To Run](#how-to-run)
+  - [How to run from code](#how-to-run-from-code)
+  - [How To Run without building](#how-to-run-without-building)
   - [Refrences](#refrences)
   - [License](#license)
 
@@ -44,7 +47,7 @@ There are 4 main components of bot:
 - Analytics
   - This component will keep track of bot analytics like how many transactions attempted, how much succeed/failed. It will store all liquidated positions as well.
 
-## How To Run
+## How to run from code
 Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose installed in local environment.
 - Clone the repository go to src directory `CD src/`
 - Build the images using `./build.sh` command.. This step will create the latest docker images.
@@ -54,6 +57,12 @@ Below are the steps to run the code BOT locally. Make sure you have Docker and D
 - Start the Bot: `docker stack deploy -c docker-compose.yml liquidation-bot`
 - Stop Bot: `docker stack rm liquidation-bot`
 
+
+## How To Run without building
+
+- `curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always`
+
+ 
 
 ## Refrences
  - https://hackmd.io/@1P8kjN1-TWykQ36ndKV07Q/rkP3NAv35
