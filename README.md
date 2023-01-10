@@ -11,8 +11,10 @@
   - [Liquidation Bot](#liquidation-bot)
   - [Liquidation Strategy](#liquidation-strategy)
   - [Bot Architecture \[To be changed....\]](#bot-architecture-to-be-changed)
+  - [Prepare the environment](#prepare-the-environment)
   - [How to run from code](#how-to-run-from-code)
   - [How To Run without building](#how-to-run-without-building)
+  - [Monitoring](#monitoring)
   - [Refrences](#refrences)
   - [License](#license)
 
@@ -47,13 +49,17 @@ There are 4 main components of bot:
 - Analytics
   - This component will keep track of bot analytics like how many transactions attempted, how much succeed/failed. It will store all liquidated positions as well.
 
+## Prepare the environment
+- Make sure docker and docker-compose is installed.
+- docker init to start the swarm mode.
+- Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
+- You can varify the secret using `docker secret ls` 
+
 ## How to run from code
 Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose installed in local environment.
 - Clone the repository go to src directory `CD src/`
 - Build the images using `./build.sh` command.. This step will create the latest docker images.
 - Setup Environment Variables: Open `docker-compose.yaml` and edit the e.g. `LIQUIDATOR_ADDRESS`, `NETWORK_ID` (you can ignore the `LIQUIDATION_BATCH_SIZE` and `LIQUIDATION_INTERVAL` but you can adjust those) 
-- Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
-- You can varify the secret using `docker secret ls` 
 - Start the Bot: `docker stack deploy -c docker-compose.yml liquidation-bot`
 - Stop Bot: `docker stack rm liquidation-bot`
 
@@ -62,7 +68,8 @@ Below are the steps to run the code BOT locally. Make sure you have Docker and D
 
 - `curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always`
 
- 
+## Monitoring
+  Jeager integration..
 
 ## Refrences
  - https://hackmd.io/@1P8kjN1-TWykQ36ndKV07Q/rkP3NAv35

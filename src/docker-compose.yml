@@ -40,10 +40,9 @@ services:
       - JAEGER_AGENT_PORT=6832
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` npm run start'"
     secrets:
      - liquidator_bot_pk
-     - mongodb_connection_string
   position-manager:
     image: tarunshrma/position-manager:latest
     networks:
@@ -62,14 +61,11 @@ services:
       - TIME_ALLOWED_SINCE_PRICE_UPDATE_IN_SECONDS=1500
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` MONGODB_URL=`cat /run/secrets/mongodb_connection_string`  npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` npm run start'"
     secrets:
      - liquidator_bot_pk
-     - mongodb_connection_string
 secrets:
   liquidator_bot_pk:
-    external: true
-  mongodb_connection_string:
     external: true
 networks:
   jaeger-example:
