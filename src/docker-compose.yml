@@ -20,7 +20,7 @@ services:
       - jaeger-example
     restart: on-failure
   worker:
-    image: fathombot/worker:latest
+    image: tarunshrma/worker:latest
     networks:
       - jaeger-example
     depends_on:
@@ -44,7 +44,7 @@ services:
      - liquidator_bot_pk
      - mongodb_connection_string
   position-manager:
-    image: fathombot/position-manager:latest
+    image: tarunshrma/position-manager:latest
     networks:
       - jaeger-example
     depends_on:
