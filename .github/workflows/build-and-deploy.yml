@@ -1,8 +1,13 @@
 name: Docker Image CI
 
+# on:
+#   push:
+#     branches: ["dev-trbouleshoot-price-issue"]
+#   pull_request:
+#     branches: ["dev"]
+
 on:
-  push:
-    branches: ["dev-trbouleshoot-price-issue"]
+  workflow_dispatch:
   pull_request:
     branches: ["dev"]
 
@@ -13,14 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: current direcotry
-        run: pwd
-
-      - name: list of direcgtories
-        run: ls
+      - name: list of direcotries
+        run: cd src
 
       - name: Build the Docker image
-        run: ./src/build.sh 0
+        run: ./build.sh 0
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -29,10 +31,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Shared Image to DockerHub
-        run: docker push tarunshrma/shared-base:latest
+        run: docker push fathombot/shared-base:latest
 
       - name: Push Worker Image to DockerHub
-        run: docker push tarunshrma/worker:latest
+        run: docker push fathombot/worker:latest
 
       - name: Push PositionManager Image to DockerHub
-        run: docker push tarunshrma/position-manager:latest
+        run: docker push fathombot/position-manager:latest
