@@ -8,6 +8,8 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["github-action-integration"]
   pull_request:
     branches: ["dev"]
 
