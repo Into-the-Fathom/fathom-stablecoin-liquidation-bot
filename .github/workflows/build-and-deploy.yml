@@ -36,7 +36,7 @@ jobs:
       #   run: docker push tarunshrma/shared-base:latest
 
       - name: Push Worker Image to DockerHub
-        run: docker push tarunshrma/worker:latest
+        run: docker push intothefathom/worker:latest
 
       - name: Push PositionManager Image to DockerHub
-        run: docker push tarunshrma/position-manager:latest
+        run: docker push intothefathom/position-manager:latest

@@ -1,5 +1,5 @@
 #FROM node:16
-FROM tarunshrma/shared-base:latest
+FROM intothefathom/shared-base:latest
 
 # Create app directory
 WORKDIR /usr/src/app/worker
