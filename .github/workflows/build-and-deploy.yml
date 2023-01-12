@@ -8,7 +8,31 @@ on:
     branches: ["dev"]
 
 jobs:
+
   build:
+    name: Build & Push To Dockerhub
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build images
+      working-directory: src
+      run: ./build.sh 0
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Push Worker Image to DockerHub
+      run: docker push intothefathom/worker:latest
+
+    - name: Push PositionManager Image to DockerHub
+      run: docker push intothefathom/position-manager:latest
+
+  deploy:
+    needs: build
+    name: Deploy
     runs-on: ubuntu-latest
     
     steps:
@@ -24,20 +48,3 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
            curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always
-
-
-      # - name: Build images
-      #   working-directory: src
-      #   run: ./build.sh 0
-
-      # - name: Log in to Docker Hub
-      #   uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      #   with:
-      #     username: ${{ secrets.DOCKER_USER }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Push Worker Image to DockerHub
-      #   run: docker push intothefathom/worker:latest
-
-      # - name: Push PositionManager Image to DockerHub
-      #   run: docker push intothefathom/position-manager:latest

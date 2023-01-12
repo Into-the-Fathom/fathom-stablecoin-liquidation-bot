@@ -55,16 +55,19 @@ export class LiquidationEngine{
 
                 await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.LiquidationEngine(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
                     (error:Error, txnHash:string) => {
+                        const span = this.tracer.startSpan("callback-whitelist-liquidation-engine");
                         if(error){
                             Logger.error(`Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`)
-                            ctx.span.setTag(opentracing.Tags.ERROR, true);
-                            ctx.span.log({ event: "error", "error.message": `Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`, "tx-hash": txnHash  })
+                            span.setTag(opentracing.Tags.ERROR, true);
+                            span.log({ event: "error", "error.message": `Error whitelist LiquidationEngine: ${error} tx: ${txnHash}`, "tx-hash": txnHash  })
                         }else
                             Logger.info(`Tx hash for whitelist LiquidationEngine: ${txnHash}`)
-                            ctx.span.log({
+                            span.log({
                                 "event": "transaction sent to whitelist",
                                 "tx-hash": txnHash
-                            });
+                        });
+
+                        span.finish()
                     }))
             }
             else{
@@ -79,18 +82,20 @@ export class LiquidationEngine{
                 Logger.info(`Whitelisting FixedSpreadLiquidationStrategy...`)
                 await web3BatchRequest.add(this.bookKeeperContract.methods.whitelist(SmartContractFactory.FixedSpreadLiquidationStrategy(this.networkId).address).send.request({from: process.env.LIQUIDATOR_ADDRESS},
                     (error:Error, txnHash:string) => {
+                        const span = this.tracer.startSpan("callback-whitelist-fixedSpreadLiquidationStrategy");
                         if(error){
-                            ctx.span.setTag(opentracing.Tags.ERROR, true);
-                            ctx.span.log({ event: "error", "error.message": `Error whitelist FixedSpreadLiquidationStrategy: ${error}`, "tx-hash": txnHash  })
+                            span.setTag(opentracing.Tags.ERROR, true);
+                            span.log({ event: "error", "error.message": `Error whitelist FixedSpreadLiquidationStrategy: ${error}`, "tx-hash": txnHash  })
                             Logger.error(`Error whitelist FixedSpreadLiquidationStrategy: ${error} tx: ${txnHash}`)
                         }
                         else{
                             Logger.info(`Tx hash for whitelist FixedSpreadLiquidationStrategy: ${txnHash}`)
-                            ctx.span.log({
+                            span.log({
                                 "event": "Tx hash for whitelist FixedSpreadLiquidationStrategy",
                                 "tx-hash": txnHash
                             });
                         }
+                        span.finish()
                     }))
             }else{
                 Logger.info(`FixedSpreadLiquidationStrategy already whitelisted...`)
@@ -107,18 +112,20 @@ export class LiquidationEngine{
 
             await web3BatchRequest.add(this.bookKeeperContract.methods.mintUnbackedStablecoin(SmartContractFactory.SystemDebtEngine(this.networkId).address, process.env.LIQUIDATOR_ADDRESS, "3000000000000000000000000000000000000000000000000").send.request({from: process.env.LIQUIDATOR_ADDRESS},
             (error:Error, txnHash:string) => {
+                const span = this.tracer.startSpan("callback-whitelist-mintUnbackedStablecoin");
                 if(error){
-                    ctx.span.setTag(opentracing.Tags.ERROR, true);
+                    span.setTag(opentracing.Tags.ERROR, true);
                     Logger.error(`Error whitelist mintUnbackedStablecoin: ${error} tx: ${txnHash}`)
-                    ctx.span.log({ event: "error", "error.message": `Error whitelist mintUnbackedStablecoin: ${error}`, "tx-hash": txnHash  })
+                    span.log({ event: "error", "error.message": `Error whitelist mintUnbackedStablecoin: ${error}`, "tx-hash": txnHash  })
                 }
                 else{
                     Logger.info(`Tx hash for mintUnbackedStablecoin ${txnHash}`)
-                    ctx.span.log({
+                    span.log({
                         "event": "Tx hash for mintUnbackedStablecoin",
                         "tx-hash": txnHash
                     });
                 }
+                span.finish()
             }))
 
             ctx.span.log({
