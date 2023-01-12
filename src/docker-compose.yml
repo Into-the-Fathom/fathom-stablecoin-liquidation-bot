@@ -20,7 +20,7 @@ services:
       - jaeger-example
     restart: on-failure
   worker:
-    image: tarunshrma/worker:latest
+    image: intothefathom/worker:latest
     networks:
       - jaeger-example
     depends_on:
@@ -44,7 +44,7 @@ services:
     secrets:
      - liquidator_bot_pk
   position-manager:
-    image: tarunshrma/position-manager:latest
+    image: intothefathom/position-manager:latest
     networks:
       - jaeger-example
     depends_on:
