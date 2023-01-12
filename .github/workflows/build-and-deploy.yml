@@ -23,7 +23,7 @@ jobs:
 
     - name: Build images
       working-directory: src
-      run: $GITHUB_WORKSPACE/src/docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always
+      run: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
 
 
       # - name: Build images
