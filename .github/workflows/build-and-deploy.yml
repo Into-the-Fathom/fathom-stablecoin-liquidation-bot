@@ -22,7 +22,7 @@ jobs:
         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
     - name: Build images
-      # working-directory: src
+      working-directory: src
       run: $GITHUB_WORKSPACE/src/docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always
 
 
