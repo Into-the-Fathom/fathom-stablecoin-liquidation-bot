@@ -16,13 +16,12 @@ jobs:
     - name: Checkout main
       uses: actions/checkout@v3
 
-    - name: Install doctl
-      uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
     - name: SSH doctl
-      run: doctl compute ssh docker201021onubuntu2204-s-1vcpu-1gb-amd-sfo3-01
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
 
     - name: Build images
       working-directory: src
