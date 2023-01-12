@@ -22,7 +22,8 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        run: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
+        script: |
+           curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always
 
 
       # - name: Build images
