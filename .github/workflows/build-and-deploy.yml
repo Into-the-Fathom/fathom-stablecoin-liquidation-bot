@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
     - name: Build images
       working-directory: src
       run: ./build.sh 0
@@ -37,7 +41,7 @@ jobs:
     
     steps:
 
-    - name: Checkout main
+    - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Executing remote command 
