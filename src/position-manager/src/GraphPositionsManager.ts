@@ -7,6 +7,8 @@ import { GraphQueries } from "./utils/GraphQueries";
 import { RedisClient } from "../../shared/utils/RedisClient";
 import { retry } from 'ts-retry-promise';
 import { IndexingStatusForCurrentVersion } from "./interface/IndexingStatusForCurrentVersion";
+const opentracing = require('opentracing');
+
 
 //This class will fetch onchain positions, process them and emit event to worker node in case of any underwater position...
 export class GraphPositionsManager implements IPositionService{
@@ -21,13 +23,12 @@ export class GraphPositionsManager implements IPositionService{
         const span = this.tracer.startSpan("get-risky-positions");
         const ctx = { span };
         try {
-            span.setTag("page-index", offset);
+            span.setTag("search-risky-positions", offset);
 
             await retry(async () => await this.checkGraphHealth(ctx),{retries: 10, delay:500})
             Logger.debug(`Fetching positions at index ${offset}...`)
             let response = await request(Constants.GRAPH_URL, GraphQueries.RISK_POSITION(pageSize,pageSize*offset))
             let positions: Position[] = response.positions
-            ctx.span.log({ event:  positions })
             ctx.span.log({
                 event: "risky-position",
                 value: positions,
@@ -35,6 +36,7 @@ export class GraphPositionsManager implements IPositionService{
             console.log(`GraphQL Reponse: ${JSON.stringify(positions)}`);    
             return positions;
         } catch(exception) {
+            ctx.span.setTag(opentracing.Tags.ERROR, true);
             ctx.span.log({ event: "error", "error.object": exception })
             Logger.error(exception)
             return [];

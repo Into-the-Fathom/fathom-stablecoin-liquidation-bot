@@ -1,6 +1,4 @@
 import winston from 'winston'
-import "winston-mongodb";
-import {MongoDBConnectionOptions } from 'winston-mongodb';
 
 const levels = {
   error: 0,
@@ -41,22 +39,6 @@ const transports = [
     level: 'error',
   }),
   new winston.transports.File({ filename: 'logs/all.log' }),
-  new winston.transports.MongoDB({
-    level: 'info',
-    db: process.env.MONGODB_URL,
-    options: {
-        useUnifiedTopology: true
-    },
-    collection: 'info',
-} as MongoDBConnectionOptions),
-  new winston.transports.MongoDB({
-    level: 'error',
-    db: process.env.MONGODB_URL,
-    options: {
-        useUnifiedTopology: true
-    },
-    collection: 'errors',
-  } as MongoDBConnectionOptions),
 ]
 
 const Logger = winston.createLogger({
