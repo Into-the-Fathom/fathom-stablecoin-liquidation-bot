@@ -22,11 +22,8 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-
-    - name: Build images
-      working-directory: src
-      run: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
-
+        passphrase: ${{ secrets.SSH_KEY_ACTIONS_PASSPHRASE }}
+        script: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
 
       # - name: Build images
       #   working-directory: src
