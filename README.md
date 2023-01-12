@@ -52,6 +52,7 @@ There are 4 main components of bot:
 ## Prepare the environment
 - Make sure docker and docker-compose is installed.
 - docker init to start the swarm mode.
+- Create secret for bot private key: `printf "<BOT_ADDRESS>" | docker secret create liquidator_bot_address -`
 - Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
 - You can varify the secret using `docker secret ls` 
 

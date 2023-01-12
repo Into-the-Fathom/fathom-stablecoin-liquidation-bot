@@ -30,7 +30,6 @@ services:
       - /tmp:/tmp
     environment:
       #- LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
-      - LIQUIDATOR_ADDRESS=0x46b5Da5314658b2ebEe832bB63a92Ac6BaedE2C0
       - NETWORK_ID=51
       - LIQUIDATION_BATCH_SIZE=100
       - LIQUIDATION_INTERVAL=5000
@@ -40,9 +39,10 @@ services:
       - JAEGER_AGENT_PORT=6832
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` 'LIQUIDATOR_ADDRESS=`cat /run/secrets/liquidator_bot_address` npm run start'"
     secrets:
      - liquidator_bot_pk
+     - liquidator_bot_address
   position-manager:
     image: intothefathom/position-manager:latest
     networks:
@@ -55,16 +55,18 @@ services:
       - /tmp:/tmp
     environment:
       #- LIQUIDATOR_ADDRESS=0xe7B11F39E08089B1d76A79D6272AC7Ad11E8eFe9
-      - LIQUIDATOR_ADDRESS=0x46b5Da5314658b2ebEe832bB63a92Ac6BaedE2C0
       - NETWORK_ID=51
       - PRICE_CHECK_INTERVAL_IN_MS=30000
       - TIME_ALLOWED_SINCE_PRICE_UPDATE_IN_SECONDS=1500
     ipc: "host"
     restart: always
-    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` npm run start'"
+    entrypoint: "/bin/sh -c 'LIQUIDATOR_PRIVATE_KEY=`cat /run/secrets/liquidator_bot_pk` 'LIQUIDATOR_ADDRESS=`cat /run/secrets/liquidator_bot_address` npm run start'"
     secrets:
      - liquidator_bot_pk
+     - liquidator_bot_address
 secrets:
+  liquidator_bot_address:
+    external: true
   liquidator_bot_pk:
     external: true
 networks:

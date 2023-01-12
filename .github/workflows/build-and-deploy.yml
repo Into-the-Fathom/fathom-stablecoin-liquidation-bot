@@ -9,6 +9,7 @@ on:
 
 jobs:
 
+#Build the images and push to dockerhub
   build:
     name: Build & Push To Dockerhub
 
@@ -51,4 +52,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
+           rm docker-compose.yml
            curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always
+           
