@@ -12,9 +12,9 @@
   - [Liquidation Strategy](#liquidation-strategy)
   - [Bot Architecture \[To be changed....\]](#bot-architecture-to-be-changed)
   - [Prepare the environment](#prepare-the-environment)
-  - [How to run from code](#how-to-run-from-code)
+  - [How to run from bot](#how-to-run-from-bot)
+  - [Monitor The Application](#monitor-the-application)
   - [How To Run without building](#how-to-run-without-building)
-  - [Monitoring](#monitoring)
   - [Refrences](#refrences)
   - [License](#license)
 
@@ -50,27 +50,29 @@ There are 4 main components of bot:
   - This component will keep track of bot analytics like how many transactions attempted, how much succeed/failed. It will store all liquidated positions as well.
 
 ## Prepare the environment
-- Make sure docker and docker-compose is installed.
-- docker init to start the swarm mode.
-- Create secret for bot private key: `printf "<BOT_ADDRESS>" | docker secret create liquidator_bot_address -`
+- Please make sure docker and docker-compose is installed. You can refer the the link `https://docs.docker.com/get-docker/` to install it.
+- Initliaze docker swarm with `docker swarm init`
+- Create secret for bot address: `printf "<BOT_ADDRESS>" | docker secret create liquidator_bot_address -`
 - Create secret for bot private key: `printf "<BOT_PRIVATE_KEY>" | docker secret create liquidator_bot_pk -`
-- You can varify the secret using `docker secret ls` 
+- You can varify the secrets using `docker secret ls` 
 
-## How to run from code
-Below are the steps to run the code BOT locally. Make sure you have Docker and Docker compose installed in local environment.
+## How to run from bot
+Once above steps are completed, you are ready to deploy the application in local environment.
 - Clone the repository go to src directory `CD src/`
-- Build the images using `./build.sh` command.. This step will create the latest docker images.
-- Setup Environment Variables: Open `docker-compose.yaml` and edit the e.g. `LIQUIDATOR_ADDRESS`, `NETWORK_ID` (you can ignore the `LIQUIDATION_BATCH_SIZE` and `LIQUIDATION_INTERVAL` but you can adjust those) 
+- Build all docker images using `./build.sh 0` command. This step will create the latest docker images.
+- Setup Environment Variables: Open `docker-compose.yaml` and edit the e.g.  `LIQUIDATION_BATCH_SIZE`,  `LIQUIDATION_INTERVAL` 
 - Start the Bot: `docker stack deploy -c docker-compose.yml liquidation-bot`
 - Stop Bot: `docker stack rm liquidation-bot`
 
+## Monitor The Application
+Liquidation bot has integrated with Jaeger tracing where all the key events/logs & errors are sent to jaeger client. One can monitor the jaeger interface at `http://localhost:16686` for key events and error troubleshooting. 
 
 ## How To Run without building
+We can use pre-build images and run the bot directly, you still need to have environment setup as mentioned in previous steps.
 
-- `curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/github-action-integration/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always`
+**Note:Docker images are build targated on ubuntu machine and might not work on M1 mac machine** 
+- `curl https://raw.githubusercontent.com/Into-the-Fathom/fathom-stablecoin-liquidation-bot/dev/src/docker-compose.yml >> docker-compose.yml && docker stack deploy -c docker-compose.yml liquidation-bot --resolve-image always`
 
-## Monitoring
-  Jeager integration..
 
 ## Refrences
  - https://hackmd.io/@1P8kjN1-TWykQ36ndKV07Q/rkP3NAv35
