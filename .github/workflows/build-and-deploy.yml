@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: SSH doctl
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
