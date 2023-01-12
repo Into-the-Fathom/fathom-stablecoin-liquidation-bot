@@ -16,14 +16,14 @@ jobs:
     - name: Checkout main
       uses: actions/checkout@v3
 
-    - name: SSH doctl
+    - name: Executing remote command 
       uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.SSH_KEY_ACTIONS_PASSPHRASE }}
-        script: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
+        run: docker stack deploy -c $GITHUB_WORKSPACE/src/docker-compose.yml liquidation-bot --resolve-image always
+
 
       # - name: Build images
       #   working-directory: src
